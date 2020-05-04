@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+    <!-- Thymeleafの読み込み -->
+	<beans:bean id="templateResolver" class="org.thymeleaf.spring3.templateresolver.SpringResourceTemplateResolver">
+	    <beans:property name="prefix" value="/WEB-INF/templates/" />
+	    <beans:property name="suffix" value=".html" />
+	    <beans:property name="templateMode" value="HTML5" />
+	    <beans:property name="characterEncoding" value="UTF-8" />
+	</beans:bean>
+	<beans:bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine">
+		<beans:property name="templateResolver" ref="templateResolver" />
+	</beans:bean>
+	<beans:bean class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
+		<beans:property name="templateEngine" ref="templateEngine" />
+		<beans:property name="characterEncoding" value="UTF-8" />
+	</beans:bean>
+	
+	<!-- メッセージリソースの読み込み -->
+    <beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <beans:property name="basename" value="classpath:messages" />
+        <beans:property name="defaultEncoding" value="UTF-8" />
+    </beans:bean>
+    
+    <!-- DB接続先の読み込み -->
+    <beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+        <beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+        <beans:property name="username" value="USER01" />
+        <beans:property name="password" value="USER01" />
+    </beans:bean>
+    
+    <!-- MyBatisのMapperオブジェクトの生成 -->
+    <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource" />
+        <beans:property name="mapperLocations" value="classpath*:com/example/demo/*.xml" />
+    </beans:bean>
+    <beans:bean id="userDataMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <beans:property name="mapperInterface" value="com.example.demo.UserDataMapper" />
+        <beans:property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </beans:bean>
+    
+    <!-- AOP使用設定の追加 -->
+    <aop:aspectj-autoproxy />
+    
+	<context:component-scan base-package="com.example.demo" />	
+	
+</beans:beans>
