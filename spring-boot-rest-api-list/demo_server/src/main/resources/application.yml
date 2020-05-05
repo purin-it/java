@@ -1,0 +1,10 @@
+# ポート番号：8085で起動
+server:
+  port: 8085
+# DB接続情報
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: USER01
+    password: USER01
+    driverClassName: oracle.jdbc.driver.OracleDriver
