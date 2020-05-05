@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index page</title>
+</head>
+<body>
+    これはリストで渡された値をJavaScriptの引数に渡すサンプルです。
+    <br/><br/>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>文字列の値</th>
+            <th>文字列のインデックス</th>
+            <th>JavaScript実行</th>
+        </tr>
+        <tr th:each="obj, objIdx : ${strNumList}">
+            <td th:text="${obj}"></td>
+            <td th:text="${objIdx.index}"></td>
+            <td>
+                <a href="#" th:attr="onclick='alert(document.getElementById(\'strNum_' + ${objIdx.index} + '\').value);'">
+                    <span th:text="${obj}"></span>
+                </a>
+                <input type="hidden" th:id="'strNum_' + ${objIdx.index}" th:value="${obj}" />
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
