@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" th:src="@{/demo.js}"></script>
+    <title>index page</title>
+</head>
+<body>
+    検索IDを指定し、「検索」ボタンを押下してください。<br/>
+    検索ID： <input type="text" id="searchId" name="searchId" size="12" maxlength="4" />
+    <input type="button" value="検索" onclick="getUserData();" />
+    <br/><br/><br/>
+    ★以下に検索されたデータが表示されます
+    <table border="0">
+        <tr>
+            <td align="left" valign="top">名前：</td>
+            <td>
+                <span id="name"></span>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">生年月日：</td>
+            <td>
+                <span id="birthDay"></span>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">性別：</td>
+            <td>
+                <span id="sex"></span>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">メモ：</td>
+            <td>
+                <span id="memo"></span>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
