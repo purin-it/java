@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fragment</title>
+</head>
+<body>
+<div th:fragment="body-tag">
+    <p>設定したリクエストトークン</p>
+    <input type="text" name="reqToken" th:value="${reqToken}" />
+</div>
+</body>
+</html>
