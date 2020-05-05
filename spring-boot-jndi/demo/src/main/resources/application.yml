@@ -1,0 +1,14 @@
+server:
+  port: 8084
+# DB接続情報
+spring:
+  datasource:
+    name: jdbc/demoJndiResource
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: USER01
+    password: USER01
+    driverClassName: oracle.jdbc.driver.OracleDriver
+# 一覧画面で1ページに表示する行数
+demo:
+  list:
+    pageSize: 2
