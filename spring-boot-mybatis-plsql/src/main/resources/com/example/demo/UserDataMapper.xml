@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.UserDataMapper">
+    <resultMap id="userDataResultMap" type="com.example.demo.UserData" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="birthY" property="birthY" jdbcType="VARCHAR" />
+        <result column="birthM" property="birthM" jdbcType="VARCHAR" />
+        <result column="birthD" property="birthD" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <result column="memo" property="memo" jdbcType="VARCHAR" />
+        <result column="sex_value" property="sex_value" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="findBySearchForm" resultMap="userDataResultMap">
+        SELECT u.id, u.name, u.birth_year as birthY, u.birth_month as birthM
+               , u.birth_day as birthD, u.sex, u.memo, u.sex_value
+        FROM
+          ( SELECT
+                u1.id, u1.name, u1.birth_year, u1.birth_month, u1.birth_day
+              , u1.sex, u1.memo, m.sex_value
+              , ROW_NUMBER() OVER (ORDER BY u1.id) AS rn
+            FROM USER_DATA u1, M_SEX m
+            WHERE u1.sex = m.sex_cd
+            <if test="searchForm.searchName != null and searchForm.searchName != ''">
+                AND u1.name like '%' || #{searchForm.searchName} || '%'
+            </if>
+            <if test="searchForm.fromBirthYear != null and searchForm.fromBirthYear != ''">
+                AND #{searchForm.fromBirthYear} || lpad(#{searchForm.fromBirthMonth}, 2, '0')
+                   || lpad(#{searchForm.fromBirthDay}, 2, '0')
+               &lt;= u1.birth_year || lpad(u1.birth_month, 2, '0') || lpad(u1.birth_day, 2, '0')
+            </if>
+            <if test="searchForm.toBirthYear != null and searchForm.toBirthYear != ''">
+                AND u1.birth_year || lpad(u1.birth_month, 2, '0') || lpad(u1.birth_day, 2, '0')
+                   &lt;= #{searchForm.toBirthYear} || lpad(#{searchForm.toBirthMonth}, 2, '0')
+                        || lpad(#{searchForm.toBirthDay}, 2, '0')
+            </if>
+            <if test="searchForm.searchSex != null and searchForm.searchSex != ''">
+                AND u1.sex = #{searchForm.searchSex}
+            </if>
+            ORDER BY u1.id
+          ) u
+        <if test="pageable != null and pageable.pageSize > 0">
+            <where>
+                u.rn between #{pageable.offset} and (#{pageable.offset} + #{pageable.pageSize} - 1)
+            </where>
+        </if>
+    </select>
+    <select id="findById" resultMap="userDataResultMap">
+        SELECT id, name, birth_year as birthY, birth_month as birthM
+             , birth_day as birthD, sex, memo
+        FROM USER_DATA
+        WHERE id = #{id}
+    </select>
+    <select id="deleteById" parameterType="java.lang.Long" statementType="CALLABLE">
+        {call user_data_sql.delete_data(#{id})}
+    </select>
+    <select id="create" parameterType="com.example.demo.UserData" statementType="CALLABLE">
+        {call user_data_sql.insert_data(
+             #{id}, #{name}, #{birthY}, #{birthM}, #{birthD}
+           , #{sex}, #{memo,jdbcType=VARCHAR})}
+    </select>
+    <select id="update" parameterType="com.example.demo.UserData" statementType="CALLABLE">
+        {call user_data_sql.update_data(
+             #{id}, #{name}, #{birthY}, #{birthM}, #{birthD}
+           , #{sex}, #{memo,jdbcType=VARCHAR})}
+    </select>
+    <select id="findMaxId" resultType="long">
+        SELECT NVL(max(id), 0) FROM USER_DATA
+    </select>
+</mapper>
