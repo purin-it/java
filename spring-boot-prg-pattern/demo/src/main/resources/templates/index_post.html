@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index page</title>
+</head>
+<body>
+    <form method="post" action="/addDataPost" th:object="${demoForm}">
+        <table border="0">
+            <tr>
+                <td align="left" valign="top">名前：</td>
+                <td>
+                    <input type="text" th:value="*{name}" th:field="*{name}" />
+                </td>
+            </tr>
+            <tr>
+                <td align="left" valign="top">生年月日：</td>
+                <td>
+                    <input type="text" th:value="*{birthYear}" size="4"
+                           maxlength="4" th:field="*{birthYear}" />年
+                    <select th:field="*{birthMonth}">
+                        <option value="">---</option>
+                        <option th:each="item : *{getMonthItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>月
+                    <select th:field="*{birthDay}">
+                        <option value="">---</option>
+                        <option th:each="item : *{getDayItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>日
+                </td>
+            </tr>
+            <tr>
+                <td align="left" valign="top">性別：</td>
+                <td>
+                    <for th:each="item : *{getSexItems()}">
+                        <input type="radio" name="sex" th:value="${item.key}"
+                               th:text="${item.value}" th:field="*{sex}" />
+                    </for>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" valign="top">メモ：</td>
+                <td>
+                    <textarea rows="6" cols="40" th:value="*{memo}" th:field="*{memo}"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" valign="top">入力確認：</td>
+                <td>
+                    <input type="checkbox" name="checked" th:value="確認済" th:field="*{checked}" />
+                </td>
+            </tr>
+        </table>
+        <br/><br/>
+        <input type="submit" value="登録" />
+    </form>
+    <br/><br/><br/>
+    ★以下に検索されたデータが表示されます
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>生年月日</th>
+            <th>性別</th>
+            <th>メモ</th>
+        </tr>
+        <tr th:each="obj : ${userDataList}">
+            <td th:text="${obj.id}"></td>
+            <td th:text="${obj.name}"></td>
+            <td th:text="|${obj.birthY}年 ${obj.birthM}月 ${obj.birthD}日|"></td>
+            <td th:text="${obj.sex}"></td>
+            <td th:text="${obj.memo}"></td>
+        </tr>
+    </table>
+    <br/><br/>
+</body>
+</html>
