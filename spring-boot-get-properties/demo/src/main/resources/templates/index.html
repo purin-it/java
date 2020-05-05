@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index page</title>
+</head>
+<body>
+取得した定義ファイルの値は以下の通り。
+<br/><br/>
+ポート番号の取得結果：
+<p th:text="${portNum}">ここに取得したポート番号が設定されます</p><br/><br/>
+データベース接続情報の取得結果：
+<p th:text="${dataSource}">ここに取得したデータベース接続情報が設定されます</p><br/><br/>
+</body>
+</html>
