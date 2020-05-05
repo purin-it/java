@@ -1,0 +1,18 @@
+<dataset>
+    <user_data id="1"
+               name="テスト　プリン"
+               birth_year="2012"
+               birth_month="2"
+               birth_day="28"
+               sex="2" />
+    <user_data id="2"
+               name="テスト　プリン２"
+               birth_year="2013"
+               birth_month="3"
+               birth_day="19"
+               sex="1" />
+    <m_sex sex_cd="1"
+           sex_value="男"/>
+    <m_sex sex_cd="2"
+           sex_value="女"/>
+</dataset>

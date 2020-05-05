@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.UserDataMapper">
+    <select id="findBySearchForm" parameterType="com.example.demo.SearchForm" resultType="com.example.demo.UserData">
+        SELECT u.id, u.name, u.birth_year as birthY, u.birth_month as birthM
+               , u.birth_day as birthD, u.sex as sex, m.sex_value as sex_value
+        FROM USER_DATA u, M_SEX m
+        WHERE u.sex = m.sex_cd
+        <if test="searchName != null and searchName != ''">
+            AND u.name like '%' || #{searchName} || '%'
+        </if>
+        <if test="fromBirthYear != null and fromBirthYear != ''">
+            AND #{fromBirthYear} || lpad(#{fromBirthMonth}, 2, '0') || lpad(#{fromBirthDay}, 2, '0')
+               &lt;= u.birth_year || lpad(u.birth_month, 2, '0') || lpad(u.birth_day, 2, '0')
+        </if>
+        <if test="toBirthYear != null and toBirthYear != ''">
+            AND u.birth_year || lpad(u.birth_month, 2, '0') || lpad(u.birth_day, 2, '0')
+               &lt;= #{toBirthYear} || lpad(#{toBirthMonth}, 2, '0') || lpad(#{toBirthDay}, 2, '0')
+        </if>
+        <if test="searchSex != null and searchSex != ''">
+            AND u.sex = #{searchSex}
+        </if>
+        ORDER BY u.id
+    </select>
+    <select id="findById" resultType="com.example.demo.UserData">
+        SELECT u.id, u.name, u.birth_year as birthY
+               , u.birth_month as birthM , u.birth_day as birthD, u.sex, m.sex_value as sex_value
+        FROM USER_DATA　u, M_SEX m
+        WHERE u.sex = m.sex_cd AND u.id = #{id}
+    </select>
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM USER_DATA WHERE id = #{id}
+    </delete>
+    <insert id="create" parameterType="com.example.demo.UserData">
+        INSERT INTO USER_DATA ( id, name, birth_year, birth_month, birth_day, sex )
+        VALUES (#{id}, #{name}, #{birthY}, #{birthM}, #{birthD}, #{sex})
+    </insert>
+    <update id="update" parameterType="com.example.demo.UserData">
+        UPDATE USER_DATA SET name = #{name}, birth_year = #{birthY}
+            , birth_month = #{birthM}, birth_day = #{birthD}, sex = #{sex}
+        WHERE id = #{id}
+    </update>
+    <select id="findMaxId" resultType="long">
+        SELECT NVL(max(id), 0) FROM USER_DATA
+    </select>
+</mapper>
