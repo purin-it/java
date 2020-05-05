@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.secondary.UserDataMapperSecondary">
+    <resultMap id="userDataResultMap" type="com.example.demo.UserData" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="birthY" property="birthY" jdbcType="VARCHAR" />
+        <result column="birthM" property="birthM" jdbcType="VARCHAR" />
+        <result column="birthD" property="birthD" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <result column="memo" property="memo" jdbcType="VARCHAR" />
+        <result column="sex_value" property="sex_value" jdbcType="VARCHAR" />
+    </resultMap>
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM USER_DATA WHERE id = #{id}
+    </delete>
+    <insert id="create" parameterType="com.example.demo.UserData">
+        INSERT INTO USER_DATA ( id, name, birth_year, birth_month
+              , birth_day, sex, memo )
+        VALUES (#{id}, #{name}, #{birthY}, #{birthM}
+              , #{birthD}, #{sex}, #{memo,jdbcType=VARCHAR})
+    </insert>
+    <update id="update" parameterType="com.example.demo.UserData">
+        UPDATE USER_DATA SET name = #{name}, birth_year = #{birthY}
+            , birth_month = #{birthM}, birth_day = #{birthD}
+            , sex = #{sex}, memo = #{memo,jdbcType=VARCHAR}
+        WHERE id = #{id}
+    </update>
+</mapper>
