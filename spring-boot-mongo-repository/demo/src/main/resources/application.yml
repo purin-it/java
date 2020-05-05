@@ -1,0 +1,9 @@
+server:
+  port: 8084
+# MongoDB接続情報
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test
