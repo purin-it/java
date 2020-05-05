@@ -1,0 +1,25 @@
+Configuration:
+  status: OFF
+  Appenders:
+    # コンソールログ出力設定
+    Console:
+      name: Console
+      target: SYSTEM_OUT
+      PatternLayout:
+        Pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    # ログファイル出力設定
+    File:
+      name: LogFile
+      fileName: C:/work/logs/demo.log
+      PatternLayout:
+        Pattern: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+  Loggers:
+    # コンソールとファイルにログ出力をするための設定
+    Logger:
+      name: com.example.demo
+      level: debug
+      additivity: false
+      # 複数のAppenderRefを紐付けるには先頭に「-」を付与
+      AppenderRef:
+        - ref: Console
+        - ref: LogFile
