@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>fragment</title>
+</head>
+<body>
+<div th:fragment="body-tag">
+    <h3><p th:text="${isBodyTag}"></p></h3>
+</div>
+<div th:fragment="body-footer">
+    <p>これはfooterのメッセージです。</p>
+</div>
+</body>
+</html>
