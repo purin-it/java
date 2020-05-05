@@ -1,0 +1,35 @@
+server:
+  port: 8084
+# DB接続情報
+spring:
+  # DB接続情報
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: USER01
+    password: USER01
+    driverClassName: oracle.jdbc.driver.OracleDriver
+  # メール送信情報
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: (GMAILアカウント)@gmail.com
+    password: (GMAILパスワード)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+# SQLログ出力
+logging:
+  level:
+    org:
+      springframework: warn
+    com:
+      example:
+        demo:
+          UserDataMapper: debug
+# 一覧画面で1ページに表示する行数
+demo:
+  list:
+    pageSize: 2
