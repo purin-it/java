@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- jQueryの読み込み -->
+    <!-- demo.js内でjQueryを利用するため、jQueryをdemo.jsより先に読み込む -->
+    <script type="text/javascript" th:src="@{/jquery-3.4.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/demo.js}"></script>
+    <title>index page</title>
+</head>
+<body>
+    「検索」ボタンを押下してください。<br/>
+    <input type="button" value="検索" onclick="getUserData();" />
+    <br/><br/><br/>
+    ★以下に検索されたデータが表示されます
+    <table id="userDataTbl" border="0">
+        <tr>
+            <th align="left" valign="top" width="180">名前</th>
+            <th align="left" valign="top" width="160">生年月日</th>
+            <th align="left" valign="top" width="60">性別</th>
+            <th align="left" valign="top" width="320">メモ</th>
+        </tr>
+    </table>
+</body>
+</html>
