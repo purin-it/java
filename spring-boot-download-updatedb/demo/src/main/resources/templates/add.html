@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>入力画面</title>
+</head>
+<body>
+    <p>入力ファイルを指定し、「登録」ボタンを押下してください。</p><br/>
+
+    <form method="post" enctype="multipart/form-data" action="/add">
+        ファイル ： <input type="file" name="upload_file" /><br/><br/>
+        <input type="submit" value="送信" />
+        <input type="button" value="戻る" onclick="history.back();" />
+    </form>
+</body>
+</html>
