@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/demo.css}" rel="stylesheet" type="text/css" />
+    <title>index page</title>
+</head>
+<body>
+    <p>検索条件を指定し、「検索」ボタンを押下してください。</p><br/>
+    <form method="post" action="/search" th:object="${searchForm}">
+        <span th:if="*{#fields.hasErrors('fromBirthDayInvalid')}"
+              th:errors="*{fromBirthDayInvalid}" class="errorMessage"></span>
+        <span th:if="*{#fields.hasErrors('toBirthDayInvalid')}"
+              th:errors="*{toBirthDayInvalid}" class="errorMessage"></span>
+        <span th:if="*{#fields.hasErrors('invalidBirthDayFromTo')}"
+              th:errors="*{invalidBirthDayFromTo}" class="errorMessage"></span>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>名前</th>
+                <td><input type="text" th:value="*{searchName}" th:field="*{searchName}" /></td>
+            </tr>
+            <tr>
+                <th>生年月日</th>
+                <td><input type="text" th:value="*{fromBirthYear}" size="4"
+                           maxlength="4" th:field="*{fromBirthYear}" th:errorclass="fieldError"
+                           th:classappend="${#fields.hasErrors('fromBirthDayInvalid')
+                                || #fields.hasErrors('invalidBirthDayFromTo')} ? 'fieldError'"/>年
+                    <select th:field="*{fromBirthMonth}" th:errorclass="fieldError"
+                            th:classappend="${#fields.hasErrors('fromBirthDayInvalid')
+                                || #fields.hasErrors('invalidBirthDayFromTo')} ? 'fieldError'">
+                        <option value=""></option>
+                        <option th:each="item : *{getMonthItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>月
+                    <select th:field="*{fromBirthDay}" th:errorclass="fieldError"
+                            th:classappend="${#fields.hasErrors('fromBirthDayInvalid')
+                                || #fields.hasErrors('invalidBirthDayFromTo')} ? 'fieldError'">
+                        <option value=""></option>
+                        <option th:each="item : *{getDayItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>日～
+                    <input type="text" th:value="*{toBirthYear}" size="4"
+                           maxlength="4" th:field="*{toBirthYear}" th:errorclass="fieldError"
+                           th:classappend="${#fields.hasErrors('toBirthDayInvalid')
+                                || #fields.hasErrors('invalidBirthDayFromTo')} ? 'fieldError'"/>年
+                    <select th:field="*{toBirthMonth}" th:errorclass="fieldError"
+                            th:classappend="${#fields.hasErrors('toBirthDayInvalid')
+                                || #fields.hasErrors('invalidBirthDayFromTo')} ? 'fieldError'">
+                        <option value=""></option>
+                        <option th:each="item : *{getMonthItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>月
+                    <select th:field="*{toBirthDay}" th:errorclass="fieldError"
+                            th:classappend="${#fields.hasErrors('toBirthDayInvalid')
+                                || #fields.hasErrors('invalidBirthDayFromTo')} ? 'fieldError'">
+                        <option value=""></option>
+                        <option th:each="item : *{getDayItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>日
+                </td>
+            </tr>
+            <tr>
+                <th>性別</th>
+                <td>
+                    <select th:field="*{searchSex}">
+                        <option value=""></option>
+                        <option th:each="item : *{getSexItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <br/><br/>
+        <input type="submit" value="検索" /><br/><br/>
+        <input type="button" value="閉じる" onclick="window.close();" />
+    </form>
+</body>
+</html>
