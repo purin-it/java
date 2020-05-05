@@ -1,0 +1,9 @@
+server:
+  port: 8085
+# DB接続情報
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:xeProd
+    username: USER02
+    password: USER02
+    driverClassName: oracle.jdbc.driver.OracleDriver
