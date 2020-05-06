@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/demo.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/css/demo2.css}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" th:src="@{/demo.js}"></script>
+    <script type="text/javascript" th:src="@{/js/demo2.js}"></script>
+    <title>index page</title>
+</head>
+<body>
+<div>
+    ここはdivタグになります。背景色(黄色)はdemo.cssから、
+    文字色(赤色)はdemo2.cssから取得しています。
+</div>
+<br/><br/>
+下記ボタンを押下した際のダイアログは、demo.jsから取得しています。<br/>
+<input type="button" value="JavaScript呼出_demo" onclick="demoTest();" />
+<br/><br/>
+下記ボタンを押下した際のダイアログは、demo2.jsから取得しています。<br/>
+<input type="button" value="JavaScript呼出_demo2" onclick="demoTest2();" />
+</body>
+</html>
