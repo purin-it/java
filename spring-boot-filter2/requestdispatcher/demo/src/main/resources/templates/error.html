@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+<title>error page</title>
+</head>
+<body>
+Error Occured!!
+<p>エラーが発生しました、ログを確認してください。</p>
+<p th:text="'発生したエラー：  ' + ${errClass}">
+    ここに発生したエラーのクラス名が設定されます
+</p>
+</body>
+</html>
