@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+         http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/security
+         http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- ログイン画面のcssファイルとしても共通のdemo.cssを利用するため、 -->
+    <!-- src/main/webapp/resources/static/cssフォルダ下は常にアクセス可能とする -->
+	<sec:http pattern="/resources/static/css/**" security="none"/>
+	
+    <sec:http>
+    	<!-- ログイン画面は常にアクセス可能とする -->
+        <sec:intercept-url pattern="/login" access="permitAll" />
+        <!-- それ以外の画面は全て認証を有効にする -->
+        <sec:intercept-url pattern="/**" access="isAuthenticated()" />
+        <!-- ログインに成功したら検索画面に遷移する -->
+        <sec:form-login login-page="/login" default-target-url="/" />
+        <!-- ログアウト時はログイン画面に遷移する -->
+        <sec:logout logout-success-url="/login" />
+    </sec:http>
+    
+    <sec:authentication-manager>
+        <sec:authentication-provider>
+            <sec:user-service>
+            	<!-- ユーザー名「user」、パスワード「pass」が入力されたらログイン可能とする -->
+                <sec:user name="user" password="pass" authorities="USER" />
+            </sec:user-service>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+    
+</beans>

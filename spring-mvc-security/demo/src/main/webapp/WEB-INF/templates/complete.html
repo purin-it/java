@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>完了画面</title>
+</head>
+<body>
+　　 お申し込みが完了しました。<br/><br/>
+
+    <form method="get" th:action="@{/}">
+        <input type="submit" value="検索画面に戻る" />
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    </form>
+</body>
+</html>
