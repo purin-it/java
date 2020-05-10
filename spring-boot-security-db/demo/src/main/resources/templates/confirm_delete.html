@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>削除確認画面</title>
+</head>
+<body>
+　　 <p>下記内容を削除してよろしいでしょうか？問題なければ「送信」ボタンを押下してください。</p>
+    <form method="post" th:action="@{/delete}" th:object="${demoForm}">
+        <table border="0">
+            <tr>
+                <td align="left" valign="top">名前： </td>
+                <td>
+                    <span th:text="*{name}">
+                        ここに名前が表示されます
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" valign="top">生年月日： </td>
+                <td>
+                    <span th:text="*{birthYear} + '年'
+                     + *{getMonthItems().get('__*{birthMonth}__')} + '月'
+                     + *{getDayItems().get('__*{birthDay}__')} + '日'">
+                        ここに生年月日が表示されます
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" valign="top">性別： </td>
+                <td>
+                    <span th:text="*{getSexItems().get('__*{sex}__')}">
+                        ここに性別が表示されます
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" valign="top">メモ： </td>
+                <td>
+                    <th:block th:if="*{memo}">
+                        <th:block th:each="memoStr, memoStat : *{memo.split('\r\n|\r|\n', -1)}">
+                            <th:block th:text="${memoStr}"/>
+                            <br th:if="${!memoStat.last}"/>
+                        </th:block>
+                    </th:block>
+                </td>
+            </tr>
+        </table>
+        <br/><br/>
+        <input type="submit" name="next" value="送信" />
+        <input type="submit" name="back" value="戻る" />
+    </form>
+</body>
+</html>
