@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/demo.css}" rel="stylesheet" type="text/css" />
+    <title>index page</title>
+</head>
+<body>
+    <p>検索条件を指定し、「検索」ボタンを押下してください。</p><br/>
+    <form method="post" th:action="@{/search}" th:object="${searchForm}">
+        <!-- 2行エラーがある場合は、エラーメッセージを改行して表示 -->
+        <span th:if="*{#fields.hasErrors('fromBirthYear')}"
+              th:errors="*{fromBirthYear}" class="errorMessage"></span>
+        <span th:if="*{#fields.hasErrors('fromBirthYear') && #fields.hasErrors('toBirthYear')}">
+            <br/>
+        </span>
+        <span th:if="*{#fields.hasErrors('toBirthYear')}"
+              th:errors="*{toBirthYear}" class="errorMessage"></span>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>名前</th>
+                <td><input type="text" th:value="*{searchName}" th:field="*{searchName}" /></td>
+            </tr>
+            <tr>
+                <th>生年月日</th>
+                <td><input type="text" th:value="*{fromBirthYear}" size="4"
+                           maxlength="4" th:field="*{fromBirthYear}" th:errorclass="fieldError"/>年
+                    <select th:field="*{fromBirthMonth}" th:errorclass="fieldError"
+                            th:classappend="${#fields.hasErrors('fromBirthYear')} ? 'fieldError'">
+                        <option value=""></option>
+                        <option th:each="item : *{getMonthItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>月
+                    <select th:field="*{fromBirthDay}" th:errorclass="fieldError"
+                            th:classappend="${#fields.hasErrors('fromBirthYear')} ? 'fieldError'">
+                        <option value=""></option>
+                        <option th:each="item : *{getDayItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>日～
+                    <input type="text" th:value="*{toBirthYear}" size="4"
+                           maxlength="4" th:field="*{toBirthYear}" th:errorclass="fieldError"/>年
+                    <select th:field="*{toBirthMonth}" th:errorclass="fieldError"
+                            th:classappend="${#fields.hasErrors('toBirthYear')} ? 'fieldError'">
+                        <option value=""></option>
+                        <option th:each="item : *{getMonthItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>月
+                    <select th:field="*{toBirthDay}" th:errorclass="fieldError"
+                            th:classappend="${#fields.hasErrors('toBirthYear')} ? 'fieldError'">
+                        <option value=""></option>
+                        <option th:each="item : *{getDayItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>日
+                </td>
+            </tr>
+            <tr>
+                <th>性別</th>
+                <td>
+                    <select th:field="*{searchSex}">
+                        <option value=""></option>
+                        <option th:each="item : *{getSexItems()}"
+                                th:value="${item.key}" th:text="${item.value}"/>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <br/><br/>
+        <input type="submit" value="検索" />
+        <input type="text" style="background-color:#FFCCCC" size="80" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    </form>
+    <br/>
+    <form method="post" th:action="@{/logout}">
+        <button type="submit">ログアウト</button>
+        <input type="text" style="background-color:#FFCCCC" size="80" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    </form>
+</body>
+</html>
