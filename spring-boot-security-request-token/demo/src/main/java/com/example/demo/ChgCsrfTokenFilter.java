@@ -8,13 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 public class ChgCsrfTokenFilter extends OncePerRequestFilter {
-
-	//ログ出力のためのクラス
-	private static Log log = LogFactory.getLog(ChgCsrfTokenFilter.class);
 
 	/**
 	 * CSRFトークンリポジトリ
