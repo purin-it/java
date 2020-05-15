@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.security.web.firewall.DefaultHttpFirewall;
 
@@ -67,8 +67,8 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().csrfTokenRepository(repository)
                 .and()    //かつ
                 //CSRFトークンをリクエスト毎に更新する処理を、
-                //FilterSecurityInterceptorが呼ばれた後に実行するようにする
-                .addFilterAfter(new ChgCsrfTokenFilter(repository), FilterSecurityInterceptor.class);
+                //CsrfFilter(CSRFトークンチェックを行うFilter)が呼ばれた後に実行するようにする
+                .addFilterAfter(new ChgCsrfTokenFilter(repository), CsrfFilter.class);
     }
 
     /**
