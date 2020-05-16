@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新規オープン画面２</title>
+</head>
+<body>
+　　 新規オープン画面から画面遷移しました。 <br/><br/>
+    <input type="text" style="background-color:#FFCCCC" size="80" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/><br/><br/>
+    <input type="button" value="閉じる" onclick="window.close();" />
+</body>
+</html>

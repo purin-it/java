@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/demo.css}" rel="stylesheet" type="text/css" />
+    <title>入力画面</title>
+</head>
+<body>
+　　<p>下記必要事項を記載の上、「確認」ボタンを押下してください。</p><br/>
+   <form method="post" th:action="@{/confirm}" th:object="${demoForm}">
+       <table border="0">
+           <tr>
+               <td align="left" valign="top">名前：</td>
+               <td>
+                   <input type="text" th:value="*{name}"
+                          th:field="*{name}" th:errorclass="fieldError" />
+                   <span th:if="*{#fields.hasErrors('name')}"
+                         th:errors="*{name}" class="errorMessage"></span>
+               </td>
+           </tr>
+           <tr>
+               <td align="left" valign="top">生年月日：</td>
+               <td>
+                   <input type="text" th:value="*{birthYear}" size="4"
+                          maxlength="4" th:field="*{birthYear}" th:errorclass="fieldError"
+                          th:classappend="${#fields.hasErrors('birthDayRequired')} ? 'fieldError'" />年
+                   <select th:field="*{birthMonth}" th:errorclass="fieldError"
+                           th:classappend="${#fields.hasErrors('birthYear')
+                                || #fields.hasErrors('birthDayRequired')} ? 'fieldError'">
+                       <option value="">---</option>
+                       <option th:each="item : *{getMonthItems()}"
+                               th:value="${item.key}" th:text="${item.value}"/>
+                   </select>月
+                   <select th:field="*{birthDay}" th:errorclass="fieldError"
+                           th:classappend="${#fields.hasErrors('birthYear')
+                                || #fields.hasErrors('birthDayRequired')} ? 'fieldError'">
+                       <option value="">---</option>
+                       <option th:each="item : *{getDayItems()}"
+                               th:value="${item.key}" th:text="${item.value}"/>
+                   </select>日
+                   <span th:if="*{#fields.hasErrors('birthDayRequired')}"
+                         th:errors="*{birthDayRequired}" class="errorMessage"></span>
+                   <span th:if="*{#fields.hasErrors('birthYear')}"
+                         th:errors="*{birthYear}" class="errorMessage"></span>
+               </td>
+           </tr>
+           <tr>
+               <td align="left" valign="top">性別：</td>
+               <td>
+                   <for th:each="item : *{getSexItems()}">
+                       <input type="radio" name="sex" th:value="${item.key}" th:text="${item.value}"
+                              th:field="*{sex}" th:errorclass="fieldError" />
+                   </for>
+                   <span th:if="*{#fields.hasErrors('sex')}"
+                         th:errors="*{sex}" class="errorMessage"></span>
+               </td>
+           </tr>
+           <tr>
+               <td align="left" valign="top">メモ：</td>
+               <td>
+                   <textarea rows="6" cols="40" th:value="*{memo}" th:field="*{memo}"></textarea>
+               </td>
+           </tr>
+           <tr>
+               <td align="left" valign="top">入力確認：</td>
+               <td>
+                   <input type="checkbox" name="checked" th:value="確認済"
+                          th:field="*{checked}" th:errorclass="fieldError" />
+                   <span th:if="*{#fields.hasErrors('checked')}"
+                         th:errors="*{checked}" class="errorMessage"></span>
+               </td>
+           </tr>
+       </table>
+       <br/><br/>
+       <input type="submit" name="next" value="確認" />
+       <input type="submit" name="back" value="戻る" />
+       <input type="text" style="background-color:#FFCCCC" size="80" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+   </form>
+</body>
+</html>
