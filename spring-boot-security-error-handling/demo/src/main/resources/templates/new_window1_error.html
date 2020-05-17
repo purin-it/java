@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新規オープン画面１</title>
+</head>
+<body>
+　　 新しい画面を開きました。 こちらは「次へ」ボタンを押下するとエラーが発生します。<br/><br/>
+    <form th:action="@{/toNewWindow2Error}" method="POST">
+        <!-- エラーを発生させるため、下記をコメントアウト -->
+        <!-- <input type="hidden" name="windowName" value="new_window1_error" /> -->
+        <input type="text" style="background-color:#FFCCCC" size="80" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/><br/>
+        <br/><br/>
+        <button type="submit">次へ</button>
+    </form>
+</body>
+</html>
