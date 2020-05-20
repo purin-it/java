@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index page</title>
+</head>
+<body>
+　　 初期表示画面に遷移しました。<br/><br/>
+
+    <form method="post" th:action="@{/occurNullPointerException}">
+        <button type="submit">NullPointerExceptionを発生させます</button>
+    </form>
+    <br/><br/>
+    <form method="post" th:action="@{/occurFileNotFoundException}">
+        <button type="submit">FileNotFoundExceptionを発生させます</button>
+    </form>
+    <br/><br/>
+    <form method="post" th:action="@{/occurOtherException}">
+        <button type="submit">上記以外の例外を発生させます</button>
+    </form>
+</body>
+</html>
