@@ -45,7 +45,7 @@ public class DemoInvocation {
     }
 
     /**
-     * Afterアノテーションにより、指定したメソッドの前に処理を追加する
+     * Afterアノテーションにより、指定したメソッドの後に処理を追加する
      * Afterアノテーションの引数には、Pointcut式を指定
      *
      * @param jp 横断的な処理を挿入する場所
