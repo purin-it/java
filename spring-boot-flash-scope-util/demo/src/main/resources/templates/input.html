@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>入力画面</title>
+</head>
+<body>
+　　 <p>下記必要事項を記載の上、「確認」ボタンを押下してください。</p><br/>
+    <form method="post" action="/confirm" th:object="${demoForm}">
+        名前：　<input type="text" th:value="*{name}" th:field="*{name}" />
+        <br/>
+        メモ：　<input type="text" size="40" maxlength="40" th:value="*{memo}" th:field="*{memo}" />
+        <br/><br/>
+        <input type="submit" value="確認" />
+    </form>
+</body>
+</html>
