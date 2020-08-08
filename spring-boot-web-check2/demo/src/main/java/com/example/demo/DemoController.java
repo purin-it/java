@@ -51,8 +51,8 @@ public class DemoController {
             //エラーがある場合は、入力画面のままとする
             return "input";
         }
-        //生年月日の日付チェック処理を行い、画面遷移する
-        return checkDate(demoForm, result, "confirm");
+        //アノテーション以外のチェック処理を行い、画面遷移する
+        return checkOthers(demoForm, result, "confirm");
     }
 
     /**
@@ -69,8 +69,8 @@ public class DemoController {
             //エラーがある場合は、入力画面に戻す
             return "input";
         }
-        //生年月日の日付チェック処理を行い、画面遷移する
-        return checkDate(demoForm, result, "redirect:/complete");
+        //アノテーション以外のチェック処理を行い、画面遷移する
+        return checkOthers(demoForm, result, "redirect:/complete");
     }
 
     /**
@@ -100,7 +100,7 @@ public class DemoController {
      * @param normalPath 正常時の画面遷移先
      * @return 正常時の画面遷移先または入力画面へのパス
      */
-    private String checkDate(DemoForm demoForm, BindingResult result, String normalPath){
+    private String checkOthers(DemoForm demoForm, BindingResult result, String normalPath){
         //** アノテーション以外のチェック処理を行う
         //** エラーがある場合は、エラーメッセージ・(エラー時に赤反転するための)
         //** エラーフィールドの設定を行い、入力画面のままとする
