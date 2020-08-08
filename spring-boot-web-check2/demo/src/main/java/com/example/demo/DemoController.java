@@ -2,9 +2,12 @@ package com.example.demo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 /**
  * コントローラクラス
@@ -29,7 +32,7 @@ public class DemoController {
      * 入力画面に遷移する
      * @return 入力画面へのパス
      */
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index(){
         return "input";
     }
@@ -41,27 +44,67 @@ public class DemoController {
      * @param result バインド結果
      * @return 確認画面または入力画面へのパス
      */
-    @RequestMapping("/confirm")
-    public String confirm(@Valid DemoForm demoForm, BindingResult result){
+    @PostMapping("/confirm")
+    public String confirm(@Validated DemoForm demoForm, BindingResult result){
         //formオブジェクトのチェック処理を行う
         if(result.hasErrors()){
             //エラーがある場合は、入力画面のままとする
             return "input";
         }
         //生年月日の日付チェック処理を行い、画面遷移する
-        return checkDate(demoForm, result);
+        return checkDate(demoForm, result, "confirm");
     }
 
     /**
-     * 生年月日の日付チェック処理を行い、画面遷移先を返却
+     * エラーチェックを行い、エラーが無ければ完了画面へのリダイレクトパスに遷移し、
+     * エラーがあれば入力画面に戻す
      * @param demoForm Formオブジェクト
      * @param result バインド結果
-     * @return 確認画面または入力画面へのパス
+     * @return 完了画面へのリダイレクトパスまたは入力画面へのパス
      */
-    private String checkDate(DemoForm demoForm, BindingResult result){
-        //生年月日の日付チェック処理を行う
-        //エラーがある場合は、エラーメッセージ・(エラー時に赤反転するための)
-        //エラーフィールドの設定を行い、入力画面のままとする
+    @PostMapping(value = "/send", params = "next")
+    public String send(@Validated DemoForm demoForm, BindingResult result){
+        //formオブジェクトのチェック処理を行う
+        if(result.hasErrors()){
+            //エラーがある場合は、入力画面に戻す
+            return "input";
+        }
+        //生年月日の日付チェック処理を行い、画面遷移する
+        return checkDate(demoForm, result, "redirect:/complete");
+    }
+
+    /**
+     * 完了画面に遷移する
+     * @return 完了画面
+     */
+    @GetMapping("/complete")
+    public String complete(SessionStatus sessionStatus){
+        //セッションオブジェクトを破棄
+        sessionStatus.setComplete();
+        return "complete";
+    }
+
+    /**
+     * 入力画面に戻る
+     * @return 入力画面
+     */
+    @PostMapping(value = "/send", params = "back")
+    public String back(){
+        return "input";
+    }
+
+    /**
+     * アノテーション以外のチェック処理を行い、画面遷移先を返却
+     * @param demoForm Formオブジェクト
+     * @param result バインド結果
+     * @param normalPath 正常時の画面遷移先
+     * @return 正常時の画面遷移先または入力画面へのパス
+     */
+    private String checkDate(DemoForm demoForm, BindingResult result, String normalPath){
+        //** アノテーション以外のチェック処理を行う
+        //** エラーがある場合は、エラーメッセージ・(エラー時に赤反転するための)
+        //** エラーフィールドの設定を行い、入力画面のままとする
+        //生年月日のチェック処理
         int checkDate = DateCheckUtil.checkDate(demoForm.getBirthYear()
                 , demoForm.getBirthMonth(), demoForm.getBirthDay());
         switch(checkDate){
@@ -97,27 +140,13 @@ public class DemoController {
                 result.rejectValue("birthDay", "validation.empty-msg");
                 return "input";
             default:
-                //formオブジェクト・生年月日の日付のチェック処理を行い、
-                //問題なければ確認画面に遷移
-                return "confirm";
+                //性別が不正に書き換えられていないかチェックする
+                if(!demoForm.getSexItems().keySet().contains(demoForm.getSex())){
+                    result.rejectValue("sex", "validation.sex-invalidate");
+                    return "input";
+                }
+                //エラーチェックに問題が無いので、正常時の画面遷移先に遷移
+                return normalPath;
         }
-    }
-
-    /**
-     * 完了画面に遷移する
-     * @return 完了画面
-     */
-    @RequestMapping(value = "/send", params = "next")
-    public String send(){
-        return "complete";
-    }
-
-    /**
-     * 入力画面に戻る
-     * @return 入力画面
-     */
-    @RequestMapping(value = "/send", params = "back")
-    public String back(){
-        return "input";
     }
 }
