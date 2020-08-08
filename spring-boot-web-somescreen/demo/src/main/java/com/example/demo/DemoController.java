@@ -1,9 +1,8 @@
 package com.example.demo;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 /**
  * コントローラクラス
@@ -32,7 +31,7 @@ public class DemoController {
      * @param demoForm Formオブジェクト
      * @return 入力画面へのパス
      */
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index(DemoForm demoForm){
         return "input";
     }
@@ -42,17 +41,28 @@ public class DemoController {
      * @param demoForm Formオブジェクト
      * @return 確認画面へのパス
      */
-    @RequestMapping("/confirm")
+    @PostMapping("/confirm")
     public String confirm(DemoForm demoForm){
         return "confirm";
+    }
+
+    /**
+     * 完了画面へのリダイレクトパスに遷移する
+     * @return 完了画面へのリダイレクトパス
+     */
+    @PostMapping("/send")
+    public String send(){
+        return "redirect:/complete";
     }
 
     /**
      * 完了画面に遷移する
      * @return 完了画面
      */
-    @RequestMapping("/send")
-    public String send(){
+    @GetMapping("/complete")
+    public String complete(SessionStatus sessionStatus){
+        //セッションオブジェクトを破棄
+        sessionStatus.setComplete();
         return "complete";
     }
 }
