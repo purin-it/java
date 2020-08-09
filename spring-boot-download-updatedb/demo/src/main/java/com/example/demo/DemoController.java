@@ -3,6 +3,8 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,7 +53,7 @@ public class DemoController {
      * ファイルデータ登録画面への遷移処理
      * @return ファイルデータ登録画面
      */
-    @RequestMapping("/to_add")
+    @PostMapping("/to_add")
     public String to_add(){
         return "add";
     }
@@ -62,7 +64,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return ファイルデータ一覧表示処理
      */
-    @RequestMapping("/add")
+    @PostMapping("/add")
     @Transactional(readOnly = false)
     public String add(@RequestParam("upload_file") MultipartFile uploadFile, Model model){
         //最大値IDを取得
@@ -81,6 +83,16 @@ public class DemoController {
         fileDataMapper.insert(fileData);
 
         //一覧画面へ遷移
+        return "redirect:/to_index";
+    }
+
+    /**
+     * 追加完了後に一覧画面に戻る
+     * @param model Modelオブジェクト
+     * @return 一覧画面
+     */
+    @GetMapping("/to_index")
+    public String toIndex(Model model){
         return index(model);
     }
 
