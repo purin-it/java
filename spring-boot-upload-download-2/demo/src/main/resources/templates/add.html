@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>入力画面</title>
@@ -7,7 +7,7 @@
 <body>
 <p>入力ファイルを指定し、「登録」ボタンを押下してください。</p><br/>
 
-<form method="post" enctype="multipart/form-data" action="/add">
+<form method="post" enctype="multipart/form-data" th:action="@{/add}">
     ファイル ： <input type="file" name="upload_file" /><br/><br/>
     <input type="submit" value="送信" />
     <input type="button" value="戻る" onclick="history.back();" />
