@@ -102,7 +102,7 @@ public class DemoController {
      * @param response HttpServletResponse
      * @return 画面遷移先
      */
-    @Transactional
+    @Transactional(readOnly = false)
     @RequestMapping("/download")
     public String download(@RequestParam("id") String id, HttpServletResponse response){
         //ダウンロード対象のファイルデータを取得
