@@ -89,7 +89,7 @@ public class DemoServiceImpl implements DemoService{
      * {@inheritDoc}
      */
     @Override
-    public String checkForm(DemoForm demoForm, BindingResult result){
+    public String checkForm(DemoForm demoForm, BindingResult result, String normalPath){
         //formオブジェクトのチェック処理を行う
         if(result.hasErrors()){
             //エラーがある場合は、入力画面のままとする
@@ -133,8 +133,13 @@ public class DemoServiceImpl implements DemoService{
                 result.rejectValue("birthDay", "validation.empty-msg");
                 return "input";
             default:
-                //formオブジェクト・生年月日の日付のチェック処理を行い、問題なければ確認画面に遷移
-                return "confirm";
+                //性別が不正に書き換えられていないかチェックする
+                if(!demoForm.getSexItems().keySet().contains(demoForm.getSex())){
+                    result.rejectValue("sex", "validation.sex-invalidate");
+                    return "input";
+                }
+                //エラーチェックに問題が無いので、正常時の画面遷移先に遷移
+                return normalPath;
         }
     }
 
