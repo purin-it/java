@@ -22,14 +22,14 @@
         <td th:text="|${obj.birthYear}年 ${obj.birthMonth}月 ${obj.birthDay}日|">
         </td>
         <td th:text="${obj.sex_value}"></td>
-        <td><a href="/update" th:href="@{/update(id=${'__${obj.id}__'})}">
-            更新</a></td>
+        <td><a href="/update"
+               th:href="@{/update(id=${'__${obj.id}__'})}">更新</a></td>
         <td><a href="/delete_confirm"
                th:href="@{/delete_confirm(id=${'__${obj.id}__'})}">削除</a></td>
     </tr>
 </table>
 <br/><br/>
-<form method="post" action="/add">
+<form method="post" th:action="@{/add}">
     <input type="submit" value="データ追加" /><br/><br/>
     <input type="button" value="閉じる" onclick="window.close();" />
 </form>

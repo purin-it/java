@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.support.SessionStatus;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -69,7 +67,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 入力・更新画面へのパス
      */
-    @RequestMapping("/update")
+    @GetMapping("/update")
     public String update(@RequestParam("id") String id, Model model){
         UserData userData = mapper.findById(Long.parseLong(id));
         model.addAttribute("demoForm", getDemoForm(userData));
@@ -82,7 +80,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 削除確認画面へのパス
      */
-    @RequestMapping("/delete_confirm")
+    @GetMapping("/delete_confirm")
     public String delete_confirm(@RequestParam("id") String id, Model model){
         UserData userData = mapper.findById(Long.parseLong(id));
         model.addAttribute("demoForm", getDemoForm(userData));
@@ -95,10 +93,20 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 一覧画面の表示処理
      */
-    @RequestMapping(value = "/delete", params = "next")
+    @PostMapping(value = "/delete", params = "next")
     @Transactional(readOnly = false)
     public String delete(DemoForm demoForm, Model model){
         mapper.deleteById(Long.parseLong(demoForm.getId()));
+        return "redirect:/to_index";
+    }
+
+    /**
+     * 削除完了後に一覧画面に戻る
+     * @param model Modelオブジェクト
+     * @return 一覧画面
+     */
+    @GetMapping("/to_index")
+    public String toIndex(Model model){
         return index(model);
     }
 
@@ -107,7 +115,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 一覧画面
      */
-    @RequestMapping(value = "/delete", params = "back")
+    @PostMapping(value = "/delete", params = "back")
     public String confirmDeleteBack(Model model){
         return index(model);
     }
@@ -117,7 +125,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 入力・更新画面へのパス
      */
-    @RequestMapping("/add")
+    @PostMapping("/add")
     public String add(Model model){
         model.addAttribute("demoForm", new DemoForm());
         return "input";
@@ -130,15 +138,15 @@ public class DemoController {
      * @param result バインド結果
      * @return 確認画面または入力画面へのパス
      */
-    @RequestMapping(value = "/confirm", params = "next")
-    public String confirm(@Valid DemoForm demoForm, BindingResult result){
+    @PostMapping(value = "/confirm", params = "next")
+    public String confirm(@Validated DemoForm demoForm, BindingResult result){
         //formオブジェクトのチェック処理を行う
         if(result.hasErrors()){
             //エラーがある場合は、入力画面のままとする
             return "input";
         }
-        //生年月日の日付チェック処理を行い、画面遷移する
-        return checkDate(demoForm, result);
+        //アノテーション以外のチェック処理を行い、画面遷移する
+        return checkOthers(demoForm, result, "confirm");
     }
 
     /**
@@ -146,7 +154,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 一覧画面の表示処理
      */
-    @RequestMapping(value = "/confirm", params = "back")
+    @PostMapping(value = "/confirm", params = "back")
     public String confirmBack(Model model){
         return index(model);
     }
@@ -156,18 +164,40 @@ public class DemoController {
      * @param demoForm Formオブジェクト
      * @return 完了画面
      */
-    @RequestMapping(value = "/send", params = "next")
+    @PostMapping(value = "/send", params = "next")
     @Transactional(readOnly = false)
-    public String send(DemoForm demoForm){
-        //更新・追加処理を行うエンティティを生成
-        UserData userData = getUserData(demoForm);
-        //追加・更新処理
-        if(demoForm.getId() == null){
-            userData.setId(mapper.findMaxId() + 1);
-            mapper.create(userData);
-        }else{
-            mapper.update(userData);
+    public String send(@Validated DemoForm demoForm, BindingResult result){
+        //formオブジェクトのチェック処理を行う
+        if(result.hasErrors()){
+            //エラーがある場合は、入力画面のままとする
+            return "input";
         }
+        //アノテーション以外のチェック処理を行い、
+        //エラーがなければ、更新・追加処理を行う
+        String normalPath = "redirect:/complete";
+        String checkOthersPath = checkOthers(demoForm, result, normalPath);
+        if(normalPath.equals(checkOthersPath)){
+            //更新・追加処理を行うエンティティを生成
+            UserData userData = getUserData(demoForm);
+            //追加・更新処理
+            if(demoForm.getId() == null){
+                userData.setId(mapper.findMaxId() + 1);
+                mapper.create(userData);
+            }else{
+                mapper.update(userData);
+            }
+        }
+        return normalPath;
+    }
+
+    /**
+     * 完了画面に遷移する
+     * @return 完了画面
+     */
+    @GetMapping("/complete")
+    public String complete(SessionStatus sessionStatus){
+        //セッションオブジェクトを破棄
+        sessionStatus.setComplete();
         return "complete";
     }
 
@@ -175,21 +205,23 @@ public class DemoController {
      * 入力画面に戻る
      * @return 入力画面
      */
-    @RequestMapping(value = "/send", params = "back")
+    @PostMapping(value = "/send", params = "back")
     public String sendBack(){
         return "input";
     }
 
     /**
-     * 生年月日の日付チェック処理を行い、画面遷移先を返却
+     * アノテーション以外のチェック処理を行い、画面遷移先を返却
      * @param demoForm Formオブジェクト
      * @param result バインド結果
+     * @param normalPath 正常時の画面遷移先
      * @return 確認画面または入力画面へのパス
      */
-    private String checkDate(DemoForm demoForm, BindingResult result){
-        //生年月日の日付チェック処理を行う
-        //エラーがある場合は、エラーメッセージ・エラーフィールドの設定を行い、
-        //入力画面のままとする
+    private String checkOthers(DemoForm demoForm, BindingResult result, String normalPath){
+        //** アノテーション以外のチェック処理を行う
+        //** エラーがある場合は、エラーメッセージ・(エラー時に赤反転するための)
+        //** エラーフィールドの設定を行い、入力画面のままとする
+        //生年月日のチェック処理
         int checkDate = DateCheckUtil.checkDate(demoForm.getBirthYear()
                 , demoForm.getBirthMonth(), demoForm.getBirthDay());
         switch(checkDate){
@@ -225,9 +257,13 @@ public class DemoController {
                 result.rejectValue("birthDay", "validation.empty-msg");
                 return "input";
             default:
-                //formオブジェクト・生年月日の日付のチェック処理を行い、
-                //問題なければ確認画面に遷移
-                return "confirm";
+                //性別が不正に書き換えられていないかチェックする
+                if(!demoForm.getSexItems().keySet().contains(demoForm.getSex())){
+                    result.rejectValue("sex", "validation.sex-invalidate");
+                    return "input";
+                }
+                //エラーチェックに問題が無いので、正常時の画面遷移先に遷移
+                return normalPath;
         }
     }
 
