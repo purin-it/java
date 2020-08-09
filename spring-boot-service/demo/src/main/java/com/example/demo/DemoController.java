@@ -3,13 +3,15 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.validation.BindingResult;
- 
-import javax.validation.Valid;
+import org.springframework.web.bind.support.SessionStatus;
 import java.util.ArrayList;
 import java.util.List;
  
@@ -63,7 +65,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 入力・更新画面へのパス
      */
-    @RequestMapping("/update")
+    @GetMapping("/update")
     public String update(@RequestParam("id") String id, Model model){
         //更新対象のユーザーデータを取得
         DemoForm demoForm = demoService.findById(id);
@@ -78,7 +80,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 削除確認画面へのパス
      */
-    @RequestMapping("/delete_confirm")
+    @GetMapping("/delete_confirm")
     public String delete_confirm(@RequestParam("id") String id, Model model){
         //削除対象のユーザーデータを取得
         DemoForm demoForm = demoService.findById(id);
@@ -93,11 +95,21 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 一覧画面の表示処理
      */
-    @RequestMapping(value = "/delete", params = "next")
+    @PostMapping(value = "/delete", params = "next")
     public String delete(DemoForm demoForm, Model model){
         //指定したユーザーデータを削除
         demoService.deleteById(demoForm.getId());
         //一覧画面に遷移
+        return "redirect:/to_index";
+    }
+
+    /**
+     * 削除完了後に一覧画面に戻る
+     * @param model Modelオブジェクト
+     * @return 一覧画面
+     */
+    @GetMapping("/to_index")
+    public String toIndex(Model model){
         return index(model);
     }
  
@@ -106,7 +118,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 一覧画面
      */
-    @RequestMapping(value = "/delete", params = "back")
+    @PostMapping(value = "/delete", params = "back")
     public String confirmDeleteBack(Model model){
         return index(model);
     }
@@ -116,7 +128,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 入力・更新画面へのパス
      */
-    @RequestMapping("/add")
+    @PostMapping("/add")
     public String add(Model model){
         model.addAttribute("demoForm", new DemoForm());
         return "input";
@@ -129,10 +141,10 @@ public class DemoController {
      * @param result バインド結果
      * @return 確認画面または入力画面へのパス
      */
-    @RequestMapping(value = "/confirm", params = "next")
-    public String confirm(@Valid DemoForm demoForm, BindingResult result){
-        //生年月日の日付チェック処理を行い、画面遷移する
-        return demoService.checkForm(demoForm, result);
+    @PostMapping(value = "/confirm", params = "next")
+    public String confirm(@Validated DemoForm demoForm, BindingResult result){
+        //チェック処理を行い、画面遷移する
+        return demoService.checkForm(demoForm, result, "confirm");
     }
  
     /**
@@ -140,7 +152,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 一覧画面の表示処理
      */
-    @RequestMapping(value = "/confirm", params = "back")
+    @PostMapping(value = "/confirm", params = "back")
     public String confirmBack(Model model){
         return index(model);
     }
@@ -148,20 +160,36 @@ public class DemoController {
     /**
      * 完了画面に遷移する
      * @param demoForm Formオブジェクト
+     * @param result バインド結果
      * @return 完了画面
      */
-    @RequestMapping(value = "/send", params = "next")
-    public String send(DemoForm demoForm){
-        //ユーザーデータがあれば更新し、無ければ追加する
-        demoService.createOrUpdate(demoForm);
+    @PostMapping(value = "/send", params = "next")
+    public String send(@Validated DemoForm demoForm, BindingResult result){
+        //チェック処理を行い、エラーがなければ、更新・追加処理を行う
+        String normalPath = "redirect:/complete";
+        String checkPath = demoService.checkForm(demoForm, result, "redirect:/complete");
+        if(normalPath.equals(checkPath)){
+            demoService.createOrUpdate(demoForm);
+        }
+        return checkPath;
+    }
+
+    /**
+     * 完了画面に遷移する
+     * @return 完了画面
+     */
+    @GetMapping("/complete")
+    public String complete(SessionStatus sessionStatus){
+        //セッションオブジェクトを破棄
+        sessionStatus.setComplete();
         return "complete";
     }
- 
+
     /**
      * 入力画面に戻る
      * @return 入力画面
      */
-    @RequestMapping(value = "/send", params = "back")
+    @PostMapping(value = "/send", params = "back")
     public String sendBack(){
         return "input";
     }
