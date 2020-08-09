@@ -214,7 +214,7 @@ public class DemoController {
      * @param result バインド結果
      * @return 完了画面
      */
-    @RequestMapping(value = "/send", params = "next")
+    @PostMapping(value = "/send", params = "next")
     public String send(DemoForm demoForm, BindingResult result){
         //チェック処理を行い、エラーがなければ、更新・追加処理を行う
         String normalPath = "redirect:/complete";
