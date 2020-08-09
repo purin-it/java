@@ -147,7 +147,7 @@ public class DemoController {
             //エラーがある場合は、入力画面のままとする
             return "input";
         }
-        //生年月日の日付チェック処理を行い、画面遷移する
+        //アノテーション以外のチェック処理を行い、画面遷移する
         return checkOthers(demoForm, result, "confirm");
     }
 
@@ -176,9 +176,10 @@ public class DemoController {
             //エラーがある場合は、入力画面のままとする
             return "input";
         }
+    	//アノテーション以外のチェック処理を行い、
+    	//エラーがなければ、更新・追加処理を行う
         String normalPath = "redirect:/complete";
         String checkOthersPath = checkOthers(demoForm, result, normalPath);
-        //エラーがなければ、更新・追加処理を行う
         if(normalPath.equals(checkOthersPath)){
             //更新・追加処理を行うエンティティを生成
             UserData userData = getUserData(demoForm);
