@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import org.springframework.validation.BindingResult;
-
 import java.util.List;
 
 public interface DemoService {
@@ -34,11 +33,12 @@ public interface DemoService {
 
     /**
      * 生年月日の日付チェック処理を行い、画面遷移先を返す
-     * @param demoForm 追加・更新用Formオブジェクト
+     * @param demoForm フォームオブジェクト
      * @param result バインド結果
+     * @param normalPath 正常時の画面遷移先
      * @return 画面遷移先
      */
-    String checkForm(DemoForm demoForm, BindingResult result);
+    String checkForm(DemoForm demoForm, BindingResult result, String normalPath);
 
     /**
      * 生年月日の日付チェック処理を行い、画面遷移先を返す

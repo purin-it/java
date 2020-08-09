@@ -6,7 +6,7 @@
 </head>
 <body>
 　　 <p>下記内容を削除してよろしいでしょうか？問題なければ「送信」ボタンを押下してください。</p>
-    <form method="post" action="/delete" th:object="${demoForm}">
+    <form method="post" th:action="@{/delete}" th:object="${demoForm}">
         <p th:text="'名前： ' + *{name}">ここに名前が表示されます</p>
         <p th:text="'生年月日： ' + *{birthYear} + '年'
                      + *{getMonthItems().get('__*{birthMonth}__')} + '月'
