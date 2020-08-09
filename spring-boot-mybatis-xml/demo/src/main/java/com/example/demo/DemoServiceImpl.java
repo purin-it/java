@@ -1,23 +1,23 @@
 package com.example.demo;
-
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-
+ 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+ 
 @Service
 public class DemoServiceImpl implements DemoService{
-
+ 
     /**
      * ユーザーデータテーブル(user_data)へアクセスするマッパー
      */
     @Autowired
     private UserDataMapper mapper;
-
+ 
     /**
      * {@inheritDoc}
      */
@@ -31,7 +31,7 @@ public class DemoServiceImpl implements DemoService{
         }
         return demoFormList;
     }
-
+ 
     /**
      * {@inheritDoc}
      */
@@ -41,7 +41,7 @@ public class DemoServiceImpl implements DemoService{
         UserData userData = mapper.findById(longId);
         return getDemoForm(userData);
     }
-
+ 
     /**
      * {@inheritDoc}
      */
@@ -51,7 +51,7 @@ public class DemoServiceImpl implements DemoService{
         Long longId = stringToLong(id);
         mapper.deleteById(longId);
     }
-
+ 
     /**
      * {@inheritDoc}
      */
@@ -68,12 +68,12 @@ public class DemoServiceImpl implements DemoService{
             mapper.update(userData);
         }
     }
-
+ 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String checkForm(DemoForm demoForm, BindingResult result){
+    public String checkForm(DemoForm demoForm, BindingResult result, String normalPath){
         //formオブジェクトのチェック処理を行う
         if(result.hasErrors()){
             //エラーがある場合は、入力画面のままとする
@@ -117,12 +117,16 @@ public class DemoServiceImpl implements DemoService{
                 result.rejectValue("birthDay", "validation.empty-msg");
                 return "input";
             default:
-                //formオブジェクト・生年月日の日付のチェック処理を行い、
-                //問題なければ確認画面に遷移
-                return "confirm";
+                //性別が不正に書き換えられていないかチェックする
+                if(!demoForm.getSexItems().keySet().contains(demoForm.getSex())){
+                    result.rejectValue("sex", "validation.sex-invalidate");
+                    return "input";
+                }
+                //エラーチェックに問題が無いので、正常時の画面遷移先に遷移
+                return normalPath;
         }
     }
-
+ 
     /**
      * DemoFormオブジェクトに引数のユーザーデータの各値を設定する
      * @param userData ユーザーデータ
@@ -142,7 +146,7 @@ public class DemoServiceImpl implements DemoService{
         demoForm.setSex_value(userData.getSex_value());
         return demoForm;
     }
-
+ 
     /**
      * UserDataオブジェクトに引数のフォームの各値を設定する
      * @param demoForm DemoFormオブジェクト
@@ -161,7 +165,7 @@ public class DemoServiceImpl implements DemoService{
         userData.setSex_value(demoForm.getSex_value());
         return userData;
     }
-
+ 
     /**
      * 引数の文字列をLong型に変換する
      * @param id ID
@@ -174,5 +178,5 @@ public class DemoServiceImpl implements DemoService{
             return null;
         }
     }
-
+ 
 }
