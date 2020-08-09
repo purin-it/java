@@ -118,12 +118,10 @@ public class DemoController {
     /**
      * 削除処理を行う
      * @param demoForm 追加・更新用Formオブジェクト
-     * @param searchForm 検索用Formオブジェクト
-     * @param model Modelオブジェクト
      * @return 一覧画面の表示処理
      */
     @PostMapping(value = "/delete", params = "next")
-    public String delete(DemoForm demoForm, SearchForm searchForm, Model model){
+    public String delete(DemoForm demoForm){
         //指定したユーザーデータを削除
         demoService.deleteById(demoForm.getId());
         //一覧画面に遷移
@@ -185,13 +183,13 @@ public class DemoController {
     /**
      * エラーチェックを行い、エラーが無ければ確認画面に遷移し、
      * エラーがあれば入力画面のままとする
-     * @param demoForm 追加・更新用Formオブジェクト
+     * @param demoForm Formオブジェクト
      * @param result バインド結果
      * @return 確認画面または入力画面へのパス
      */
-    @RequestMapping(value = "/confirm", params = "next")
+    @PostMapping(value = "/confirm", params = "next")
     public String confirm(@Validated DemoForm demoForm, BindingResult result){
-        //生年月日の日付チェック処理を行い、画面遷移する
+        //チェック処理を行い、画面遷移する
         return demoService.checkForm(demoForm, result, "confirm");
     }
 
@@ -201,7 +199,7 @@ public class DemoController {
      * @param searchForm 検索用Formオブジェクト
      * @return 一覧画面の表示処理
      */
-    @RequestMapping(value = "/confirm", params = "back")
+    @PostMapping(value = "/confirm", params = "back")
     public String confirmBack(Model model, SearchForm searchForm){
         //ユーザーデータリストを取得
         List<DemoForm> demoFormList = demoService.demoFormList(searchForm);
@@ -216,7 +214,7 @@ public class DemoController {
      * @param result バインド結果
      * @return 完了画面
      */
-    @RequestMapping(value = "/send", params = "next")
+    @PostMapping(value = "/send", params = "next")
     public String send(DemoForm demoForm, BindingResult result){
         //チェック処理を行い、エラーがなければ、更新・追加処理を行う
         String normalPath = "redirect:/complete";
@@ -242,7 +240,7 @@ public class DemoController {
      * 入力画面に戻る
      * @return 入力画面
      */
-    @RequestMapping(value = "/send", params = "back")
+    @PostMapping(value = "/send", params = "back")
     public String sendBack(){
         return "input";
     }
