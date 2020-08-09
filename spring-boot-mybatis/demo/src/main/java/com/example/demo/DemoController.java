@@ -187,7 +187,7 @@ public class DemoController {
                 mapper.update(userData);
             }
         }
-        return normalPath;
+        return checkOthersPath;
     }
 
     /**
