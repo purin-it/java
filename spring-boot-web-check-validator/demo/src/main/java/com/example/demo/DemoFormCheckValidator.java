@@ -57,7 +57,11 @@ public class DemoFormCheckValidator implements Validator {
                 errors.rejectValue("birthDay", "validation.empty-msg");
                 break;
             default:
+                //性別が不正に書き換えられていないかチェックする
                 //正常な場合は何もしない
+                if(!demoForm.getSexItems().keySet().contains(demoForm.getSex())) {
+                    errors.rejectValue("sex", "validation.sex-invalidate");
+                }
                 break;
         }
     }
