@@ -95,12 +95,11 @@ public class DemoController {
     /**
      * 削除処理を行う
      * @param demoForm Formオブジェクト
-     * @param model Modelオブジェクト
      * @return 一覧画面の表示処理
      */
     @PostMapping(value = "/delete", params = "next")
     @Transactional(readOnly = false)
-    public String delete(DemoForm demoForm, Model model){
+    public String delete(DemoForm demoForm){
         mapper.deleteById(Long.parseLong(demoForm.getId()));
         return "redirect:/to_index";
     }
