@@ -7,6 +7,10 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface DownloadHistoryMapper {
 
+    /**
+     * ダウンロード履歴のシーケンス番号を取得する
+     * @return ダウンロード履歴のシーケンス番号
+     */
     @Select("select DOWNLOAD_SEQUENCE.nextval as nextval from dual")
     long gen_history_sequence();
 
