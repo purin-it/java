@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import lombok.Data;
+import org.springframework.util.StringUtils;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -112,6 +113,15 @@ public class DemoForm implements Serializable {
     @AssertTrue(message = "{validation.date-future}")
     public boolean isBirthDayFuture(){
         return DateCheckUtil.checkDate(birthYear, birthMonth, birthDay) != 5;
+    }
+
+    /**
+     * 性別が不正な値でないかチェックする
+     * @return チェック結果
+     */
+    @AssertTrue(message = "{validation.sex-invalidate}")
+    public boolean isSexInvalid(){
+        return StringUtils.isEmpty(sex) || getSexItems().keySet().contains(sex);
     }
 
 }

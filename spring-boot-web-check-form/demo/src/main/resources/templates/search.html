@@ -7,7 +7,7 @@
 </head>
 <body>
     <p>検索条件を指定し、「検索」ボタンを押下してください。</p><br/>
-    <form method="post" action="/search" th:object="${searchForm}">
+    <form method="post" th:action="@{/search}" th:object="${searchForm}">
         <span th:if="*{#fields.hasErrors('fromBirthDayInvalid')}"
               th:errors="*{fromBirthDayInvalid}" class="errorMessage"></span>
         <span th:if="*{#fields.hasErrors('toBirthDayInvalid')}"
