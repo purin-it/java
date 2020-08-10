@@ -169,12 +169,10 @@ public class DemoController {
     /**
      * 削除処理を行う
      * @param demoForm 追加・更新用Formオブジェクト
-     * @param searchForm 検索用Formオブジェクト
-     * @param model Modelオブジェクト
      * @return 一覧画面の表示処理
      */
     @PostMapping(value = "/delete", params = "next")
-    public String delete(DemoForm demoForm, SearchForm searchForm, Model model){
+    public String delete(DemoForm demoForm){
         //指定したユーザーデータを削除
         demoService.deleteById(demoForm.getId());
         //一覧画面に遷移
