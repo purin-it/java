@@ -12,34 +12,34 @@ import org.springframework.stereotype.Component;
 @Component
 public class DemoInvocation {
 
-    //ƒƒOo—Í‚Ì‚½‚ß‚ÌƒNƒ‰ƒX
+    //ãƒ­ã‚°å‡ºåŠ›ã®ãŸã‚ã®ã‚¯ãƒ©ã‚¹
     private Logger logger = LogManager.getLogger(DemoInvocation.class);
 
     /**
-     * BeforeƒAƒmƒe[ƒVƒ‡ƒ“‚É‚æ‚èAw’è‚µ‚½ƒƒ\ƒbƒh‚Ì‘O‚Éˆ—‚ğ’Ç‰Á‚·‚é
-     * BeforeƒAƒmƒe[ƒVƒ‡ƒ“‚Ìˆø”‚É‚ÍAPointcut® execution(–ß‚è’l ƒpƒbƒP[ƒW.ƒNƒ‰ƒX.ƒƒ\ƒbƒh(ˆø”))‚ğ
-     * w’è‚µA‚±‚±‚Å‚ÍControllerƒNƒ‰ƒX‚Ì‘Sƒƒ\ƒbƒh‚ÌÀs‘O‚ÉƒƒOo—Í‚·‚é‚æ‚¤‚É‚µ‚Ä‚¢‚é
+     * Beforeã‚¢ãƒãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ã«ã‚ˆã‚Šã€æŒ‡å®šã—ãŸãƒ¡ã‚½ãƒƒãƒ‰ã®å‰ã«å‡¦ç†ã‚’è¿½åŠ ã™ã‚‹
+     * Beforeã‚¢ãƒãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ã®å¼•æ•°ã«ã¯ã€Pointcutå¼ execution(æˆ»ã‚Šå€¤ ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸.ã‚¯ãƒ©ã‚¹.ãƒ¡ã‚½ãƒƒãƒ‰(å¼•æ•°))ã‚’
+     * æŒ‡å®šã—ã€ã“ã“ã§ã¯Controllerã‚¯ãƒ©ã‚¹ã®å…¨ãƒ¡ã‚½ãƒƒãƒ‰ã®å®Ÿè¡Œå‰ã«ãƒ­ã‚°å‡ºåŠ›ã™ã‚‹ã‚ˆã†ã«ã—ã¦ã„ã‚‹
      *
-     * @param jp ‰¡’f“I‚Èˆ—‚ğ‘}“ü‚·‚éêŠ
+     * @param jp æ¨ªæ–­çš„ãªå‡¦ç†ã‚’æŒ¿å…¥ã™ã‚‹å ´æ‰€
      */
     @Before("execution(public String com.example.demo.*Controller.*(..))")
     public void startLog(JoinPoint jp){
-        //ŠJnƒƒO‚ğo—Í
+        //é–‹å§‹ãƒ­ã‚°ã‚’å‡ºåŠ›
         String signature = jp.getSignature().toString();
-        logger.info("ŠJnƒƒO : " + signature);
+        logger.info("é–‹å§‹ãƒ­ã‚° : " + signature);
     }
 
     /**
-     * AfterƒAƒmƒe[ƒVƒ‡ƒ“‚É‚æ‚èAw’è‚µ‚½ƒƒ\ƒbƒh‚Ì‘O‚Éˆ—‚ğ’Ç‰Á‚·‚é
-     * AfterƒAƒmƒe[ƒVƒ‡ƒ“‚Ìˆø”‚É‚ÍAPointcut®‚ğw’è
+     * Afterã‚¢ãƒãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ã«ã‚ˆã‚Šã€æŒ‡å®šã—ãŸãƒ¡ã‚½ãƒƒãƒ‰ã®å‰ã«å‡¦ç†ã‚’è¿½åŠ ã™ã‚‹
+     * Afterã‚¢ãƒãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ã®å¼•æ•°ã«ã¯ã€Pointcutå¼ã‚’æŒ‡å®š
      *
-     * @param jp ‰¡’f“I‚Èˆ—‚ğ‘}“ü‚·‚éêŠ
+     * @param jp æ¨ªæ–­çš„ãªå‡¦ç†ã‚’æŒ¿å…¥ã™ã‚‹å ´æ‰€
      */
     @After("execution(public String com.example.demo.*Controller.*(..))")
     public void endLog(JoinPoint jp){
-        //I—¹ƒƒO‚ğo—Í
+        //çµ‚äº†ãƒ­ã‚°ã‚’å‡ºåŠ›
         String signature = jp.getSignature().toString();
-        logger.info("I—¹ƒƒO : " + signature);
+        logger.info("çµ‚äº†ãƒ­ã‚° : " + signature);
     }
 
 }

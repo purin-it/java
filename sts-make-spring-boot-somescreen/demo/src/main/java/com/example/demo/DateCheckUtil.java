@@ -8,15 +8,15 @@ import java.util.Locale;
 
 public class DateCheckUtil {
 
-    /** “ú•t‚ÌƒtƒH[ƒ}ƒbƒg */
+    /** æ—¥ä»˜ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ */
     private final static String dateFormat = "uuuuMMdd";
 
     /**
-     * “ú•tƒ`ƒFƒbƒNˆ—‚ğs‚¤
-     * @param year@”N
-     * @param month Œ
-     * @param day “ú
-     * @return ”»’èŒ‹‰Ê(1:”N‚ª‹óA2:Œ‚ª‹óA3:“ú‚ª‹óA4:”NŒ“ú‚ª•s³A5:”NŒ“ú‚ª–¢—ˆ“úA0:³í)
+     * æ—¥ä»˜ãƒã‚§ãƒƒã‚¯å‡¦ç†ã‚’è¡Œã†
+     * @param yearã€€å¹´
+     * @param month æœˆ
+     * @param day æ—¥
+     * @return åˆ¤å®šçµæœ(1:å¹´ãŒç©ºã€2:æœˆãŒç©ºã€3:æ—¥ãŒç©ºã€4:å¹´æœˆæ—¥ãŒä¸æ­£ã€5:å¹´æœˆæ—¥ãŒæœªæ¥æ—¥ã€0:æ­£å¸¸)
      */
     public static int checkDate(String year, String month, String day){
         if(isEmpty(year)){
@@ -39,22 +39,22 @@ public class DateCheckUtil {
     }
 
     /**
-     * ŒŸõ—pFormƒIƒuƒWƒFƒNƒg‚Ìƒ`ƒFƒbƒNˆ—s‚¤
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @return ”»’èŒ‹‰Ê(1:¶”NŒ“ú_from‚ª•s³A2:¶”NŒ“ú_to‚ª•s³A3:¶”NŒ“ú_from„¶”NŒ“ú_toA0:³í)
+     * æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚§ãƒƒã‚¯å‡¦ç†è¡Œã†
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return åˆ¤å®šçµæœ(1:ç”Ÿå¹´æœˆæ—¥_fromãŒä¸æ­£ã€2:ç”Ÿå¹´æœˆæ—¥_toãŒä¸æ­£ã€3:ç”Ÿå¹´æœˆæ—¥_fromï¼ç”Ÿå¹´æœˆæ—¥_toã€0:æ­£å¸¸)
      */
     public static int checkSearchForm(SearchForm searchForm){
-        //¶”NŒ“ú_from‚ª•s³‚Èê‡
+        //ç”Ÿå¹´æœˆæ—¥_fromãŒä¸æ­£ãªå ´åˆ
         if(!checkSearchFormBirthday(searchForm.getFromBirthYear()
                 , searchForm.getFromBirthMonth(), searchForm.getFromBirthDay())){
             return 1;
         }
-        //¶”NŒ“ú_to‚ª•s³‚Èê‡
+        //ç”Ÿå¹´æœˆæ—¥_toãŒä¸æ­£ãªå ´åˆ
         if(!checkSearchFormBirthday(searchForm.getToBirthYear()
                 , searchForm.getToBirthMonth(), searchForm.getToBirthDay())){
             return 2;
         }
-        //¶”NŒ“ú_from„¶”NŒ“ú_to‚Ìê‡
+        //ç”Ÿå¹´æœˆæ—¥_fromï¼ç”Ÿå¹´æœˆæ—¥_toã®å ´åˆ
         if(!isEmpty(searchForm.getFromBirthYear()) && !isEmpty(searchForm.getToBirthYear())){
             String fromBirthDay = searchForm.getFromBirthYear()
                     + addZero(searchForm.getFromBirthMonth()) + addZero(searchForm.getFromBirthDay());
@@ -64,23 +64,23 @@ public class DateCheckUtil {
                 return 3;
             }
         }
-        //³í‚Èê‡
+        //æ­£å¸¸ãªå ´åˆ
         return 0;
     }
 
     /**
-     * ŒŸõ—pForm“à‚Ì“ú•t‚ğƒ`ƒFƒbƒN‚·‚é
-     * @param year ”N
-     * @param month Œ
-     * @param day “ú
-     * @return “ú•tƒ`ƒFƒbƒNŒ‹‰Ê
+     * æ¤œç´¢ç”¨Formå†…ã®æ—¥ä»˜ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹
+     * @param year å¹´
+     * @param month æœˆ
+     * @param day æ—¥
+     * @return æ—¥ä»˜ãƒã‚§ãƒƒã‚¯çµæœ
      */
     private static boolean checkSearchFormBirthday(String year, String month, String day){
-        //”NEŒE“ú‚ª‘S‚Ä–¢w’è‚Ìê‡‚Íƒ`ƒFƒbƒNOK‚Æ‚·‚é
+        //å¹´ãƒ»æœˆãƒ»æ—¥ãŒå…¨ã¦æœªæŒ‡å®šã®å ´åˆã¯ãƒã‚§ãƒƒã‚¯OKã¨ã™ã‚‹
         if(isEmpty(year) && isEmpty(month) && isEmpty(day)){
             return true;
         }
-        //”NEŒE“ú‚ª‘S‚Äw’è‚³‚ê‚Ä‚¢‚éê‡‚ÍA“ú•t‚ª³‚µ‚¢ê‡‚Éƒ`ƒFƒbƒNOK‚Æ‚·‚é
+        //å¹´ãƒ»æœˆãƒ»æ—¥ãŒå…¨ã¦æŒ‡å®šã•ã‚Œã¦ã„ã‚‹å ´åˆã¯ã€æ—¥ä»˜ãŒæ­£ã—ã„å ´åˆã«ãƒã‚§ãƒƒã‚¯OKã¨ã™ã‚‹
         if(!isEmpty(year) && !isEmpty(month) && !isEmpty(day)){
             String dateStr = year + addZero(month) + addZero(day);
             if(isCorrectDate(dateStr, dateFormat)){
@@ -88,25 +88,25 @@ public class DateCheckUtil {
             }
             return false;
         }
-        //”NEŒE“ú‚ªw’è‚ ‚è/w’è‚È‚µ‚Å¬İ‚µ‚Ä‚¢‚éê‡‚Íƒ`ƒFƒbƒNNG‚Æ‚·‚é
+        //å¹´ãƒ»æœˆãƒ»æ—¥ãŒæŒ‡å®šã‚ã‚Š/æŒ‡å®šãªã—ã§æ··åœ¨ã—ã¦ã„ã‚‹å ´åˆã¯ãƒã‚§ãƒƒã‚¯NGã¨ã™ã‚‹
         return false;
     }
 
     /**
-     * DateTimeFormatter‚ğ—˜—p‚µ‚Ä“ú•tƒ`ƒFƒbƒN‚ğs‚¤
-     * @param dateStr ƒ`ƒFƒbƒN‘ÎÛ•¶š—ñ
-     * @param dateFormat “ú•tƒtƒH[ƒ}ƒbƒg
-     * @return “ú•tƒ`ƒFƒbƒNŒ‹‰Ê
+     * DateTimeFormatterã‚’åˆ©ç”¨ã—ã¦æ—¥ä»˜ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
+     * @param dateStr ãƒã‚§ãƒƒã‚¯å¯¾è±¡æ–‡å­—åˆ—
+     * @param dateFormat æ—¥ä»˜ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+     * @return æ—¥ä»˜ãƒã‚§ãƒƒã‚¯çµæœ
      */
     private static boolean isCorrectDate(String dateStr, String dateFormat){
         if(isEmpty(dateStr) || isEmpty(dateFormat)){
             return false;
         }
-        //“ú•t‚Æ‚ğŒµ–§‚É‰ğŒˆ‚·‚éƒXƒ^ƒCƒ‹‚ÅADateTimeFormatterƒIƒuƒWƒFƒNƒg‚ğì¬
+        //æ—¥ä»˜ã¨æ™‚åˆ»ã‚’å³å¯†ã«è§£æ±ºã™ã‚‹ã‚¹ã‚¿ã‚¤ãƒ«ã§ã€DateTimeFormatterã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
         DateTimeFormatter df = DateTimeFormatter.ofPattern(dateFormat)
                 .withResolverStyle(ResolverStyle.STRICT);
         try{
-            //ƒ`ƒFƒbƒN‘ÎÛ•¶š—ñ‚ğLocalDateŒ^‚Ì“ú•t‚É•ÏŠ·‚Å‚«‚ê‚ÎAƒ`ƒFƒbƒNOK‚Æ‚·‚é
+            //ãƒã‚§ãƒƒã‚¯å¯¾è±¡æ–‡å­—åˆ—ã‚’LocalDateå‹ã®æ—¥ä»˜ã«å¤‰æ›ã§ãã‚Œã°ã€ãƒã‚§ãƒƒã‚¯OKã¨ã™ã‚‹
             LocalDate.parse(dateStr, df);
             return true;
         }catch(Exception e){
@@ -115,10 +115,10 @@ public class DateCheckUtil {
     }
 
     /**
-     * “ú•t‚Ì•¶š—ñ‚ª–¢—ˆ“ú‚©‚Ç‚¤‚©‚ğ”»’è‚·‚é
-     * @param dateStr ƒ`ƒFƒbƒN‘ÎÛ•¶š—ñ
-     * @param dateFormat “ú•tƒtƒH[ƒ}ƒbƒg
-     * @return ”»’èŒ‹‰Ê
+     * æ—¥ä»˜ã®æ–‡å­—åˆ—ãŒæœªæ¥æ—¥ã‹ã©ã†ã‹ã‚’åˆ¤å®šã™ã‚‹
+     * @param dateStr ãƒã‚§ãƒƒã‚¯å¯¾è±¡æ–‡å­—åˆ—
+     * @param dateFormat æ—¥ä»˜ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+     * @return åˆ¤å®šçµæœ
      */
     private static boolean isFutureDate(String dateStr, String dateFormat){
         if(!isCorrectDate(dateStr, dateFormat)){
@@ -133,26 +133,26 @@ public class DateCheckUtil {
     }
 
     /**
-     * “ú•t‚Ì•¶š—ñ‚ğ“ú•tŒ^‚É•ÏŠ·‚µ‚½Œ‹‰Ê‚ğ•Ô‚·
-     * @param dateStr “ú•t‚Ì•¶š—ñ
-     * @param dateFormat “ú•t‚ÌƒtƒH[ƒ}ƒbƒg
-     * @return •ÏŠ·Œã‚Ì•¶š—ñ
+     * æ—¥ä»˜ã®æ–‡å­—åˆ—ã‚’æ—¥ä»˜å‹ã«å¤‰æ›ã—ãŸçµæœã‚’è¿”ã™
+     * @param dateStr æ—¥ä»˜ã®æ–‡å­—åˆ—
+     * @param dateFormat æ—¥ä»˜ã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+     * @return å¤‰æ›å¾Œã®æ–‡å­—åˆ—
      */
     private static LocalDate convertStrToLocalDate(String dateStr, String dateFormat){
         if(isEmpty(dateStr) || isEmpty(dateFormat)){
             return null;
         }
-        //“ú•t‚Æ‚ğŒµ–§‚É‰ğŒˆ‚·‚éƒXƒ^ƒCƒ‹‚ÅA—ï‘ÌŒn‚Í˜a—ï‘ÌŒn‚ÅADateTimeFormatterƒIƒuƒWƒFƒNƒg‚ğì¬
+        //æ—¥ä»˜ã¨æ™‚åˆ»ã‚’å³å¯†ã«è§£æ±ºã™ã‚‹ã‚¹ã‚¿ã‚¤ãƒ«ã§ã€æš¦ä½“ç³»ã¯å’Œæš¦ä½“ç³»ã§ã€DateTimeFormatterã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
         DateTimeFormatter df = DateTimeFormatter.ofPattern(dateFormat, Locale.JAPAN)
                 .withChronology(JapaneseChronology.INSTANCE).withResolverStyle(ResolverStyle.STRICT);
-        //“ú•t‚Ì•¶š—ñ‚ğLocalDateŒ^‚É•ÏŠ·‚µ‚Ä•Ô‹p
+        //æ—¥ä»˜ã®æ–‡å­—åˆ—ã‚’LocalDateå‹ã«å¤‰æ›ã—ã¦è¿”å´
         return LocalDate.parse(dateStr, df);
     }
 
     /**
-     * ”’l•¶š—ñ‚ª1Œ…‚Ìê‡A“ª‚É0‚ğ•t‚¯‚Ä•Ô‚·
-     * @param intNum ”’l•¶š—ñ
-     * @return •ÏŠ·Œã”’l•¶š—ñ
+     * æ•°å€¤æ–‡å­—åˆ—ãŒ1æ¡ã®å ´åˆã€é ­ã«0ã‚’ä»˜ã‘ã¦è¿”ã™
+     * @param intNum æ•°å€¤æ–‡å­—åˆ—
+     * @return å¤‰æ›å¾Œæ•°å€¤æ–‡å­—åˆ—
      */
     private static String addZero(String intNum){
         if(isEmpty(intNum)){
@@ -165,9 +165,9 @@ public class DateCheckUtil {
     }
 
     /**
-     * ˆø”‚Ì•¶š—ñ‚ªnullA‹ó•¶š‚©‚Ç‚¤‚©‚ğ”»’è‚·‚é
-     * @param str ƒ`ƒFƒbƒN‘ÎÛ•¶š—ñ
-     * @return •¶š—ñƒ`ƒFƒbƒNŒ‹‰Ê
+     * å¼•æ•°ã®æ–‡å­—åˆ—ãŒnullã€ç©ºæ–‡å­—ã‹ã©ã†ã‹ã‚’åˆ¤å®šã™ã‚‹
+     * @param str ãƒã‚§ãƒƒã‚¯å¯¾è±¡æ–‡å­—åˆ—
+     * @return æ–‡å­—åˆ—ãƒã‚§ãƒƒã‚¯çµæœ
      */
     public static boolean isEmpty(String str){
         if(str == null || "".equals(str)){

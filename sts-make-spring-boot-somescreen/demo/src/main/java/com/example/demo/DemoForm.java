@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * FormƒIƒuƒWƒFƒNƒg‚ÌƒNƒ‰ƒX
+ * Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¯ãƒ©ã‚¹
  */
 @Data
 public class DemoForm {
@@ -14,34 +14,34 @@ public class DemoForm {
     /** ID */
     private String id;
 
-    /** –¼‘O */
+    /** åå‰ */
     @NotEmpty
     private String name;
 
-    /** ¶”NŒ“ú_”N */
+    /** ç”Ÿå¹´æœˆæ—¥_å¹´ */
     private String birthYear;
 
-    /** ¶”NŒ“ú_Œ */
+    /** ç”Ÿå¹´æœˆæ—¥_æœˆ */
     private String birthMonth;
 
-    /** ¶”NŒ“ú_“ú */
+    /** ç”Ÿå¹´æœˆæ—¥_æ—¥ */
     private String birthDay;
 
-    /** «•Ê */
+    /** æ€§åˆ¥ */
     @NotEmpty
     private String sex;
 
-    /** ƒƒ‚ */
+    /** ãƒ¡ãƒ¢ */
     private String memo;
 
-    /** Šm”Fƒ`ƒFƒbƒN */
+    /** ç¢ºèªãƒã‚§ãƒƒã‚¯ */
     @NotEmpty
     private String checked;
 
-    /** «•Ê(•¶š—ñ) */
+    /** æ€§åˆ¥(æ–‡å­—åˆ—) */
     private String sex_value;
 
-    /** ¶”NŒ“ú_Œ‚ÌMapƒIƒuƒWƒFƒNƒg */
+    /** ç”Ÿå¹´æœˆæ—¥_æœˆã®Mapã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
     public Map<String,String> getMonthItems(){
         Map<String, String> monthMap = new LinkedHashMap<String, String>();
         for(int i = 1; i <= 12; i++){
@@ -50,7 +50,7 @@ public class DemoForm {
         return monthMap;
     }
 
-    /** ¶”NŒ“ú_“ú‚ÌMapƒIƒuƒWƒFƒNƒg */
+    /** ç”Ÿå¹´æœˆæ—¥_æ—¥ã®Mapã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
     public Map<String,String> getDayItems(){
         Map<String, String> dayMap = new LinkedHashMap<String, String>();
         for(int i = 1; i <= 31; i++){
@@ -59,11 +59,11 @@ public class DemoForm {
         return dayMap;
     }
 
-    /** «•Ê‚ÌMapƒIƒuƒWƒFƒNƒg */
+    /** æ€§åˆ¥ã®Mapã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
     public Map<String,String> getSexItems(){
         Map<String, String> sexMap = new LinkedHashMap<String, String>();
-        sexMap.put("1", "’j");
-        sexMap.put("2", "—");
+        sexMap.put("1", "ç”·");
+        sexMap.put("2", "å¥³");
         return sexMap;
     }
 

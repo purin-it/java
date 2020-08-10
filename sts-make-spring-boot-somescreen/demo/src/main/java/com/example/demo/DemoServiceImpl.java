@@ -15,13 +15,13 @@ import java.util.List;
 public class DemoServiceImpl implements DemoService{
 
     /**
-     * ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚ÖƒAƒNƒZƒX‚·‚éƒ}ƒbƒp[
+     * ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã¸ã‚¢ã‚¯ã‚»ã‚¹ã™ã‚‹ãƒãƒƒãƒ‘ãƒ¼
      */
     @Autowired
     private UserDataMapper mapper;
 
     /**
-     * 1ƒy[ƒW‚É•\¦‚·‚és”(application.properties‚©‚çæ“¾)
+     * 1ãƒšãƒ¼ã‚¸ã«è¡¨ç¤ºã™ã‚‹è¡Œæ•°(application.propertiesã‹ã‚‰å–å¾—)
      */
     @Value("${demo.list.pageSize}")
     private String listPageSize;
@@ -32,7 +32,7 @@ public class DemoServiceImpl implements DemoService{
     @Override
     public List<DemoForm> demoFormList(SearchForm searchForm, Pageable pageable) {
         List<DemoForm> demoFormList = new ArrayList<>();
-        //ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚©‚çŒŸõğŒ‚É‡‚¤ƒf[ƒ^‚ğæ“¾‚·‚é
+        //ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã‹ã‚‰æ¤œç´¢æ¡ä»¶ã«åˆã†ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
         Collection<UserData> userDataList = mapper.findBySearchForm(searchForm, pageable);
         for (UserData userData : userDataList) {
             demoFormList.add(getDemoForm(userData));
@@ -66,9 +66,9 @@ public class DemoServiceImpl implements DemoService{
     @Override
     @Transactional(readOnly = false)
     public void createOrUpdate(DemoForm demoForm){
-        //XVE’Ç‰Áˆ—‚ğs‚¤ƒGƒ“ƒeƒBƒeƒB‚ğ¶¬
+        //æ›´æ–°ãƒ»è¿½åŠ å‡¦ç†ã‚’è¡Œã†ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£ã‚’ç”Ÿæˆ
         UserData userData = getUserData(demoForm);
-        //’Ç‰ÁEXVˆ—
+        //è¿½åŠ ãƒ»æ›´æ–°å‡¦ç†
         if(demoForm.getId() == null){
             userData.setId(mapper.findMaxId() + 1);
             mapper.create(userData);
@@ -81,52 +81,57 @@ public class DemoServiceImpl implements DemoService{
      * {@inheritDoc}
      */
     @Override
-    public String checkForm(DemoForm demoForm, BindingResult result){
-        //formƒIƒuƒWƒFƒNƒg‚Ìƒ`ƒFƒbƒNˆ—‚ğs‚¤
+    public String checkForm(DemoForm demoForm, BindingResult result, String normalPath){
+        //formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚§ãƒƒã‚¯å‡¦ç†ã‚’è¡Œã†
         if(result.hasErrors()){
-            //ƒGƒ‰[‚ª‚ ‚éê‡‚ÍA“ü—Í‰æ–Ê‚Ì‚Ü‚Ü‚Æ‚·‚é
+            //ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹å ´åˆã¯ã€å…¥åŠ›ç”»é¢ã®ã¾ã¾ã¨ã™ã‚‹
             return "input";
         }
-        //¶”NŒ“ú‚Ì“ú•tƒ`ƒFƒbƒNˆ—‚ğs‚¤
-        //ƒGƒ‰[‚ª‚ ‚éê‡‚ÍAƒGƒ‰[ƒƒbƒZ[ƒWEƒGƒ‰[ƒtƒB[ƒ‹ƒh‚Ìİ’è‚ğs‚¢A
-        //“ü—Í‰æ–Ê‚Ì‚Ü‚Ü‚Æ‚·‚é
+        //ç”Ÿå¹´æœˆæ—¥ã®æ—¥ä»˜ãƒã‚§ãƒƒã‚¯å‡¦ç†ã‚’è¡Œã†
+        //ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹å ´åˆã¯ã€ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ»ã‚¨ãƒ©ãƒ¼ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®è¨­å®šã‚’è¡Œã„ã€
+        //å…¥åŠ›ç”»é¢ã®ã¾ã¾ã¨ã™ã‚‹
         int checkDate = DateCheckUtil.checkDate(demoForm.getBirthYear()
                 , demoForm.getBirthMonth(), demoForm.getBirthDay());
         switch(checkDate){
             case 1:
-                //¶”NŒ“ú_”N‚ª‹ó•¶š‚Ìê‡‚ÌƒGƒ‰[ˆ—
+                //ç”Ÿå¹´æœˆæ—¥_å¹´ãŒç©ºæ–‡å­—ã®å ´åˆã®ã‚¨ãƒ©ãƒ¼å‡¦ç†
                 result.rejectValue("birthYear", "validation.date-empty"
-                        , new String[]{"¶”NŒ“ú_”N"}, "");
+                        , new String[]{"ç”Ÿå¹´æœˆæ—¥_å¹´"}, "");
                 return "input";
             case 2:
-                //¶”NŒ“ú_Œ‚ª‹ó•¶š‚Ìê‡‚ÌƒGƒ‰[ˆ—
+                //ç”Ÿå¹´æœˆæ—¥_æœˆãŒç©ºæ–‡å­—ã®å ´åˆã®ã‚¨ãƒ©ãƒ¼å‡¦ç†
                 result.rejectValue("birthMonth", "validation.date-empty"
-                        , new String[]{"¶”NŒ“ú_Œ"}, "");
+                        , new String[]{"ç”Ÿå¹´æœˆæ—¥_æœˆ"}, "");
                 return "input";
             case 3:
-                //¶”NŒ“ú_“ú‚ª‹ó•¶š‚Ìê‡‚ÌƒGƒ‰[ˆ—
+                //ç”Ÿå¹´æœˆæ—¥_æ—¥ãŒç©ºæ–‡å­—ã®å ´åˆã®ã‚¨ãƒ©ãƒ¼å‡¦ç†
                 result.rejectValue("birthDay", "validation.date-empty"
-                        , new String[]{"¶”NŒ“ú_“ú"}, "");
+                        , new String[]{"ç”Ÿå¹´æœˆæ—¥_æ—¥"}, "");
                 return "input";
             case 4:
-                //¶”NŒ“ú‚Ì“ú•t‚ª•s³‚Èê‡‚ÌƒGƒ‰[ˆ—
+                //ç”Ÿå¹´æœˆæ—¥ã®æ—¥ä»˜ãŒä¸æ­£ãªå ´åˆã®ã‚¨ãƒ©ãƒ¼å‡¦ç†
                 result.rejectValue("birthYear", "validation.date-invalidate");
-                //¶”NŒ“ú_ŒE¶”NŒ“ú_“ú‚ÍAƒGƒ‰[ƒtƒB[ƒ‹ƒh‚Ìİ’è‚ğs‚¢A
-                //ƒƒbƒZ[ƒW‚ğ‹ó•¶š‚Éİ’è‚µ‚Ä‚¢‚é
+                //ç”Ÿå¹´æœˆæ—¥_æœˆãƒ»ç”Ÿå¹´æœˆæ—¥_æ—¥ã¯ã€ã‚¨ãƒ©ãƒ¼ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®è¨­å®šã‚’è¡Œã„ã€
+                //ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ç©ºæ–‡å­—ã«è¨­å®šã—ã¦ã„ã‚‹
                 result.rejectValue("birthMonth", "validation.empty-msg");
                 result.rejectValue("birthDay", "validation.empty-msg");
                 return "input";
             case 5:
-                //¶”NŒ“ú‚Ì“ú•t‚ª–¢—ˆ“ú‚Ìê‡‚ÌƒGƒ‰[ˆ—
+                //ç”Ÿå¹´æœˆæ—¥ã®æ—¥ä»˜ãŒæœªæ¥æ—¥ã®å ´åˆã®ã‚¨ãƒ©ãƒ¼å‡¦ç†
                 result.rejectValue("birthYear", "validation.date-future");
-                //¶”NŒ“ú_ŒE¶”NŒ“ú_“ú‚ÍAƒGƒ‰[ƒtƒB[ƒ‹ƒh‚Ìİ’è‚ğs‚¢A
-                //ƒƒbƒZ[ƒW‚ğ‹ó•¶š‚Éİ’è‚µ‚Ä‚¢‚é
+                //ç”Ÿå¹´æœˆæ—¥_æœˆãƒ»ç”Ÿå¹´æœˆæ—¥_æ—¥ã¯ã€ã‚¨ãƒ©ãƒ¼ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®è¨­å®šã‚’è¡Œã„ã€
+                //ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ç©ºæ–‡å­—ã«è¨­å®šã—ã¦ã„ã‚‹
                 result.rejectValue("birthMonth", "validation.empty-msg");
                 result.rejectValue("birthDay", "validation.empty-msg");
                 return "input";
             default:
-                //formƒIƒuƒWƒFƒNƒgE¶”NŒ“ú‚Ì“ú•t‚Ìƒ`ƒFƒbƒNˆ—‚ğs‚¢A–â‘è‚È‚¯‚ê‚ÎŠm”F‰æ–Ê‚É‘JˆÚ
-                return "confirm";
+                //æ€§åˆ¥ãŒä¸æ­£ã«æ›¸ãæ›ãˆã‚‰ã‚Œã¦ã„ãªã„ã‹ãƒã‚§ãƒƒã‚¯ã™ã‚‹
+                if(!demoForm.getSexItems().keySet().contains(demoForm.getSex())){
+                    result.rejectValue("sex", "validation.sex-invalidate");
+                    return "input";
+                }
+                //ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ã«å•é¡ŒãŒç„¡ã„ã®ã§ã€æ­£å¸¸æ™‚ã®ç”»é¢é·ç§»å…ˆã«é·ç§»
+                return normalPath;
         }
     }
 
@@ -138,19 +143,19 @@ public class DemoServiceImpl implements DemoService{
         int checkDate =DateCheckUtil.checkSearchForm(searchForm);
         switch (checkDate){
             case 1:
-                //¶”NŒ“ú_from‚ª•s³‚Èê‡‚ÌƒGƒ‰[ˆ—
+                //ç”Ÿå¹´æœˆæ—¥_fromãŒä¸æ­£ãªå ´åˆã®ã‚¨ãƒ©ãƒ¼å‡¦ç†
                 result.rejectValue("fromBirthYear", "validation.date-invalidate-from");
                 result.rejectValue("fromBirthMonth", "validation.empty-msg");
                 result.rejectValue("fromBirthDay", "validation.empty-msg");
                 return "search";
             case 2:
-                //¶”NŒ“ú_to‚ª•s³‚Èê‡‚ÌƒGƒ‰[ˆ—
+                //ç”Ÿå¹´æœˆæ—¥_toãŒä¸æ­£ãªå ´åˆã®ã‚¨ãƒ©ãƒ¼å‡¦ç†
                 result.rejectValue("toBirthYear", "validation.date-invalidate-to");
                 result.rejectValue("toBirthMonth", "validation.empty-msg");
                 result.rejectValue("toBirthDay", "validation.empty-msg");
                 return "search";
             case 3:
-                //¶”NŒ“ú_from„¶”NŒ“ú_to‚Ìê‡‚ÌƒGƒ‰[ˆ—
+                //ç”Ÿå¹´æœˆæ—¥_fromï¼ç”Ÿå¹´æœˆæ—¥_toã®å ´åˆã®ã‚¨ãƒ©ãƒ¼å‡¦ç†
                 result.rejectValue("fromBirthYear", "validation.date-invalidate-from-to");
                 result.rejectValue("fromBirthMonth", "validation.empty-msg");
                 result.rejectValue("fromBirthDay", "validation.empty-msg");
@@ -159,7 +164,7 @@ public class DemoServiceImpl implements DemoService{
                 result.rejectValue("toBirthDay", "validation.empty-msg");
                 return "search";
             default:
-                //³í‚Èê‡‚Ínull‚ğ•Ô‹p
+                //æ­£å¸¸ãªå ´åˆã¯nullã‚’è¿”å´
                 return null;
         }
     }
@@ -172,28 +177,28 @@ public class DemoServiceImpl implements DemoService{
         Pageable pageable = new Pageable() {
             @Override
             public int getPageNumber() {
-                //Œ»İƒy[ƒW”‚ğ•Ô‹p
+                //ç¾åœ¨ãƒšãƒ¼ã‚¸æ•°ã‚’è¿”å´
                 return pageNumber;
             }
 
             @Override
             public int getPageSize() {
-                //1ƒy[ƒW‚É•\¦‚·‚és”‚ğ•Ô‹p
-                //listPageSize‚ÍA–{ƒvƒƒOƒ‰ƒ€‚Ìæ“ª‚É’è‹`‚µ‚Ä‚¢‚é
+                //1ãƒšãƒ¼ã‚¸ã«è¡¨ç¤ºã™ã‚‹è¡Œæ•°ã‚’è¿”å´
+                //listPageSizeã¯ã€æœ¬ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®å…ˆé ­ã«å®šç¾©ã—ã¦ã„ã‚‹
                 return Integer.parseInt(listPageSize);
             }
 
             @Override
             public int getOffset() {
-                //•\¦ŠJnˆÊ’u‚ğ•Ô‹p
-                //—á‚¦‚ÎA1ƒy[ƒW‚É2s•\¦‚·‚éê‡‚ÌA2ƒy[ƒW–Ú‚Ì•\¦ŠJnˆÊ’u‚Í
-                //(2-1)*2+1=3 ‚ÅŒvZ‚³‚ê‚é
+                //è¡¨ç¤ºé–‹å§‹ä½ç½®ã‚’è¿”å´
+                //ä¾‹ãˆã°ã€1ãƒšãƒ¼ã‚¸ã«2è¡Œè¡¨ç¤ºã™ã‚‹å ´åˆã®ã€2ãƒšãƒ¼ã‚¸ç›®ã®è¡¨ç¤ºé–‹å§‹ä½ç½®ã¯
+                //(2-1)*2+1=3 ã§è¨ˆç®—ã•ã‚Œã‚‹
                 return ((pageNumber - 1) * Integer.parseInt(listPageSize) + 1);
             }
 
             @Override
             public Sort getSort() {
-                //ƒ\[ƒg‚Íg‚í‚È‚¢‚Ì‚Ånull‚ğ•Ô‹p
+                //ã‚½ãƒ¼ãƒˆã¯ä½¿ã‚ãªã„ã®ã§nullã‚’è¿”å´
                 return null;
             }
         };
@@ -205,25 +210,25 @@ public class DemoServiceImpl implements DemoService{
      */
     @Override
     public int getAllPageNum(SearchForm searchForm) {
-        //1ƒy[ƒW‚É•\¦‚·‚és”‚ğæ“¾
+        //1ãƒšãƒ¼ã‚¸ã«è¡¨ç¤ºã™ã‚‹è¡Œæ•°ã‚’å–å¾—
         int listPageSizeNum = Integer.parseInt(listPageSize);
         if(listPageSizeNum == 0){
             return 1;
         }
-        //ˆê——‰æ–Ê‚É•\¦‚·‚é‘Sƒf[ƒ^‚ğæ“¾
-        //‘æ“ñˆø”‚Ìpageable‚Énull‚ğİ’è‚·‚é‚±‚Æ‚ÅAˆê——‰æ–Ê‚É•\¦‚·‚é‘Sƒf[ƒ^‚ªæ“¾‚Å‚«‚é
+        //ä¸€è¦§ç”»é¢ã«è¡¨ç¤ºã™ã‚‹å…¨ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
+        //ç¬¬äºŒå¼•æ•°ã®pageableã«nullã‚’è¨­å®šã™ã‚‹ã“ã¨ã§ã€ä¸€è¦§ç”»é¢ã«è¡¨ç¤ºã™ã‚‹å…¨ãƒ‡ãƒ¼ã‚¿ãŒå–å¾—ã§ãã‚‹
         Collection<UserData> userDataList = mapper.findBySearchForm(searchForm, null);
-        //‘Sƒy[ƒW”‚ğŒvZ
-        //—á‚¦‚ÎA1ƒy[ƒW‚É2s•\¦‚·‚éê‡‚ÅA‘Sƒf[ƒ^Œ”‚ª5‚Ìê‡A
-        //(5+2-1)/2=3 ‚ÆŒvZ‚³‚ê‚é
+        //å…¨ãƒšãƒ¼ã‚¸æ•°ã‚’è¨ˆç®—
+        //ä¾‹ãˆã°ã€1ãƒšãƒ¼ã‚¸ã«2è¡Œè¡¨ç¤ºã™ã‚‹å ´åˆã§ã€å…¨ãƒ‡ãƒ¼ã‚¿ä»¶æ•°ãŒ5ã®å ´åˆã€
+        //(5+2-1)/2=3 ã¨è¨ˆç®—ã•ã‚Œã‚‹
         int allPageNum = (userDataList.size() + listPageSizeNum - 1) / listPageSizeNum;
         return allPageNum == 0 ? 1 : allPageNum;
     }
 
     /**
-     * DemoFormƒIƒuƒWƒFƒNƒg‚Éˆø”‚Ìƒ†[ƒU[ƒf[ƒ^‚ÌŠe’l‚ğİ’è‚·‚é
-     * @param userData ƒ†[ƒU[ƒf[ƒ^
-     * @return DemoFormƒIƒuƒWƒFƒNƒg
+     * DemoFormã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å¼•æ•°ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã®å„å€¤ã‚’è¨­å®šã™ã‚‹
+     * @param userData ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿
+     * @return DemoFormã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      */
     private DemoForm getDemoForm(UserData userData){
         if(userData == null){
@@ -242,9 +247,9 @@ public class DemoServiceImpl implements DemoService{
     }
 
     /**
-     * UserDataƒIƒuƒWƒFƒNƒg‚Éˆø”‚ÌƒtƒH[ƒ€‚ÌŠe’l‚ğİ’è‚·‚é
-     * @param demoForm DemoFormƒIƒuƒWƒFƒNƒg
-     * @return ƒ†[ƒU[ƒf[ƒ^
+     * UserDataã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å¼•æ•°ã®ãƒ•ã‚©ãƒ¼ãƒ ã®å„å€¤ã‚’è¨­å®šã™ã‚‹
+     * @param demoForm DemoFormã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿
      */
     private UserData getUserData(DemoForm demoForm){
         UserData userData = new UserData();
@@ -262,9 +267,9 @@ public class DemoServiceImpl implements DemoService{
     }
 
     /**
-     * ˆø”‚Ì•¶š—ñ‚ğLongŒ^‚É•ÏŠ·‚·‚é
+     * å¼•æ•°ã®æ–‡å­—åˆ—ã‚’Longå‹ã«å¤‰æ›ã™ã‚‹
      * @param id ID
-     * @return LongŒ^‚ÌID
+     * @return Longå‹ã®ID
      */
     private Long stringToLong(String id){
         try{

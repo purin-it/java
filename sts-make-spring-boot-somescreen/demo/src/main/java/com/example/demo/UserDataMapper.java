@@ -9,42 +9,42 @@ import java.util.Collection;
 public interface UserDataMapper {
 
     /**
-     * ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚©‚çŒŸõğŒ‚É‡‚¤ƒf[ƒ^‚ğæ“¾‚·‚é
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @param pageable ƒy[ƒWƒl[ƒVƒ‡ƒ“ƒIƒuƒWƒFƒNƒg
-     * @return ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚ÌŒŸõğŒ‚É‡‚¤ƒf[ƒ^
+     * ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã‹ã‚‰æ¤œç´¢æ¡ä»¶ã«åˆã†ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param pageable ãƒšãƒ¼ã‚¸ãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã®æ¤œç´¢æ¡ä»¶ã«åˆã†ãƒ‡ãƒ¼ã‚¿
      */
     Collection<UserData> findBySearchForm(
             @Param("searchForm") SearchForm searchForm, @Param("pageable") Pageable pageable);
 
     /**
-     * w’è‚µ‚½ID‚ğ‚à‚Âƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚Ìƒf[ƒ^‚ğæ“¾‚·‚é
+     * æŒ‡å®šã—ãŸIDã‚’ã‚‚ã¤ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã®ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹
      * @param id ID
-     * @return ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚Ìw’è‚µ‚½ID‚Ìƒf[ƒ^
+     * @return ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã®æŒ‡å®šã—ãŸIDã®ãƒ‡ãƒ¼ã‚¿
      */
     UserData findById(Long id);
 
     /**
-     * w’è‚µ‚½ID‚ğ‚à‚Âƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚Ìƒf[ƒ^‚ğíœ‚·‚é
+     * æŒ‡å®šã—ãŸIDã‚’ã‚‚ã¤ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã®ãƒ‡ãƒ¼ã‚¿ã‚’å‰Šé™¤ã™ã‚‹
      * @param id ID
      */
     void deleteById(Long id);
 
     /**
-     * w’è‚µ‚½ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚Ìƒf[ƒ^‚ğ’Ç‰Á‚·‚é
-     * @param userData ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚Ì’Ç‰Áƒf[ƒ^
+     * æŒ‡å®šã—ãŸãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã®ãƒ‡ãƒ¼ã‚¿ã‚’è¿½åŠ ã™ã‚‹
+     * @param userData ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã®è¿½åŠ ãƒ‡ãƒ¼ã‚¿
      */
     void create(UserData userData);
 
     /**
-     * w’è‚µ‚½ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚Ìƒf[ƒ^‚ğXV‚·‚é
-     * @param userData ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚ÌXVƒf[ƒ^
+     * æŒ‡å®šã—ãŸãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã®ãƒ‡ãƒ¼ã‚¿ã‚’æ›´æ–°ã™ã‚‹
+     * @param userData ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã®æ›´æ–°ãƒ‡ãƒ¼ã‚¿
      */
     void update(UserData userData);
 
     /**
-     * ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚ÌÅ‘å’lID‚ğæ“¾‚·‚é
-     * @return ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚ÌÅ‘å’lID
+     * ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã®æœ€å¤§å€¤IDã‚’å–å¾—ã™ã‚‹
+     * @return ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã®æœ€å¤§å€¤ID
      */
     long findMaxId();
 }

@@ -3,14 +3,15 @@ package com.example.demo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.support.SessionStatus;
-
-import javax.validation.Valid;
 import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +21,14 @@ import java.util.List;
 public class DemoController {
 
     /**
-     * DemoƒT[ƒrƒXƒNƒ‰ƒX‚Ö‚ÌƒAƒNƒZƒX
+     * Demoã‚µãƒ¼ãƒ“ã‚¹ã‚¯ãƒ©ã‚¹ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹
      */
     @Autowired
     private DemoService demoService;
 
     /**
-     * ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)‚Ìƒf[ƒ^‚ğæ“¾‚µ‚Ä•Ô‹p‚·‚é
-     * @return ƒ†[ƒU[ƒf[ƒ^ƒŠƒXƒg
+     * ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã®ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã—ã¦è¿”å´ã™ã‚‹
+     * @return ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒªã‚¹ãƒˆ
      */
     @ModelAttribute("demoFormList")
     public List<DemoForm> userDataList(){
@@ -36,8 +37,8 @@ public class DemoController {
     }
 
     /**
-     * ’Ç‰ÁEXV—pFormƒIƒuƒWƒFƒNƒg‚ğ‰Šú‰»‚µ‚Ä•Ô‹p‚·‚é
-     * @return ’Ç‰ÁEXV—pFormƒIƒuƒWƒFƒNƒg
+     * è¿½åŠ ãƒ»æ›´æ–°ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’åˆæœŸåŒ–ã—ã¦è¿”å´ã™ã‚‹
+     * @return è¿½åŠ ãƒ»æ›´æ–°ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      */
     @ModelAttribute("demoForm")
     public DemoForm createDemoForm(){
@@ -46,8 +47,8 @@ public class DemoController {
     }
 
     /**
-     * ŒŸõ—pFormƒIƒuƒWƒFƒNƒg‚ğ‰Šú‰»‚µ‚Ä•Ô‹p‚·‚é
-     * @return ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
+     * æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’åˆæœŸåŒ–ã—ã¦è¿”å´ã™ã‚‹
+     * @return æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      */
     @ModelAttribute("searchForm")
     public SearchForm createSearchForm(){
@@ -56,8 +57,8 @@ public class DemoController {
     }
 
     /**
-     * ‰Šú•\¦(ŒŸõ)‰æ–Ê‚É‘JˆÚ‚·‚é
-     * @return ŒŸõ‰æ–Ê‚Ö‚ÌƒpƒX
+     * åˆæœŸè¡¨ç¤º(æ¤œç´¢)ç”»é¢ã«é·ç§»ã™ã‚‹
+     * @return æ¤œç´¢ç”»é¢ã¸ã®ãƒ‘ã‚¹
      */
     @RequestMapping("/")
     public String index(){
@@ -65,217 +66,240 @@ public class DemoController {
     }
 
     /**
-     * ŒŸõˆ—‚ğs‚¢Aˆê——‰æ–Ê‚É‘JˆÚ‚·‚é
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @param result ƒoƒCƒ“ƒhŒ‹‰Ê
-     * @return ˆê——‰æ–Ê‚Ö‚ÌƒpƒX
+     * æ¤œç´¢å‡¦ç†ã‚’è¡Œã„ã€ä¸€è¦§ç”»é¢ã«é·ç§»ã™ã‚‹
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param result ãƒã‚¤ãƒ³ãƒ‰çµæœ
+     * @return ä¸€è¦§ç”»é¢ã¸ã®ãƒ‘ã‚¹
      */
-    @RequestMapping("/search")
+    @PostMapping("/search")
     public String search(SearchForm searchForm, Model model, BindingResult result){
-        //ŒŸõ—pFormƒIƒuƒWƒFƒNƒg‚Ìƒ`ƒFƒbƒNˆ—
+        //æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚§ãƒƒã‚¯å‡¦ç†
         String returnVal = demoService.checkSearchForm(searchForm, result);
         if(returnVal != null){
             return returnVal;
         }
-        //Œ»İƒy[ƒW”‚ğ1ƒy[ƒW–Ú‚Éİ’è‚µAˆê——‰æ–Ê‚É‘JˆÚ‚·‚é
+        //ç¾åœ¨ãƒšãƒ¼ã‚¸æ•°ã‚’1ãƒšãƒ¼ã‚¸ç›®ã«è¨­å®šã—ã€ä¸€è¦§ç”»é¢ã«é·ç§»ã™ã‚‹
         searchForm.setCurrentPageNum(1);
         return movePageInList(model, searchForm);
     }
 
     /**
-     * ˆê——‰æ–Ê‚Åuæ“ª‚ÖvƒŠƒ“ƒN‰Ÿ‰º‚ÉŸƒy[ƒW‚ğ•\¦‚·‚é
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @return ˆê——‰æ–Ê‚Ö‚ÌƒpƒX
+     * ä¸€è¦§ç”»é¢ã§ã€Œå…ˆé ­ã¸ã€ãƒªãƒ³ã‚¯æŠ¼ä¸‹æ™‚ã«æ¬¡ãƒšãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ä¸€è¦§ç”»é¢ã¸ã®ãƒ‘ã‚¹
      */
-    @RequestMapping("/firstPage")
+    @GetMapping("/firstPage")
     public String firstPage(SearchForm searchForm, Model model){
-        //Œ»İƒy[ƒW”‚ğæ“ªƒy[ƒW‚Éİ’è‚·‚é
+        //ç¾åœ¨ãƒšãƒ¼ã‚¸æ•°ã‚’å…ˆé ­ãƒšãƒ¼ã‚¸ã«è¨­å®šã™ã‚‹
         searchForm.setCurrentPageNum(1);
         return movePageInList(model, searchForm);
     }
 
     /**
-     * ˆê——‰æ–Ê‚Åu‘O‚ÖvƒŠƒ“ƒN‰Ÿ‰º‚ÉŸƒy[ƒW‚ğ•\¦‚·‚é
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @return ˆê——‰æ–Ê‚Ö‚ÌƒpƒX
+     * ä¸€è¦§ç”»é¢ã§ã€Œå‰ã¸ã€ãƒªãƒ³ã‚¯æŠ¼ä¸‹æ™‚ã«æ¬¡ãƒšãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ä¸€è¦§ç”»é¢ã¸ã®ãƒ‘ã‚¹
      */
-    @RequestMapping("/backPage")
+    @GetMapping("/backPage")
     public String backPage(SearchForm searchForm, Model model){
-        //Œ»İƒy[ƒW”‚ğ‘Oƒy[ƒW‚Éİ’è‚·‚é
+        //ç¾åœ¨ãƒšãƒ¼ã‚¸æ•°ã‚’å‰ãƒšãƒ¼ã‚¸ã«è¨­å®šã™ã‚‹
         searchForm.setCurrentPageNum(searchForm.getCurrentPageNum() - 1);
         return movePageInList(model, searchForm);
     }
 
     /**
-     * ˆê——‰æ–Ê‚ÅuŸ‚ÖvƒŠƒ“ƒN‰Ÿ‰º‚ÉŸƒy[ƒW‚ğ•\¦‚·‚é
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @return ˆê——‰æ–Ê‚Ö‚ÌƒpƒX
+     * ä¸€è¦§ç”»é¢ã§ã€Œæ¬¡ã¸ã€ãƒªãƒ³ã‚¯æŠ¼ä¸‹æ™‚ã«æ¬¡ãƒšãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ä¸€è¦§ç”»é¢ã¸ã®ãƒ‘ã‚¹
      */
-    @RequestMapping("/nextPage")
+    @GetMapping("/nextPage")
     public String nextPage(SearchForm searchForm, Model model){
-        //Œ»İƒy[ƒW”‚ğŸƒy[ƒW‚Éİ’è‚·‚é
+        //ç¾åœ¨ãƒšãƒ¼ã‚¸æ•°ã‚’æ¬¡ãƒšãƒ¼ã‚¸ã«è¨­å®šã™ã‚‹
         searchForm.setCurrentPageNum(searchForm.getCurrentPageNum() + 1);
         return movePageInList(model, searchForm);
     }
 
     /**
-     * ˆê——‰æ–Ê‚ÅuÅŒã‚ÖvƒŠƒ“ƒN‰Ÿ‰º‚ÉŸƒy[ƒW‚ğ•\¦‚·‚é
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @return ˆê——‰æ–Ê‚Ö‚ÌƒpƒX
+     * ä¸€è¦§ç”»é¢ã§ã€Œæœ€å¾Œã¸ã€ãƒªãƒ³ã‚¯æŠ¼ä¸‹æ™‚ã«æ¬¡ãƒšãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ä¸€è¦§ç”»é¢ã¸ã®ãƒ‘ã‚¹
      */
-    @RequestMapping("/lastPage")
+    @GetMapping("/lastPage")
     public String lastPage(SearchForm searchForm, Model model){
-        //Œ»İƒy[ƒW”‚ğÅIƒy[ƒW‚Éİ’è‚·‚é
+        //ç¾åœ¨ãƒšãƒ¼ã‚¸æ•°ã‚’æœ€çµ‚ãƒšãƒ¼ã‚¸ã«è¨­å®šã™ã‚‹
         searchForm.setCurrentPageNum(demoService.getAllPageNum(searchForm));
         return movePageInList(model, searchForm);
     }
 
     /**
-     * XVˆ—‚ğs‚¤‰æ–Ê‚É‘JˆÚ‚·‚é
-     * @param id XV‘ÎÛ‚ÌID
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @return “ü—ÍEXV‰æ–Ê‚Ö‚ÌƒpƒX
+     * æ›´æ–°å‡¦ç†ã‚’è¡Œã†ç”»é¢ã«é·ç§»ã™ã‚‹
+     * @param id æ›´æ–°å¯¾è±¡ã®ID
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return å…¥åŠ›ãƒ»æ›´æ–°ç”»é¢ã¸ã®ãƒ‘ã‚¹
      */
-    @RequestMapping("/update")
+    @GetMapping("/update")
     public String update(@RequestParam("id") String id, Model model){
-        //XV‘ÎÛ‚Ìƒ†[ƒU[ƒf[ƒ^‚ğæ“¾
+        //æ›´æ–°å¯¾è±¡ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
         DemoForm demoForm = demoService.findById(id);
-        //ƒ†[ƒU[ƒf[ƒ^‚ğXV
+        //ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’æ›´æ–°
         model.addAttribute("demoForm", demoForm);
         return "input";
     }
 
     /**
-     * íœŠm”F‰æ–Ê‚É‘JˆÚ‚·‚é
-     * @param id XV‘ÎÛ‚ÌID
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @return íœŠm”F‰æ–Ê‚Ö‚ÌƒpƒX
+     * å‰Šé™¤ç¢ºèªç”»é¢ã«é·ç§»ã™ã‚‹
+     * @param id æ›´æ–°å¯¾è±¡ã®ID
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return å‰Šé™¤ç¢ºèªç”»é¢ã¸ã®ãƒ‘ã‚¹
      */
-    @RequestMapping("/delete_confirm")
+    @GetMapping("/delete_confirm")
     public String delete_confirm(@RequestParam("id") String id, Model model){
-        //íœ‘ÎÛ‚Ìƒ†[ƒU[ƒf[ƒ^‚ğæ“¾
+        //å‰Šé™¤å¯¾è±¡ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
         DemoForm demoForm = demoService.findById(id);
-        //ƒ†[ƒU[ƒf[ƒ^‚ğXV
+        //ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’æ›´æ–°
         model.addAttribute("demoForm", demoForm);
         return "confirm_delete";
     }
 
     /**
-     * íœˆ—‚ğs‚¤
-     * @param demoForm ’Ç‰ÁEXV—pFormƒIƒuƒWƒFƒNƒg
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @return ˆê——‰æ–Ê‚Ì•\¦ˆ—
+     * å‰Šé™¤å‡¦ç†ã‚’è¡Œã†
+     * @param demoForm è¿½åŠ ãƒ»æ›´æ–°ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ä¸€è¦§ç”»é¢ã®è¡¨ç¤ºå‡¦ç†
      */
-    @RequestMapping(value = "/delete", params = "next")
-    public String delete(DemoForm demoForm, SearchForm searchForm, Model model){
-        //w’è‚µ‚½ƒ†[ƒU[ƒf[ƒ^‚ğíœ
+    @PostMapping(value = "/delete", params = "next")
+    public String delete(DemoForm demoForm){
+        //æŒ‡å®šã—ãŸãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’å‰Šé™¤
         demoService.deleteById(demoForm.getId());
-        //ˆê——‰æ–Ê‚É–ß‚èA1ƒy[ƒW–Ú‚ÌƒŠƒXƒg‚ğ•\¦‚·‚é
+        //ä¸€è¦§ç”»é¢ã«é·ç§»
+        return "redirect:/to_index";
+    }
+
+    /**
+     * å‰Šé™¤å®Œäº†å¾Œã«ä¸€è¦§ç”»é¢ã«æˆ»ã‚‹
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ä¸€è¦§ç”»é¢
+     */
+    @GetMapping("/to_index")
+    public String toIndex(SearchForm searchForm, Model model){
+        //ä¸€è¦§ç”»é¢ã«æˆ»ã‚Šã€1ãƒšãƒ¼ã‚¸ç›®ã®ãƒªã‚¹ãƒˆã‚’è¡¨ç¤ºã™ã‚‹
         searchForm.setCurrentPageNum(1);
         return movePageInList(model, searchForm);
     }
 
     /**
-     * íœŠm”F‰æ–Ê‚©‚çˆê——‰æ–Ê‚É–ß‚é
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @return ˆê——‰æ–Ê
+     * å‰Šé™¤ç¢ºèªç”»é¢ã‹ã‚‰ä¸€è¦§ç”»é¢ã«æˆ»ã‚‹
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ä¸€è¦§ç”»é¢
      */
-    @RequestMapping(value = "/delete", params = "back")
+    @PostMapping(value = "/delete", params = "back")
     public String confirmDeleteBack(Model model, SearchForm searchForm){
-        //ˆê——‰æ–Ê‚É–ß‚é
+        //ä¸€è¦§ç”»é¢ã«æˆ»ã‚‹
         return movePageInList(model, searchForm);
     }
 
     /**
-     * ’Ç‰Áˆ—‚ğs‚¤‰æ–Ê‚É‘JˆÚ‚·‚é
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @return “ü—ÍEXV‰æ–Ê‚Ö‚ÌƒpƒX
+     * è¿½åŠ å‡¦ç†ã‚’è¡Œã†ç”»é¢ã«é·ç§»ã™ã‚‹
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return å…¥åŠ›ãƒ»æ›´æ–°ç”»é¢ã¸ã®ãƒ‘ã‚¹
      */
-    @RequestMapping(value = "/add", params = "next")
+    @PostMapping(value = "/add", params = "next")
     public String add(Model model){
         model.addAttribute("demoForm", new DemoForm());
         return "input";
     }
 
     /**
-     * ’Ç‰Áˆ—‚ğs‚¤‰æ–Ê‚©‚çŒŸõ‰æ–Ê‚É–ß‚é
-     * @return ŒŸõ‰æ–Ê‚Ö‚ÌƒpƒX
+     * è¿½åŠ å‡¦ç†ã‚’è¡Œã†ç”»é¢ã‹ã‚‰æ¤œç´¢ç”»é¢ã«æˆ»ã‚‹
+     * @return æ¤œç´¢ç”»é¢ã¸ã®ãƒ‘ã‚¹
      */
-    @RequestMapping(value = "/add", params = "back")
+    @PostMapping(value = "/add", params = "back")
     public String addBack(){
         return "search";
     }
 
     /**
-     * ƒGƒ‰[ƒ`ƒFƒbƒN‚ğs‚¢AƒGƒ‰[‚ª–³‚¯‚ê‚ÎŠm”F‰æ–Ê‚É‘JˆÚ‚µA
-     * ƒGƒ‰[‚ª‚ ‚ê‚Î“ü—Í‰æ–Ê‚Ì‚Ü‚Ü‚Æ‚·‚é
-     * @param demoForm ’Ç‰ÁEXV—pFormƒIƒuƒWƒFƒNƒg
-     * @param result ƒoƒCƒ“ƒhŒ‹‰Ê
-     * @return Šm”F‰æ–Ê‚Ü‚½‚Í“ü—Í‰æ–Ê‚Ö‚ÌƒpƒX
+     * ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã„ã€ã‚¨ãƒ©ãƒ¼ãŒç„¡ã‘ã‚Œã°ç¢ºèªç”»é¢ã«é·ç§»ã—ã€
+     * ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚Œã°å…¥åŠ›ç”»é¢ã®ã¾ã¾ã¨ã™ã‚‹
+     * @param demoForm è¿½åŠ ãƒ»æ›´æ–°ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param result ãƒã‚¤ãƒ³ãƒ‰çµæœ
+     * @return ç¢ºèªç”»é¢ã¾ãŸã¯å…¥åŠ›ç”»é¢ã¸ã®ãƒ‘ã‚¹
      */
-    @RequestMapping(value = "/confirm", params = "next")
-    public String confirm(@Valid DemoForm demoForm, BindingResult result){
-        //¶”NŒ“ú‚Ì“ú•tƒ`ƒFƒbƒNˆ—‚ğs‚¢A‰æ–Ê‘JˆÚ‚·‚é
-        return demoService.checkForm(demoForm, result);
+    @PostMapping(value = "/confirm", params = "next")
+    public String confirm(@Validated DemoForm demoForm, BindingResult result){
+        //ç”Ÿå¹´æœˆæ—¥ã®æ—¥ä»˜ãƒã‚§ãƒƒã‚¯å‡¦ç†ã‚’è¡Œã„ã€ç”»é¢é·ç§»ã™ã‚‹
+        return demoService.checkForm(demoForm, result, "confirm");
     }
 
     /**
-     * ˆê——‰æ–Ê‚É–ß‚é
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @return ˆê——‰æ–Ê‚Ì•\¦ˆ—
+     * ä¸€è¦§ç”»é¢ã«æˆ»ã‚‹
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ä¸€è¦§ç”»é¢ã®è¡¨ç¤ºå‡¦ç†
      */
-    @RequestMapping(value = "/confirm", params = "back")
+    @PostMapping(value = "/confirm", params = "back")
     public String confirmBack(Model model, SearchForm searchForm){
-        //ˆê——‰æ–Ê‚É–ß‚é
+        //ä¸€è¦§ç”»é¢ã«æˆ»ã‚‹
         return movePageInList(model, searchForm);
     }
 
     /**
-     * Š®—¹‰æ–Ê‚É‘JˆÚ‚·‚é
-     * @param demoForm ’Ç‰ÁEXV—pFormƒIƒuƒWƒFƒNƒg
-     * @param sessionStatus ƒZƒbƒVƒ‡ƒ“ƒXƒe[ƒ^ƒX
-     * @return Š®—¹‰æ–Ê
+     * å®Œäº†ç”»é¢ã«é·ç§»ã™ã‚‹
+     * @param demoForm è¿½åŠ ãƒ»æ›´æ–°ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param result ãƒã‚¤ãƒ³ãƒ‰çµæœ
+     * @return å®Œäº†ç”»é¢
      */
-    @RequestMapping(value = "/send", params = "next")
-    public String send(DemoForm demoForm, SessionStatus sessionStatus){
-        //ƒ†[ƒU[ƒf[ƒ^‚ª‚ ‚ê‚ÎXV‚µA–³‚¯‚ê‚Îíœ
-        demoService.createOrUpdate(demoForm);
-        //ƒZƒbƒVƒ‡ƒ“ƒIƒuƒWƒFƒNƒg‚ğ”jŠü
+    @PostMapping(value = "/send", params = "next")
+    public String send(@Validated DemoForm demoForm, BindingResult result){
+        //ãƒã‚§ãƒƒã‚¯å‡¦ç†ã‚’è¡Œã„ã€ã‚¨ãƒ©ãƒ¼ãŒãªã‘ã‚Œã°ã€æ›´æ–°ãƒ»è¿½åŠ å‡¦ç†ã‚’è¡Œã†
+        String normalPath = "redirect:/complete";
+        String checkPath = demoService.checkForm(demoForm, result, "redirect:/complete");
+        if(normalPath.equals(checkPath)){
+            demoService.createOrUpdate(demoForm);
+        }
+        return checkPath;
+    }
+
+    /**
+     * å®Œäº†ç”»é¢ã«é·ç§»ã™ã‚‹
+     * @return å®Œäº†ç”»é¢
+     */
+    @GetMapping("/complete")
+    public String complete(SessionStatus sessionStatus){
+        //ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç ´æ£„
         sessionStatus.setComplete();
         return "complete";
     }
 
     /**
-     * “ü—Í‰æ–Ê‚É–ß‚é
-     * @return “ü—Í‰æ–Ê
+     * å…¥åŠ›ç”»é¢ã«æˆ»ã‚‹
+     * @return å…¥åŠ›ç”»é¢
      */
-    @RequestMapping(value = "/send", params = "back")
+    @PostMapping(value = "/send", params = "back")
     public String sendBack(){
         return "input";
     }
 
     /**
-     * ˆê——‰æ–Ê‚É–ß‚èAw’è‚µ‚½Œ»İƒy[ƒW‚ÌƒŠƒXƒg‚ğ•\¦‚·‚é
-     * @param model ModelƒIƒuƒWƒFƒNƒg
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @return ˆê——‰æ–Ê‚Ì•\¦ˆ—
+     * ä¸€è¦§ç”»é¢ã«æˆ»ã‚Šã€æŒ‡å®šã—ãŸç¾åœ¨ãƒšãƒ¼ã‚¸ã®ãƒªã‚¹ãƒˆã‚’è¡¨ç¤ºã™ã‚‹
+     * @param model Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ä¸€è¦§ç”»é¢ã®è¡¨ç¤ºå‡¦ç†
      */
     private String movePageInList(Model model, SearchForm searchForm){
-        //Œ»İƒy[ƒW”, ‘ƒy[ƒW”‚ğİ’è
+        //ç¾åœ¨ãƒšãƒ¼ã‚¸æ•°, ç·ãƒšãƒ¼ã‚¸æ•°ã‚’è¨­å®š
         model.addAttribute("currentPageNum", searchForm.getCurrentPageNum());
         model.addAttribute("allPageNum", demoService.getAllPageNum(searchForm));
-        //ƒy[ƒWƒ“ƒO—pƒIƒuƒWƒFƒNƒg‚ğ¶¬‚µAŒ»İƒy[ƒW‚Ìƒ†[ƒU[ƒf[ƒ^ƒŠƒXƒg‚ğæ“¾
+        //ãƒšãƒ¼ã‚¸ãƒ³ã‚°ç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã€ç¾åœ¨ãƒšãƒ¼ã‚¸ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒªã‚¹ãƒˆã‚’å–å¾—
         Pageable pageable = demoService.getPageable(searchForm.getCurrentPageNum());
         List<DemoForm> demoFormList = demoService.demoFormList(searchForm, pageable);
-        //ƒ†[ƒU[ƒf[ƒ^ƒŠƒXƒg‚ğXV
+        //ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒªã‚¹ãƒˆã‚’æ›´æ–°
         model.addAttribute("demoFormList", demoFormList);
         return "list";
     }

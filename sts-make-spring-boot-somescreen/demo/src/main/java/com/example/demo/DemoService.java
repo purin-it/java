@@ -7,59 +7,60 @@ import java.util.List;
 public interface DemoService {
 
     /**
-     * ƒ†[ƒU[ƒf[ƒ^ƒŠƒXƒg‚ğæ“¾
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @param pageable ƒy[ƒWƒl[ƒVƒ‡ƒ“ƒIƒuƒWƒFƒNƒg
-     * @return ƒ†[ƒU[ƒf[ƒ^ƒŠƒXƒg
+     * ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒªã‚¹ãƒˆã‚’å–å¾—
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param pageable ãƒšãƒ¼ã‚¸ãƒãƒ¼ã‚·ãƒ§ãƒ³ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒªã‚¹ãƒˆ
      */
     List<DemoForm> demoFormList(SearchForm searchForm, Pageable pageable);
 
     /**
-     * ˆø”‚ÌID‚É‘Î‰‚·‚éƒ†[ƒU[ƒf[ƒ^‚ğæ“¾
+     * å¼•æ•°ã®IDã«å¯¾å¿œã™ã‚‹ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
      * @param id ID
-     * @return ƒ†[ƒU[ƒf[ƒ^
+     * @return ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿
      */
     DemoForm findById(String id);
 
     /**
-     * ˆø”‚ÌID‚É‘Î‰‚·‚éƒ†[ƒU[ƒf[ƒ^‚ğíœ
+     * å¼•æ•°ã®IDã«å¯¾å¿œã™ã‚‹ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‚’å‰Šé™¤
      * @param id ID
      */
     void deleteById(String id);
 
     /**
-     * ˆø”‚Ìƒ†[ƒU[ƒf[ƒ^‚ª‚ ‚ê‚ÎXV‚µA–³‚¯‚ê‚Îíœ
-     * @param demoForm ’Ç‰ÁEXV—pFormƒIƒuƒWƒFƒNƒg
+     * å¼•æ•°ã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Œã°æ›´æ–°ã—ã€ç„¡ã‘ã‚Œã°å‰Šé™¤
+     * @param demoForm è¿½åŠ ãƒ»æ›´æ–°ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      */
     void createOrUpdate(DemoForm demoForm);
 
     /**
-     * ¶”NŒ“ú‚Ì“ú•tƒ`ƒFƒbƒNˆ—‚ğs‚¢A‰æ–Ê‘JˆÚæ‚ğ•Ô‚·
-     * @param demoForm ’Ç‰ÁEXV—pFormƒIƒuƒWƒFƒNƒg
-     * @param result ƒoƒCƒ“ƒhŒ‹‰Ê
-     * @return ‰æ–Ê‘JˆÚæ
+     * è¿½åŠ ãƒ»æ›´æ–°ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚§ãƒƒã‚¯å‡¦ç†ã‚’è¡Œã„ã€ç”»é¢é·ç§»å…ˆã‚’è¿”ã™
+     * @param demoForm è¿½åŠ ãƒ»æ›´æ–°ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param result ãƒã‚¤ãƒ³ãƒ‰çµæœ
+     * @param normalPath æ­£å¸¸æ™‚ã®ç”»é¢é·ç§»å…ˆ
+     * @return ç”»é¢é·ç§»å…ˆ
      */
-    String checkForm(DemoForm demoForm, BindingResult result);
+    String checkForm(DemoForm demoForm, BindingResult result, String normalPath);
 
     /**
-     * ¶”NŒ“ú‚Ì“ú•tƒ`ƒFƒbƒNˆ—‚ğs‚¢A‰æ–Ê‘JˆÚæ‚ğ•Ô‚·
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @param result ƒoƒCƒ“ƒhŒ‹‰Ê
-     * @return ‰æ–Ê‘JˆÚæ
+     * æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚§ãƒƒã‚¯å‡¦ç†ã‚’è¡Œã„ã€ç”»é¢é·ç§»å…ˆã‚’è¿”ã™
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param result ãƒã‚¤ãƒ³ãƒ‰çµæœ
+     * @return ç”»é¢é·ç§»å…ˆ
      */
     String checkSearchForm(SearchForm searchForm, BindingResult result);
 
     /**
-     * ƒ†[ƒU[ŒŸõ‚É—˜—p‚·‚éƒy[ƒWƒ“ƒO—pƒIƒuƒWƒFƒNƒg‚ğ¶¬‚·‚é
-     * @param pageNumber ƒy[ƒW”Ô†
-     * @return ƒy[ƒWƒ“ƒO—pƒIƒuƒWƒFƒNƒg
+     * ãƒ¦ãƒ¼ã‚¶ãƒ¼æ¤œç´¢æ™‚ã«åˆ©ç”¨ã™ã‚‹ãƒšãƒ¼ã‚¸ãƒ³ã‚°ç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹
+     * @param pageNumber ãƒšãƒ¼ã‚¸ç•ªå·
+     * @return ãƒšãƒ¼ã‚¸ãƒ³ã‚°ç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
      */
     Pageable getPageable(int pageNumber);
 
     /**
-     * ˆê——‰æ–Ê‚Ì‘Sƒy[ƒW”‚ğæ“¾‚·‚é
-     * @param searchForm ŒŸõ—pFormƒIƒuƒWƒFƒNƒg
-     * @return ‘Sƒy[ƒW”
+     * ä¸€è¦§ç”»é¢ã®å…¨ãƒšãƒ¼ã‚¸æ•°ã‚’å–å¾—ã™ã‚‹
+     * @param searchForm æ¤œç´¢ç”¨Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return å…¨ãƒšãƒ¼ã‚¸æ•°
      */
     int getAllPageNum(SearchForm searchForm);
 }

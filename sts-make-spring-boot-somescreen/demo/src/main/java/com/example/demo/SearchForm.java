@@ -5,39 +5,39 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * FormƒIƒuƒWƒFƒNƒg‚ÌƒNƒ‰ƒX
+ * Formã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¯ãƒ©ã‚¹
  */
 @Data
 public class SearchForm {
 
-    /** ŒŸõ—p–¼‘O */
+    /** æ¤œç´¢ç”¨åå‰ */
     private String searchName;
 
-    /** ¶”NŒ“ú_”N_from */
+    /** ç”Ÿå¹´æœˆæ—¥_å¹´_from */
     private String fromBirthYear;
 
-    /** ¶”NŒ“ú_Œ_from */
+    /** ç”Ÿå¹´æœˆæ—¥_æœˆ_from */
     private String fromBirthMonth;
 
-    /** ¶”NŒ“ú_“ú_from */
+    /** ç”Ÿå¹´æœˆæ—¥_æ—¥_from */
     private String fromBirthDay;
 
-    /** ¶”NŒ“ú_”N_to */
+    /** ç”Ÿå¹´æœˆæ—¥_å¹´_to */
     private String toBirthYear;
 
-    /** ¶”NŒ“ú_Œ_to */
+    /** ç”Ÿå¹´æœˆæ—¥_æœˆ_to */
     private String toBirthMonth;
 
-    /** ¶”NŒ“ú_“ú_to */
+    /** ç”Ÿå¹´æœˆæ—¥_æ—¥_to */
     private String toBirthDay;
 
-    /** ŒŸõ—p«•Ê */
+    /** æ¤œç´¢ç”¨æ€§åˆ¥ */
     private String searchSex;
 
-    /** ˆê——‰æ–Ê‚ÌŒ»İƒy[ƒW” */
+    /** ä¸€è¦§ç”»é¢ã®ç¾åœ¨ãƒšãƒ¼ã‚¸æ•° */
     private int currentPageNum;
 
-    /** ¶”NŒ“ú_Œ‚ÌMapƒIƒuƒWƒFƒNƒg */
+    /** ç”Ÿå¹´æœˆæ—¥_æœˆã®Mapã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
     public Map<String,String> getMonthItems(){
         Map<String, String> monthMap = new LinkedHashMap<String, String>();
         for(int i = 1; i <= 12; i++){
@@ -46,7 +46,7 @@ public class SearchForm {
         return monthMap;
     }
 
-    /** ¶”NŒ“ú_“ú‚ÌMapƒIƒuƒWƒFƒNƒg */
+    /** ç”Ÿå¹´æœˆæ—¥_æ—¥ã®Mapã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
     public Map<String,String> getDayItems(){
         Map<String, String> dayMap = new LinkedHashMap<String, String>();
         for(int i = 1; i <= 31; i++){
@@ -55,11 +55,11 @@ public class SearchForm {
         return dayMap;
     }
 
-    /** «•Ê‚ÌMapƒIƒuƒWƒFƒNƒg */
+    /** æ€§åˆ¥ã®Mapã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
     public Map<String,String> getSexItems(){
         Map<String, String> sexMap = new LinkedHashMap<String, String>();
-        sexMap.put("1", "’j");
-        sexMap.put("2", "—");
+        sexMap.put("1", "ç”·");
+        sexMap.put("2", "å¥³");
         return sexMap;
     }
 }

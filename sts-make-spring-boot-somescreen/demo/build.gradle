@@ -13,7 +13,7 @@ repositories {
 }
 
 configurations {
-	//log4j2‚ğ—˜—p‚·‚é‚½‚ßASpring BootƒfƒtƒHƒ‹ƒg‚ÌLogback‚ğ—˜—p‚µ‚È‚¢‚æ‚¤İ’è
+	//log4j2ã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã€Spring Bootãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®Logbackã‚’åˆ©ç”¨ã—ãªã„ã‚ˆã†è¨­å®š
 	all*.exclude module : 'spring-boot-starter-logging'
 }
 
@@ -23,23 +23,23 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	//lombok‚Ìİ’è
+	//lombokã®è¨­å®š
 	compileOnly 'org.projectlombok:lombok:1.18.10'
 	annotationProcessor 'org.projectlombok:lombok:1.18.10'
-	//oracle, mybatis‚ğ—˜—p‚·‚é‚½‚ß‚Ìİ’è
+	//oracle, mybatisã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã®è¨­å®š
 	compile files('lib/ojdbc6.jar')
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
 	compile group: 'org.springframework.data', name: 'spring-data-commons-core', version: '1.1.0.RELEASE'
-	//log4j2‚ğ—˜—p‚·‚é‚½‚ß‚Ìİ’è
+	//log4j2ã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã®è¨­å®š
 	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.12.1'
 	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.1'
-	//AOP‚ğ—˜—p‚·‚é‚½‚ß‚Ìİ’è
-	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.6.10'
-	//log4j2‚Ìİ’è‚Åymlƒtƒ@ƒCƒ‹‚ğ—˜—p‚·‚é‚½‚ß‚Ìİ’è
+	//AOPã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã®è¨­å®š
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
+	//log4j2ã®è¨­å®šã§ymlãƒ•ã‚¡ã‚¤ãƒ«ã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã®è¨­å®š
 	compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.1'
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.10.1'
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.1'
-	//Apache Common JEXL‚ğ—˜—p‚·‚é‚½‚ß‚Ìİ’è
+	//Apache Common JEXLã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã®è¨­å®š
 	compile group: 'org.apache.commons', name: 'commons-jexl3', version: '3.0'
 }
 

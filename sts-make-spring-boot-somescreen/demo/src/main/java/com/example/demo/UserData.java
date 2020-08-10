@@ -3,7 +3,7 @@ package com.example.demo;
 import lombok.Data;
 
 /**
- * ƒ†[ƒU[ƒf[ƒ^ƒe[ƒuƒ‹(user_data)ƒAƒNƒZƒX—pƒGƒ“ƒeƒBƒeƒB
+ * ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ†ãƒ¼ãƒ–ãƒ«(user_data)ã‚¢ã‚¯ã‚»ã‚¹ç”¨ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£
  */
 @Data
 public class UserData {
@@ -11,25 +11,25 @@ public class UserData {
     /** ID */
     private long id;
 
-    /** –¼‘O */
+    /** åå‰ */
     private String name;
 
-    /** ¶”NŒ“ú_”N */
+    /** ç”Ÿå¹´æœˆæ—¥_å¹´ */
     private int birthY;
 
-    /** ¶”NŒ“ú_Œ */
+    /** ç”Ÿå¹´æœˆæ—¥_æœˆ */
     private int birthM;
 
-    /** ¶”NŒ“ú_“ú */
+    /** ç”Ÿå¹´æœˆæ—¥_æ—¥ */
     private int birthD;
 
-    /** «•Ê */
+    /** æ€§åˆ¥ */
     private String sex;
 
-    /** ƒƒ‚ */
+    /** ãƒ¡ãƒ¢ */
     private String memo;
 
-    /** «•Ê(•¶š—ñ) */
+    /** æ€§åˆ¥(æ–‡å­—åˆ—) */
     private String sex_value;
 
 }

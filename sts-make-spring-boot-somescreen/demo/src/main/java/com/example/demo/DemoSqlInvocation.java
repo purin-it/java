@@ -25,9 +25,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Properties;
 
-//select, update, insert, delete‚ÌŠeSQL‚ğÀs‚·‚éƒ^ƒCƒ~ƒ“ƒO‚ÅA
-//‚±‚ÌƒNƒ‰ƒX‚Ìinterceptƒƒ\ƒbƒh‚ªŒÄ‚Î‚ê‚é‚æ‚¤‚ÉA
-//@InterceptsE@Signature‚ÌƒAƒmƒe[ƒVƒ‡ƒ“‚ğ‰º‹L‚Ì‚æ‚¤‚Éİ’è
+//select, update, insert, deleteã®å„SQLã‚’å®Ÿè¡Œã™ã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§ã€
+//ã“ã®ã‚¯ãƒ©ã‚¹ã®interceptãƒ¡ã‚½ãƒƒãƒ‰ãŒå‘¼ã°ã‚Œã‚‹ã‚ˆã†ã«ã€
+//@Interceptsãƒ»@Signatureã®ã‚¢ãƒãƒ†ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ä¸‹è¨˜ã®ã‚ˆã†ã«è¨­å®š
 @Intercepts({
         @Signature(type = Executor.class
                 , method = "update"
@@ -40,37 +40,37 @@ import java.util.Properties;
 @Component
 public class DemoSqlInvocation implements Interceptor {
 
-    //ƒƒOo—Í‚Ì‚½‚ß‚ÌƒNƒ‰ƒX
+    //ãƒ­ã‚°å‡ºåŠ›ã®ãŸã‚ã®ã‚¯ãƒ©ã‚¹
     private Logger logger = LogManager.getLogger(DemoSqlInvocation.class);
 
-    //SQL‚Éƒ}ƒbƒsƒ“ƒO‚³‚ê‚éƒpƒ‰ƒ[ƒ^–¼‚É‘Î‰‚·‚éƒpƒ‰ƒ[ƒ^’l‚ğæ“¾‚·‚é‚½‚ß‚É
-    //JexlEngineƒIƒuƒWƒFƒNƒg‚ğ—˜—p
+    //SQLã«ãƒãƒƒãƒ”ãƒ³ã‚°ã•ã‚Œã‚‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åã«å¯¾å¿œã™ã‚‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å€¤ã‚’å–å¾—ã™ã‚‹ãŸã‚ã«
+    //JexlEngineã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’åˆ©ç”¨
     private JexlEngine engine = new JexlBuilder().create();
 
     /**
-     * SQLÀs‘OŒã‚Éˆ—‚ğ’Ç‰Á‚·‚é
+     * SQLå®Ÿè¡Œå‰å¾Œã«å‡¦ç†ã‚’è¿½åŠ ã™ã‚‹
      *
-     * @param invocation@ƒƒ\ƒbƒhŒÄo—pƒIƒuƒWƒFƒNƒg
-     * @return SQLÀsƒƒ\ƒbƒh‚Ì–ß‚è’l
+     * @param invocationã€€ãƒ¡ã‚½ãƒƒãƒ‰å‘¼å‡ºç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return SQLå®Ÿè¡Œãƒ¡ã‚½ãƒƒãƒ‰ã®æˆ»ã‚Šå€¤
      * @throws Throwable
      */
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
-        //•Ô‹pƒIƒuƒWƒFƒNƒg‚ğ’è‹`
+        //è¿”å´ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å®šç¾©
         Object returnObj = null;
 
-        //SQLÀsƒƒ\ƒbƒh‚ğÀs‚µA‚»‚ÌŠJnEI—¹‚àæ“¾
+        //SQLå®Ÿè¡Œãƒ¡ã‚½ãƒƒãƒ‰ã‚’å®Ÿè¡Œã—ã€ãã®é–‹å§‹ãƒ»çµ‚äº†æ™‚åˆ»ã‚‚å–å¾—
         long start = System.currentTimeMillis();
         returnObj = invocation.proceed();
         long end = System.currentTimeMillis();
 
-        //SQLÀsŠÔAÀsƒƒ\ƒbƒh–¼(ƒtƒ‹ƒpƒX)‚ğo—Í
+        //SQLå®Ÿè¡Œæ™‚é–“ã€å®Ÿè¡Œãƒ¡ã‚½ãƒƒãƒ‰å(ãƒ•ãƒ«ãƒ‘ã‚¹)ã‚’å‡ºåŠ›
         MappedStatement statement = (MappedStatement)invocation.getArgs()[0];
         String[] items = statement.getId().split("\\.");
-        logger.info("ÀsŠÔ: {} ms. Àsƒƒ\ƒbƒh: {}"
+        logger.info("å®Ÿè¡Œæ™‚é–“: {} ms. å®Ÿè¡Œãƒ¡ã‚½ãƒƒãƒ‰: {}"
                 , end-start, String.join(".", items));
 
-        //SQLƒƒO‚ğo—Í
+        //SQLãƒ­ã‚°ã‚’å‡ºåŠ›
         Object parameter = invocation.getArgs()[1];
         BoundSql boundSql = statement.getBoundSql(parameter);
         logger.info("Preparing: {}", shapingSql(boundSql.getSql()));
@@ -90,9 +90,9 @@ public class DemoSqlInvocation implements Interceptor {
     }
 
     /**
-     * ˆø”‚ÌSQL•¶‚©‚çA‰üsƒR[ƒh(LF)‚Æ˜A‘±‚·‚é‹ó”’•¶š‚ğœ‚­
-     * @param beforeSql SQL•¶
-     * @return ®Œ`Œã‚ÌSQL•¶
+     * å¼•æ•°ã®SQLæ–‡ã‹ã‚‰ã€æ”¹è¡Œã‚³ãƒ¼ãƒ‰(LF)ã¨é€£ç¶šã™ã‚‹ç©ºç™½æ–‡å­—ã‚’é™¤ã
+     * @param beforeSql SQLæ–‡
+     * @return æ•´å½¢å¾Œã®SQLæ–‡
      */
     private String shapingSql(String beforeSql){
         if(DateCheckUtil.isEmpty(beforeSql)){
@@ -103,40 +103,40 @@ public class DemoSqlInvocation implements Interceptor {
     }
 
     /**
-     * ˆø”‚ÌBoundSql‚©‚çASQL‚É–„‚ß‚Ü‚ê‚éƒpƒ‰ƒ[ƒ^’l‚ğæ“¾‚·‚é
-     * @param boundSql BoundSqlƒIƒuƒWƒFƒNƒg
-     * @return SQL‚É–„‚ß‚Ü‚ê‚éƒpƒ‰ƒ[ƒ^’l
+     * å¼•æ•°ã®BoundSqlã‹ã‚‰ã€SQLã«åŸ‹ã‚è¾¼ã¾ã‚Œã‚‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å€¤ã‚’å–å¾—ã™ã‚‹
+     * @param boundSql BoundSqlã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @return SQLã«åŸ‹ã‚è¾¼ã¾ã‚Œã‚‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å€¤
      */
     private String getParameterValues(final BoundSql boundSql) {
-        //•Ô‹p—p–ß‚è’l‚ğŠi”[
+        //è¿”å´ç”¨æˆ»ã‚Šå€¤ã‚’æ ¼ç´
         StringBuilder builder = new StringBuilder();
-        //ƒpƒ‰ƒ[ƒ^’l‚ğæ“¾
+        //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å€¤ã‚’å–å¾—
         Object param = boundSql.getParameterObject();
         if(param == null){
-            //ƒpƒ‰ƒ[ƒ^‚Ìİ’è‚ª–³‚¢ê‡‚ÍA(No Params.)‚ğ•Ô‹p
+            //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®è¨­å®šãŒç„¡ã„å ´åˆã¯ã€(No Params.)ã‚’è¿”å´
             builder.append("(No Params.)");
             return builder.toString();
         }
-        //SQL‚Éƒ}ƒbƒsƒ“ƒO‚³‚ê‚éƒpƒ‰ƒ[ƒ^–¼‚ğæ“¾
+        //SQLã«ãƒãƒƒãƒ”ãƒ³ã‚°ã•ã‚Œã‚‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åã‚’å–å¾—
         List<ParameterMapping> paramMapping = boundSql.getParameterMappings();
-        //SQL‚Éƒ}ƒbƒsƒ“ƒO‚³‚ê‚éƒpƒ‰ƒ[ƒ^–¼‚É‘Î‰‚·‚éƒpƒ‰ƒ[ƒ^’l‚ğæ“¾‚µA
-        //•Ô‹p—p–ß‚è’l‚É‡ŸŠi”[‚·‚é
+        //SQLã«ãƒãƒƒãƒ”ãƒ³ã‚°ã•ã‚Œã‚‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åã«å¯¾å¿œã™ã‚‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å€¤ã‚’å–å¾—ã—ã€
+        //è¿”å´ç”¨æˆ»ã‚Šå€¤ã«é †æ¬¡æ ¼ç´ã™ã‚‹
         for (ParameterMapping mapping : paramMapping) {
             String propValue = mapping.getProperty();
             builder.append(propValue + "=");
             try {
-                //SQL‚Éƒ}ƒbƒsƒ“ƒO‚³‚ê‚éƒpƒ‰ƒ[ƒ^–¼‚É‘Î‰‚·‚éƒpƒ‰ƒ[ƒ^’l‚ğæ“¾
+                //SQLã«ãƒãƒƒãƒ”ãƒ³ã‚°ã•ã‚Œã‚‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åã«å¯¾å¿œã™ã‚‹ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å€¤ã‚’å–å¾—
                 builder.append(engine.getProperty(param, propValue));
                 builder.append(", ");
             } catch (JexlException e) {
-                //ƒpƒ‰ƒ[ƒ^’l‚ªLongŒ^‚Ìê‡“™‚ÍJexlException‚ª”­¶‚·‚é‚½‚ß
-                //ƒpƒ‰ƒ[ƒ^’l‚ğ‚»‚Ì‚Ü‚Üw’è‚·‚é
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å€¤ãŒLongå‹ã®å ´åˆç­‰ã¯JexlExceptionãŒç™ºç”Ÿã™ã‚‹ãŸã‚
+                //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å€¤ã‚’ãã®ã¾ã¾æŒ‡å®šã™ã‚‹
                 builder.append(param);
                 builder.append(", ");
                 continue;
             }
         }
-        //•Ô‹p—p–ß‚è’l‚ÌÅŒã‚ÌƒJƒ“ƒ}‚ğœ‚­
+        //è¿”å´ç”¨æˆ»ã‚Šå€¤ã®æœ€å¾Œã®ã‚«ãƒ³ãƒã‚’é™¤ã
         if(builder.lastIndexOf(", ") > 0){
             builder.deleteCharAt(builder.lastIndexOf(", "));
         }

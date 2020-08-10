@@ -19,18 +19,18 @@ public class DemoApplication implements WebMvcConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 
-		//Log4j2‚ÅƒƒOo—Í‚ğs‚¤
+		//Log4j2ã§ãƒ­ã‚°å‡ºåŠ›ã‚’è¡Œã†
 		Logger logger = LogManager.getLogger(DemoApplication.class);
-		logger.debug("‚±‚ê‚ÍDEBUG(ƒfƒoƒbƒO)‚ÌƒeƒXƒg—pƒƒO‚Å‚·");
-		logger.info("‚±‚ê‚ÍINFO(î•ñ)‚ÌƒeƒXƒg—pƒƒO‚Å‚·");
-		logger.warn("‚±‚ê‚ÍWARN(Œx)‚ÌƒeƒXƒg—pƒƒO‚Å‚·");
-		logger.error("‚±‚ê‚ÍERROR(ƒGƒ‰[)‚ÌƒeƒXƒg—pƒƒO‚Å‚·B");
+		logger.debug("ã“ã‚Œã¯DEBUG(ãƒ‡ãƒãƒƒã‚°)ã®ãƒ†ã‚¹ãƒˆç”¨ãƒ­ã‚°ã§ã™");
+		logger.info("ã“ã‚Œã¯INFO(æƒ…å ±)ã®ãƒ†ã‚¹ãƒˆç”¨ãƒ­ã‚°ã§ã™");
+		logger.warn("ã“ã‚Œã¯WARN(è­¦å‘Š)ã®ãƒ†ã‚¹ãƒˆç”¨ãƒ­ã‚°ã§ã™");
+		logger.error("ã“ã‚Œã¯ERROR(ã‚¨ãƒ©ãƒ¼)ã®ãƒ†ã‚¹ãƒˆç”¨ãƒ­ã‚°ã§ã™ã€‚");
 	}
 
 	@Bean
 	public LocalValidatorFactoryBean validator() {
-		//Spring BootƒfƒtƒHƒ‹ƒg‚ÌƒGƒ‰[ƒƒbƒZ[ƒW‚ÌƒvƒƒpƒeƒBƒtƒ@ƒCƒ‹‚ğ
-		//ValidationMessages.properties‚©‚çmessages.properties‚É•ÏX‚·‚é
+		//Spring Bootãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãƒ•ã‚¡ã‚¤ãƒ«ã‚’
+		//ValidationMessages.propertiesã‹ã‚‰messages.propertiesã«å¤‰æ›´ã™ã‚‹
 		LocalValidatorFactoryBean localValidatorFactoryBean = new LocalValidatorFactoryBean();
 		localValidatorFactoryBean.setValidationMessageSource(messageSource);
 		return localValidatorFactoryBean;
