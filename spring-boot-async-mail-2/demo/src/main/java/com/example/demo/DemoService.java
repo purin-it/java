@@ -34,15 +34,16 @@ public interface DemoService {
     void createOrUpdate(DemoForm demoForm);
 
     /**
-     * 生年月日の日付チェック処理を行い、画面遷移先を返す
+     * 追加・更新用Formオブジェクトのチェック処理を行い、画面遷移先を返す
      * @param demoForm 追加・更新用Formオブジェクト
      * @param result バインド結果
+     * @param normalPath 正常時の画面遷移先
      * @return 画面遷移先
      */
-    String checkForm(DemoForm demoForm, BindingResult result);
+    String checkForm(DemoForm demoForm, BindingResult result, String normalPath);
 
     /**
-     * 生年月日の日付チェック処理を行い、画面遷移先を返す
+     * 検索用Formオブジェクトのチェック処理を行い、画面遷移先を返す
      * @param searchForm 検索用Formオブジェクト
      * @param result バインド結果
      * @return 画面遷移先
