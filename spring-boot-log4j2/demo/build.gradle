@@ -31,5 +31,5 @@ dependencies {
 	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.12.1'
 	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.12.1'
 	//AOPを利用するための設定
-	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.6.10'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
 }
