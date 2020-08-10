@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.support.SessionStatus;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,12 +95,11 @@ public class DemoController {
     /**
      * 削除処理を行う
      * @param demoForm Formオブジェクト
-     * @param model Modelオブジェクト
      * @return 一覧画面の表示処理
      */
     @PostMapping(value = "/delete", params = "next")
     @Transactional(readOnly = false)
-    public String delete(DemoForm demoForm, Model model){
+    public String delete(DemoForm demoForm){
         UserData userData = getUserData(demoForm);
         repository.delete(userData);
         return "redirect:/to_index";
