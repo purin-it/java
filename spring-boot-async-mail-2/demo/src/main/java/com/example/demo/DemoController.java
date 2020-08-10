@@ -271,6 +271,7 @@ public class DemoController {
 
     /**
      * 完了画面に遷移する
+     * @param sessionStatus セッションステータス
      * @return 完了画面
      */
     @GetMapping("/complete")
