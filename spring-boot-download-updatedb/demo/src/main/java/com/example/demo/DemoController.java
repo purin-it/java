@@ -61,12 +61,11 @@ public class DemoController {
     /**
      * ファイルデータ登録処理
      * @param uploadFile アップロードファイル
-     * @param model Modelオブジェクト
      * @return ファイルデータ一覧表示処理
      */
     @PostMapping("/add")
     @Transactional(readOnly = false)
-    public String add(@RequestParam("upload_file") MultipartFile uploadFile, Model model){
+    public String add(@RequestParam("upload_file") MultipartFile uploadFile){
         //最大値IDを取得
         long maxId = fileDataMapper.getMaxId();
 
