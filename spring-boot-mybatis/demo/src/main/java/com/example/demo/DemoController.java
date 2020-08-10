@@ -166,6 +166,7 @@ public class DemoController {
     /**
      * 完了画面に遷移する
      * @param demoForm Formオブジェクト
+     * @param result バインド結果
      * @return 完了画面
      */
     @PostMapping(value = "/send", params = "next")
@@ -196,6 +197,7 @@ public class DemoController {
 
     /**
      * 完了画面に遷移する
+     * @param sessionStatus セッションステータス
      * @return 完了画面
      */
     @GetMapping("/complete")
