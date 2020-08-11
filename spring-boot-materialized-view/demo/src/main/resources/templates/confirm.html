@@ -6,7 +6,7 @@
 </head>
 <body>
 　　 <p>入力内容を確認し、問題なければ「送信」ボタンを押下してください。</p>
-    <form method="post" action="/send" th:object="${demoForm}">
+    <form method="post" th:action="@{/send}" th:object="${demoForm}">
         <table border="0">
             <tr>
                 <td align="left" valign="top">名前： </td>
