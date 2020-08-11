@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.support.SessionStatus;
-
-import javax.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,7 +141,7 @@ public class DemoController {
      * @return 確認画面または入力画面へのパス
      */
     @PostMapping(value = "/confirm", params = "next")
-    public String confirm(@Valid DemoForm demoForm, BindingResult result){
+    public String confirm(@Validated DemoForm demoForm, BindingResult result){
         //生年月日の日付チェック処理を行い、画面遷移する
         return demoService.checkForm(demoForm, result, "confirm");
     }
@@ -164,7 +163,7 @@ public class DemoController {
      * @return 完了画面
      */
     @RequestMapping(value = "/send", params = "next")
-    public String send(DemoForm demoForm, Model model, BindingResult result){
+    public String send(@Validated DemoForm demoForm, Model model, BindingResult result){
         //チェック処理を行い、エラーがなければ、更新・追加処理を行う
         String normalPath = "redirect:/complete";
         String checkPath = demoService.checkForm(demoForm, result, "redirect:/complete");
