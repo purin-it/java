@@ -215,7 +215,7 @@ public class DemoController {
      * @return 完了画面
      */
     @PostMapping(value = "/send", params = "next")
-    public String send(DemoForm demoForm, BindingResult result){
+    public String send(@Validated DemoForm demoForm, BindingResult result){
         //チェック処理を行い、エラーがなければ、更新・追加処理を行う
         String normalPath = "redirect:/complete";
         String checkPath = demoService.checkForm(demoForm, result, "redirect:/complete");
