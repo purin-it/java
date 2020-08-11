@@ -7,7 +7,7 @@
 </head>
 <body>
 　　<p>下記必要事項を記載の上、「確認」ボタンを押下してください。</p><br/>
-   <form method="post" action="/confirm" th:object="${demoForm}">
+   <form method="post" th:action="@{/confirm}" th:object="${demoForm}">
        <table border="0">
            <tr>
                <td align="left" valign="top">名前：</td>
@@ -53,6 +53,8 @@
                    </for>
                    <span th:if="*{#fields.hasErrors('sex')}"
                          th:errors="*{sex}" class="errorMessage"></span>
+                   <span th:if="*{#fields.hasErrors('sexInvalid')}"
+                         th:errors="*{sexInvalid}" class="errorMessage"></span>
                </td>
            </tr>
            <tr>
