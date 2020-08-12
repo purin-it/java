@@ -23,7 +23,7 @@ dependencies {
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
 	compile group: 'org.springframework.data', name: 'spring-data-commons-core', version: '1.1.0.RELEASE'
 	//AOPを利用するための設定
-	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.6.10'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	//Atomikosを利用するための設定
 	implementation 'org.springframework.boot:spring-boot-starter-jta-atomikos'
 }
