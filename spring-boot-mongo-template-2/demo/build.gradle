@@ -20,8 +20,6 @@ dependencies {
 	//lombokを利用するための設定
 	compileOnly 'org.projectlombok:lombok:1.18.10'
 	annotationProcessor 'org.projectlombok:lombok:1.18.10'
-	//Spring Data Commons Coreを利用する設定
-	//compile group: 'org.springframework.data', name: 'spring-data-commons-core', version: '1.1.0.RELEASE'
 	//MongoDBを利用するための設定
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.2.6.RELEASE'
 }
