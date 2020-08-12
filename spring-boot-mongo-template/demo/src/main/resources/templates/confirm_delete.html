@@ -6,7 +6,7 @@
 </head>
 <body>
 　　 <p>下記内容を削除してよろしいでしょうか？問題なければ「送信」ボタンを押下してください。</p>
-    <form method="post" action="/delete" th:object="${demoForm}">
+    <form method="post" th:action="@{/delete}" th:object="${demoForm}">
         <table border="0">
             <tr>
                 <td align="left" valign="top">名前： </td>

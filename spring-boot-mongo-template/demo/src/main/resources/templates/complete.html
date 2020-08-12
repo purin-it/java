@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>完了画面</title>
@@ -7,7 +7,7 @@
 <body>
 　　 お申し込みが完了しました。<br/><br/>
 
-    <form method="post" action="/">
+    <form method="post" th:action="@{/}">
         <input type="submit" value="一覧画面に戻る" />
     </form>
 </body>
