@@ -5,7 +5,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.data.domain.Pageable;
@@ -66,7 +71,7 @@ public class DemoController {
     }
 
     /**
-     * ログイン画面に遷移する
+     * ログイン用ユーザーのデータを登録する
      * @return ログイン画面へのパス
      */
     @GetMapping("/login")
@@ -80,6 +85,24 @@ public class DemoController {
     }
 
     /**
+     * 新しい画面を開く
+     * @return 新規オープン画面１へのパス
+     */
+    @GetMapping("/openNewWindow1")
+    public String openNewWindow1(){
+        return "new_window1";
+    }
+
+    /**
+     * 新規オープン画面２に遷移する
+     * @return 新規オープン画面２へのパス
+     */
+    @PostMapping("/toNewWindow2")
+    public String toNewWindow2(){
+        return "new_window2";
+    }
+
+    /**
      * 初期表示(検索)画面に遷移する
      * @return 検索画面へのパス
      */
@@ -89,31 +112,13 @@ public class DemoController {
     }
 
     /**
-     * 新しい画面を開く
-     * @return 新規オープン画面１へのパス
-     */
-    @RequestMapping("/openNewWindow1")
-    public String openNewWindow1(){
-        return "new_window1";
-    }
-
-    /**
-     * 新規オープン画面２に遷移する
-     * @return 新規オープン画面２へのパス
-     */
-    @RequestMapping("/toNewWindow2")
-    public String toNewWindow2(){
-        return "new_window2";
-    }
-
-    /**
      * 検索処理を行い、一覧画面に遷移する
      * @param searchForm 検索用Formオブジェクト
      * @param result バインド結果
      * @param model Modelオブジェクト
      * @return 一覧画面へのパス
      */
-    @RequestMapping("/search")
+    @PostMapping("/search")
     public String search(@Validated SearchForm searchForm
             , BindingResult result, Model model){
         //検索用Formオブジェクトのチェック処理でエラーがある場合は、
@@ -132,7 +137,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 一覧画面へのパス
      */
-    @RequestMapping("/firstPage")
+    @GetMapping("/firstPage")
     public String firstPage(SearchForm searchForm, Model model){
         //現在ページ数を先頭ページに設定する
         searchForm.setCurrentPageNum(1);
@@ -145,7 +150,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 一覧画面へのパス
      */
-    @RequestMapping("/backPage")
+    @GetMapping("/backPage")
     public String backPage(SearchForm searchForm, Model model){
         //現在ページ数を前ページに設定する
         searchForm.setCurrentPageNum(searchForm.getCurrentPageNum() - 1);
@@ -158,7 +163,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 一覧画面へのパス
      */
-    @RequestMapping("/nextPage")
+    @GetMapping("/nextPage")
     public String nextPage(SearchForm searchForm, Model model){
         //現在ページ数を次ページに設定する
         searchForm.setCurrentPageNum(searchForm.getCurrentPageNum() + 1);
@@ -171,7 +176,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 一覧画面へのパス
      */
-    @RequestMapping("/lastPage")
+    @GetMapping("/lastPage")
     public String lastPage(SearchForm searchForm, Model model){
         //現在ページ数を最終ページに設定する
         searchForm.setCurrentPageNum(demoService.getAllPageNum(searchForm));
@@ -184,7 +189,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 入力・更新画面へのパス
      */
-    @RequestMapping("/update")
+    @GetMapping("/update")
     public String update(@RequestParam("id") String id, Model model){
         //更新対象のユーザーデータを取得
         DemoForm demoForm = demoService.findById(id);
@@ -199,7 +204,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 削除確認画面へのパス
      */
-    @RequestMapping("/delete_confirm")
+    @GetMapping("/delete_confirm")
     public String delete_confirm(@RequestParam("id") String id, Model model){
         //削除対象のユーザーデータを取得
         DemoForm demoForm = demoService.findById(id);
@@ -211,14 +216,24 @@ public class DemoController {
     /**
      * 削除処理を行う
      * @param demoForm 追加・更新用Formオブジェクト
-     * @param searchForm 検索用Formオブジェクト
-     * @param model Modelオブジェクト
      * @return 一覧画面の表示処理
      */
-    @RequestMapping(value = "/delete", params = "next")
-    public String delete(DemoForm demoForm, SearchForm searchForm, Model model){
+    @PostMapping(value = "/delete", params = "next")
+    public String delete(DemoForm demoForm){
         //指定したユーザーデータを削除
         demoService.deleteById(demoForm.getId());
+        //一覧画面に遷移
+        return "redirect:/to_index";
+    }
+
+    /**
+     * 削除完了後に一覧画面に戻る
+     * @param searchForm 検索用Formオブジェクト
+     * @param model Modelオブジェクト
+     * @return 一覧画面
+     */
+    @GetMapping("/to_index")
+    public String toIndex(SearchForm searchForm, Model model){
         //一覧画面に戻り、1ページ目のリストを表示する
         searchForm.setCurrentPageNum(1);
         return movePageInList(model, searchForm);
@@ -230,7 +245,7 @@ public class DemoController {
      * @param searchForm 検索用Formオブジェクト
      * @return 一覧画面
      */
-    @RequestMapping(value = "/delete", params = "back")
+    @PostMapping(value = "/delete", params = "back")
     public String confirmDeleteBack(Model model, SearchForm searchForm){
         //一覧画面に戻る
         return movePageInList(model, searchForm);
@@ -241,7 +256,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 入力・更新画面へのパス
      */
-    @RequestMapping(value = "/add", params = "next")
+    @PostMapping(value = "/add", params = "next")
     public String add(Model model){
         model.addAttribute("demoForm", new DemoForm());
         return "input";
@@ -251,7 +266,7 @@ public class DemoController {
      * 追加処理を行う画面から検索画面に戻る
      * @return 検索画面へのパス
      */
-    @RequestMapping(value = "/add", params = "back")
+    @PostMapping(value = "/add", params = "back")
     public String addBack(){
         return "search";
     }
@@ -263,7 +278,7 @@ public class DemoController {
      * @param result バインド結果
      * @return 確認画面または入力画面へのパス
      */
-    @RequestMapping(value = "/confirm", params = "next")
+    @PostMapping(value = "/confirm", params = "next")
     public String confirm(@Validated DemoForm demoForm, BindingResult result){
         //追加・更新用Formオブジェクトのチェック処理でエラーがある場合は、
         //入力画面のままとする
@@ -280,7 +295,7 @@ public class DemoController {
      * @param searchForm 検索用Formオブジェクト
      * @return 一覧画面の表示処理
      */
-    @RequestMapping(value = "/confirm", params = "back")
+    @PostMapping(value = "/confirm", params = "back")
     public String confirmBack(Model model, SearchForm searchForm){
         //一覧画面に戻る
         return movePageInList(model, searchForm);
@@ -289,13 +304,26 @@ public class DemoController {
     /**
      * 完了画面に遷移する
      * @param demoForm 追加・更新用Formオブジェクト
+     * @param result バインド結果
+     * @return 完了画面
+     */
+    @PostMapping(value = "/send", params = "next")
+    public String send(DemoForm demoForm, BindingResult result){
+        //チェック処理を行い、エラーがなければ、更新・追加処理を行う
+        if(result.hasErrors()){
+            return "input";
+        }
+        demoService.createOrUpdate(demoForm);
+        return "redirect:/complete";
+    }
+
+    /**
+     * 完了画面に遷移する
      * @param sessionStatus セッションステータス
      * @return 完了画面
      */
-    @RequestMapping(value = "/send", params = "next")
-    public String send(DemoForm demoForm, SessionStatus sessionStatus){
-        //ユーザーデータがあれば更新し、無ければ削除
-        demoService.createOrUpdate(demoForm);
+    @GetMapping("/complete")
+    public String complete(SessionStatus sessionStatus){
         //セッションオブジェクトを破棄
         sessionStatus.setComplete();
         return "complete";
@@ -305,7 +333,7 @@ public class DemoController {
      * 入力画面に戻る
      * @return 入力画面
      */
-    @RequestMapping(value = "/send", params = "back")
+    @PostMapping(value = "/send", params = "back")
     public String sendBack(){
         return "input";
     }

@@ -53,6 +53,8 @@
                    </for>
                    <span th:if="*{#fields.hasErrors('sex')}"
                          th:errors="*{sex}" class="errorMessage"></span>
+                   <span th:if="*{#fields.hasErrors('sexInvalid')}"
+                         th:errors="*{sexInvalid}" class="errorMessage"></span>
                </td>
            </tr>
            <tr>
