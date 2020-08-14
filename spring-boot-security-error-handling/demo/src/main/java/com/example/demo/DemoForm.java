@@ -90,4 +90,13 @@ public class DemoForm implements Serializable {
         return true;
     }
 
+    /**
+     * 性別が不正な値でないかチェックする
+     * @return チェック結果
+     */
+    @AssertTrue(message = "{validation.sex-invalidate}")
+    public boolean isSexInvalid(){
+        return StringUtils.isEmpty(sex) || getSexItems().keySet().contains(sex);
+    }
+
 }
