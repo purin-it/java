@@ -77,7 +77,7 @@ public class DemoController {
      * 新しい画面を開く
      * @return 新規オープン画面１へのパス
      */
-    @RequestMapping("/openNewWindow1")
+    @RequestMapping(value = "/openNewWindow1", method = RequestMethod.GET)
     public String openNewWindow1(){
         return "new_window1";
     }
@@ -86,7 +86,7 @@ public class DemoController {
      * 新規オープン画面２に遷移する
      * @return 新規オープン画面２へのパス
      */
-    @RequestMapping("/toNewWindow2")
+    @RequestMapping(value = "/toNewWindow2", method = RequestMethod.POST)
     public String toNewWindow2(){
         return "new_window2";
     }
@@ -95,7 +95,7 @@ public class DemoController {
      * 新しい画面を開く(エラー確認用)
      * @return 新規オープン画面１(エラー確認用)へのパス
      */
-    @RequestMapping("/openNewWindow1Error")
+    @RequestMapping(value = "/openNewWindow1Error", method = RequestMethod.GET)
     public String openNewWindow1Error(){
         return "new_window1_error";
     }
@@ -104,7 +104,7 @@ public class DemoController {
      * 新規オープン画面２(エラー確認用)に遷移する
      * @return 新規オープン画面２(エラー確認用)へのパス
      */
-    @RequestMapping("/toNewWindow2Error")
+    @RequestMapping(value = "/toNewWindow2Error", method = RequestMethod.POST)
     public String toNewWindow2Error(){
         return "new_window2_error";
     }
@@ -125,7 +125,7 @@ public class DemoController {
      * @param result バインド結果
      * @return 一覧画面へのパス
      */
-    @RequestMapping("/search")
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String search(SearchForm searchForm, Model model, BindingResult result){
         //検索用Formオブジェクトのチェック処理
         String returnVal = demoService.checkSearchForm(searchForm, result);
@@ -145,7 +145,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 入力・更新画面へのパス
      */
-    @RequestMapping("/update")
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String update(@RequestParam("id") String id, Model model){
         //更新対象のユーザーデータを取得
         DemoForm demoForm = demoService.findById(id);
@@ -160,7 +160,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 削除確認画面へのパス
      */
-    @RequestMapping("/delete_confirm")
+    @RequestMapping(value = "/delete_confirm", method = RequestMethod.GET)
     public String delete_confirm(@RequestParam("id") String id, Model model){
         //削除対象のユーザーデータを取得
         DemoForm demoForm = demoService.findById(id);
@@ -172,14 +172,24 @@ public class DemoController {
     /**
      * 削除処理を行う
      * @param demoForm 追加・更新用Formオブジェクト
-     * @param searchForm 検索用Formオブジェクト
-     * @param model Modelオブジェクト
      * @return 一覧画面の表示処理
      */
-    @RequestMapping(value = "/delete", params = "next")
-    public String delete(DemoForm demoForm, SearchForm searchForm, Model model){
+    @RequestMapping(value = "/delete", params = "next", method = RequestMethod.POST)
+    public String delete(DemoForm demoForm){
         //指定したユーザーデータを削除
         demoService.deleteById(demoForm.getId());
+      //一覧画面に遷移
+        return "redirect:/to_index";
+    }
+    
+    /**
+     * 削除完了後に一覧画面に戻る
+     * @param searchForm 検索用Formオブジェクト
+     * @param model Modelオブジェクト
+     * @return 一覧画面
+     */
+    @RequestMapping(value = "/to_index", method = RequestMethod.GET)
+    public String toIndex(SearchForm searchForm, Model model){
         //一覧画面に遷移
         //ユーザーデータリストを取得
         List<DemoForm> demoFormList = demoService.demoFormList(searchForm);
@@ -194,7 +204,7 @@ public class DemoController {
      * @param searchForm 検索用Formオブジェクト
      * @return 一覧画面
      */
-    @RequestMapping(value = "/delete", params = "back")
+    @RequestMapping(value = "/delete", params = "back", method = RequestMethod.POST)
     public String confirmDeleteBack(Model model, SearchForm searchForm){
         //一覧画面に遷移
         //ユーザーデータリストを取得
@@ -209,7 +219,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 入力・更新画面へのパス
      */
-    @RequestMapping(value = "/add", params = "next")
+    @RequestMapping(value = "/add", params = "next", method = RequestMethod.POST)
     public String add(Model model){
         model.addAttribute("demoForm", new DemoForm());
         return "input";
@@ -219,7 +229,7 @@ public class DemoController {
      * 追加処理を行う画面から検索画面に戻る
      * @return 検索画面へのパス
      */
-    @RequestMapping(value = "/add", params = "back")
+    @RequestMapping(value = "/add", params = "back", method = RequestMethod.POST)
     public String addBack(){
         return "search";
     }
@@ -231,10 +241,10 @@ public class DemoController {
      * @param result バインド結果
      * @return 確認画面または入力画面へのパス
      */
-    @RequestMapping(value = "/confirm", params = "next")
+    @RequestMapping(value = "/confirm", params = "next", method = RequestMethod.POST)
     public String confirm(@Valid DemoForm demoForm, BindingResult result){
         //生年月日の日付チェック処理を行い、画面遷移する
-        return demoService.checkForm(demoForm, result);
+        return demoService.checkForm(demoForm, result, "confirm");
     }
 
     /**
@@ -243,7 +253,7 @@ public class DemoController {
      * @param searchForm 検索用Formオブジェクト
      * @return 一覧画面の表示処理
      */
-    @RequestMapping(value = "/confirm", params = "back")
+    @RequestMapping(value = "/confirm", params = "back", method = RequestMethod.POST)
     public String confirmBack(Model model, SearchForm searchForm){
         //ユーザーデータリストを取得
         List<DemoForm> demoFormList = demoService.demoFormList(searchForm);
@@ -255,13 +265,27 @@ public class DemoController {
     /**
      * 完了画面に遷移する
      * @param demoForm 追加・更新用Formオブジェクト
+     * @param result バインド結果
+     * @return 完了画面
+     */
+    @RequestMapping(value = "/send", params = "next", method = RequestMethod.POST)
+    public String send(DemoForm demoForm, BindingResult result){
+    	//チェック処理を行い、エラーがなければ、更新・追加処理を行う
+        String normalPath = "redirect:/complete";
+        String checkPath = demoService.checkForm(demoForm, result, "redirect:/complete");
+        if(normalPath.equals(checkPath)){
+            demoService.createOrUpdate(demoForm);
+        }
+        return checkPath;
+    }
+    
+    /**
+     * 完了画面に遷移する
      * @param sessionStatus セッションステータス
      * @return 完了画面
      */
-    @RequestMapping(value = "/send", params = "next")
-    public String send(DemoForm demoForm, SessionStatus sessionStatus){
-        //ユーザーデータがあれば更新し、無ければ削除
-        demoService.createOrUpdate(demoForm);
+    @RequestMapping(value = "/complete", method = RequestMethod.GET)
+    public String complete(SessionStatus sessionStatus){
         //セッションオブジェクトを破棄
         sessionStatus.setComplete();
         return "complete";
@@ -271,7 +295,7 @@ public class DemoController {
      * 入力画面に戻る
      * @return 入力画面
      */
-    @RequestMapping(value = "/send", params = "back")
+    @RequestMapping(value = "/send", params = "back", method = RequestMethod.POST)
     public String sendBack(){
         return "input";
     }
