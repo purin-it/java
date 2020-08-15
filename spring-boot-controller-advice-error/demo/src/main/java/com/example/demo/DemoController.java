@@ -1,7 +1,8 @@
 package com.example.demo;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -12,7 +13,7 @@ public class DemoController {
      * 初期表示画面に遷移する
      * @return 初期表示画面へのパス
      */
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index(){
         return "index";
     }
@@ -21,7 +22,7 @@ public class DemoController {
      * NullPointerExceptionを発生させる
      * @return 初期表示画面へのパス
      */
-    @RequestMapping("/occurNullPointerException")
+    @PostMapping("/occurNullPointerException")
     public String occurNullPointerException(){
         throw new NullPointerException("NullPointerExceptionが発生しました");
     }
@@ -31,7 +32,7 @@ public class DemoController {
      * @return 初期表示画面へのパス
      * @throws FileNotFoundException
      */
-    @RequestMapping("/occurFileNotFoundException")
+    @PostMapping("/occurFileNotFoundException")
     public String occurFileNotFoundException() throws FileNotFoundException{
         throw new FileNotFoundException("FileNotFoundExceptionが発生しました");
     }
@@ -41,7 +42,7 @@ public class DemoController {
      * @return 初期表示画面へのパス
      * @throws Exception
      */
-    @RequestMapping("/occurOtherException")
+    @PostMapping("/occurOtherException")
     public String occurOtherException() throws IOException{
         throw new IOException("IOExceptionが発生しました");
     }
