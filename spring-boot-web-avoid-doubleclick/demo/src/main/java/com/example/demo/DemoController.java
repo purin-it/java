@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.thymeleaf.util.StringUtils;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -38,7 +38,7 @@ public class DemoController {
      * @return ユーザーデータリスト(JSON形式)
      */
     //JSON文字列を返却するために、@ResponseBodyアノテーションを付与
-    @RequestMapping("/search")
+    @GetMapping("/search")
     @ResponseBody
     public String search(){
         // ユーザーデータをIDの昇順に取得し、取得できなければそのまま返す
