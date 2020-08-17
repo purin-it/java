@@ -9,7 +9,7 @@
     <title>index page</title>
 </head>
 <body>
-    <form id="reloadForm" method="post" action="/">
+    <form id="reloadForm" method="post" th:action="@{/}">
         「Ajax検索」または「画面再表示」ボタンを押下してください。<br/>
         <input type="button" id="ajaxSearchBtn" value="Ajax検索" onclick="getUserData();" />
         <input type="button" id="reloadBtn" value="画面再表示" onclick="reload();" />
