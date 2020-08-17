@@ -5,11 +5,11 @@
     <title>index page</title>
 </head>
 <body>
-    <form method="get" action="/index_nofinal">
+    <form method="get" th:action="@{/index_nofinal}">
         <input type="submit" value="final未使用_確認用画面に遷移" />
     </form>
     <br/><br/>
-    <form method="get" action="/index_final">
+    <form method="get" th:action="@{/index_final}">
         <input type="submit" value="final使用_確認用画面に遷移" />
     </form>
 </body>
