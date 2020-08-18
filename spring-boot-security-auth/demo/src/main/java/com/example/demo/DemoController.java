@@ -51,7 +51,7 @@ public class DemoController {
      * 一般ユーザーの画面に遷移する
      * @return 一般ユーザーの画面へのパス
      */
-    @RequestMapping("/has_user_auth")
+    @GetMapping("/has_user_auth")
     public String has_user_auth(){
         return "user";
     }
@@ -60,7 +60,7 @@ public class DemoController {
      * 管理者ユーザーの画面に遷移する
      * @return 管理者ユーザーの画面へのパス
      */
-    @RequestMapping("/has_admin_auth")
+    @GetMapping("/has_admin_auth")
     public String has_admin_auth(){
         return "admin";
     }

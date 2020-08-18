@@ -5,11 +5,11 @@
     <title>index page</title>
 </head>
 <body>
-    <form method="get" action="/has_user_auth">
+    <form method="get" th:action="@{/has_user_auth}">
         <input type="submit" value="一般ユーザーの画面へ" />
     </form>
     <br/><br/>
-    <form method="get" action="/has_admin_auth">
+    <form method="get" th:action="@{/has_admin_auth}">
         <input type="submit" value="管理者ユーザーの画面へ" />
     </form>
     <br/><br/><br/><br/>
