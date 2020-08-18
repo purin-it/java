@@ -5,8 +5,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.ASC;
@@ -45,7 +46,7 @@ public class DemoController {
      * @model Modelオブジェクト
      * @return Post方式確認用の画面へのパス
      */
-    @RequestMapping(path = "/index_post", method = RequestMethod.GET)
+    @GetMapping(path = "/index_post")
     public String index_post(Model model){
         // ユーザーデータリストを取得
         List<UserData> userDataList = getUserDataList();
@@ -58,7 +59,7 @@ public class DemoController {
      * @model Modelオブジェクト
      * @return Post&Redirect&Get方式確認用の画面へのパス
      */
-    @RequestMapping(path = "/index_prg", method = RequestMethod.GET)
+    @GetMapping(path = "/index_prg")
     public String index_prg(Model model){
         // ユーザーデータリストを取得
         List<UserData> userDataList = getUserDataList();
@@ -72,7 +73,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return Post方式確認用の画面へのパス
      */
-    @RequestMapping(path = "/addDataPost", method = RequestMethod.POST)
+    @PostMapping(path = "/addDataPost")
     public String addDataPost(DemoForm demoForm, Model model){
         // 登録用フォームから送られてきたデータを登録する
         UserData userData = getUserData(demoForm);
@@ -87,7 +88,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return Post方式確認用の画面へのパス
      */
-    @RequestMapping(path = "/addDataPostRedirectGet", method = RequestMethod.POST)
+    @PostMapping(path = "/addDataPostRedirectGet")
     public String addDataPostRedirectGet(DemoForm demoForm, Model model){
         // 登録用フォームから送られてきたデータを登録する
         UserData userData = getUserData(demoForm);

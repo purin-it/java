@@ -5,7 +5,7 @@
     <title>index page</title>
 </head>
 <body>
-    <form method="post" action="/addDataPostRedirectGet" th:object="${demoForm}">
+    <form method="post" th:action="@{/addDataPostRedirectGet}" th:object="${demoForm}">
         <table border="0">
             <tr>
                 <td align="left" valign="top">名前：</td>

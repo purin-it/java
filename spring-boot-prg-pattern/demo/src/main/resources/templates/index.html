@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>index page</title>
 </head>
 <body>
-    <form method="get" action="/index_post">
+    <form method="get" th:action="@{/index_post}">
         <input type="submit" value="Post方式確認用画面に遷移" />
     </form>
     <br/><br/>
-    <form method="get" action="/index_prg">
+    <form method="get" th:action="@{/index_prg}">
         <input type="submit" value="Post&Redirect&Get方式確認用画面に遷移" />
     </form>
 </body>
