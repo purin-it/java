@@ -6,7 +6,7 @@
 </head>
 <body>
 　　 <p>入力内容を確認してください。</p><br/>
-<form method="post" action="/complete" th:object="${demoForm}">
+<form method="post" th:action="@{/complete}" th:object="${demoForm}">
     <!-- 下記に、Flash Scopeに格納したFormオブジェクトの名前・メモが取得される -->
     <span th:text="'名前： ' + *{name}">ここに名前が表示されます</span>
     <br/>

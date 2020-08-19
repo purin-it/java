@@ -6,7 +6,7 @@
 </head>
 <body>
 　　 <p>下記必要事項を記載の上、「確認」ボタンを押下してください。</p><br/>
-    <form method="post" action="/confirm" th:object="${demoForm}">
+    <form method="post" th:action="@{/confirm}" th:object="${demoForm}">
         名前：　<input type="text" th:value="*{name}" th:field="*{name}" />
         <br/>
         メモ：　<input type="text" size="40" maxlength="40" th:value="*{memo}" th:field="*{memo}" />

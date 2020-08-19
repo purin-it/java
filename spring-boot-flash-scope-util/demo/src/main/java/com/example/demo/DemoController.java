@@ -2,7 +2,8 @@ package com.example.demo;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -22,7 +23,7 @@ public class DemoController {
      * 入力画面に遷移する
      * @return 入力画面へのパス
      */
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index(){
         return "input";
     }
@@ -33,7 +34,7 @@ public class DemoController {
      * @param mav ModelAndViewオブジェクト
      * @return ModelAndViewオブジェクト
      */
-    @RequestMapping("/confirm")
+    @PostMapping("/confirm")
     public ModelAndView confirm(DemoForm demoForm, ModelAndView mav){
         System.out.println("confirmメソッド　demoForm : " + demoForm);
         // リダイレクト先に渡したいFormオブジェクトをFlash Scopeに格納
@@ -47,7 +48,7 @@ public class DemoController {
      * @param mav ModelAndViewオブジェクト
      * @return ModelAndViewオブジェクト
      */
-    @RequestMapping("/confirm_redirect")
+    @GetMapping("/confirm_redirect")
     public ModelAndView confirm_redirect(ModelAndView mav){
         // Flash ScopeからFormオブジェクトを取得し、Formオブジェクトの各値が取得できることを確認
         DemoForm demoForm = DemoUtil.getRedirectForm();
@@ -64,7 +65,7 @@ public class DemoController {
      * @param mav ModelAndViewオブジェクト
      * @return ModelAndViewオブジェクト
      */
-    @RequestMapping("/complete")
+    @PostMapping("/complete")
     public ModelAndView complete(ModelAndView mav){
         // Flash ScopeからFormオブジェクトを取得し、Formオブジェクトがクリアされていることを確認
         DemoForm demoForm = DemoUtil.getRedirectForm();
