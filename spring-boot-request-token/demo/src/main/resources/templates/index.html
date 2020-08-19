@@ -6,7 +6,7 @@
 </head>
 <body>
     <h3>これはindex.html画面です</h3>
-    <form method="post" action="/next">
+    <form method="post" th:action="@{/next}">
         <div th:insert="fragment :: body-tag"></div>
         <br/><br/>
         <input type="submit" value="次へ" />
