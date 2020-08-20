@@ -4,10 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.ASC;
 
-@Controller
+@RestController
 public class DemoController {
 
     /**
@@ -28,8 +27,7 @@ public class DemoController {
      * ユーザーデータを全件取得する
      * @return ユーザーデータリスト(JSON形式)
      */
-    @RequestMapping("/getUserDataList")
-    @ResponseBody
+    @GetMapping("/getUserDataList")
     public String getUserDataList(){
         List<UserData> userDataList = repository.findAll(new Sort(ASC, "id"));
         // ユーザーデータが取得できなかった場合は、null値を返す
@@ -55,7 +53,7 @@ public class DemoController {
      */
     private String encode(String data){
         if(StringUtils.isEmpty(data)){
-            return "";
+            return data;
         }
         String retVal = null;
         try{
