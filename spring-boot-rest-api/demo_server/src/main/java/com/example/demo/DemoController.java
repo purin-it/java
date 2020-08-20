@@ -3,15 +3,16 @@ package com.example.demo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-@Controller
+//getUserDataメソッドでJSON文字列を返却するために、
+//@RestControllerアノテーションを利用している
+@RestController
 public class DemoController {
 
     /**
@@ -24,9 +25,7 @@ public class DemoController {
      * ユーザーデータを1件取得する
      * @return ユーザーデータ(JSON形式)
      */
-    //JSON文字列を返却するために、@ResponseBodyアノテーションを付与
-    @RequestMapping("/getUserData")
-    @ResponseBody
+    @GetMapping("/getUserData")
     private String getUserData(){
         // ユーザーデータを取得し、取得できなければそのまま返す
         UserData userData = repository.findUserDataById(Long.valueOf(1));
@@ -51,7 +50,7 @@ public class DemoController {
      */
     private String encode(String data){
         if(StringUtils.isEmpty(data)){
-            return "";
+            return data;
         }
         String retVal = null;
         try{

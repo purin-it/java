@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.UnsupportedEncodingException;
@@ -24,7 +24,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 初期表示画面へのパス
      */
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index(Model model){
         // ユーザーデータをAPIで取得する
         UserData userData = restTemplate.getForObject(
@@ -49,7 +49,7 @@ public class DemoController {
      */
     private String decode(String data){
         if(StringUtils.isEmpty(data)){
-            return "";
+            return data;
         }
         String retVal = null;
         try{
