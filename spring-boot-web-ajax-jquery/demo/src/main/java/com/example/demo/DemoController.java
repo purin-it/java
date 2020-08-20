@@ -3,10 +3,11 @@ package com.example.demo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.thymeleaf.util.StringUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -24,7 +25,7 @@ public class DemoController {
      * 初期表示画面に遷移する
      * @return 初期表示画面へのパス
      */
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index(){
         return "index";
     }
@@ -35,7 +36,7 @@ public class DemoController {
      * @return DemoFormデータ(JSON形式)
      */
     //JSON文字列を返却するために、@ResponseBodyアノテーションを付与
-    @RequestMapping("/search")
+    @GetMapping("/search")
     @ResponseBody
     public String search(@RequestParam("id") String id){
         // ユーザーデータを取得し、取得できなければそのまま返す
@@ -60,6 +61,10 @@ public class DemoController {
      * @return エンコード後の文字列
      */
     private String encode(String data){
+        // 引数がnullまたは空文字の場合は、その値を返す
+        if(StringUtils.isEmpty(data)){
+            return data;
+        }
         String retVal = null;
         try{
             retVal = URLEncoder.encode(data, "UTF-8");
