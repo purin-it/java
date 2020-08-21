@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -47,7 +47,7 @@ public class DemoController {
      * @param model Modelオブジェクト
      * @return 初期表示画面へのパス
      */
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index(Model model){
         // ユーザーデータリストをAPIで取得する
         ResponseEntity<List<UserData>> response = restTemplate.exchange(

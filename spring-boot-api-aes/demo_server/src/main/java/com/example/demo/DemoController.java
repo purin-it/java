@@ -6,17 +6,17 @@ import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.ASC;
 
-@Controller
+@RestController
 public class DemoController {
 
     /**
@@ -47,8 +47,7 @@ public class DemoController {
      * ユーザーデータを全件取得する
      * @return ユーザーデータリスト(JSON形式)
      */
-    @RequestMapping("/getUserDataList")
-    @ResponseBody
+    @GetMapping("/getUserDataList")
     public String getUserDataList(){
         List<UserData> userDataList = repository.findAll(new Sort(ASC, "id"));
         // ユーザーデータが取得できなかった場合は、null値を返す
