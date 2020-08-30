@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/demo.css}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" th:src="@{/demo.js}"></script>
+    <script type="text/javascript">
+        //本画面ロード時に、エラーメッセージがあればエラーメッセージを親画面に転記し、
+        //本画面を閉じる
+        window.onload = function(){
+            printOpenErrMsg();
+        }
+    </script>
+    <title>index page</title>
+</head>
+<body>
+    <div id="errList">
+        <ul>
+            <li th:each="err : ${errList}" th:text="${err}" class="errorMessage"></li>
+        </ul>
+    </div>
+    POSTリクエストで新規ウィンドウをオープンしました。(エラー時)
+</body>
+</html>

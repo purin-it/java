@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/demo.css}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" th:src="@{/demo.js}"></script>
+    <title>index page</title>
+</head>
+<body>
+    <div id="errList">
+        <ul>
+            <li th:each="err : ${errList}" th:text="${err}" class="errorMessage"></li>
+        </ul>
+    </div>
+    <form th:action="@{/openWinByGet}" method="GET" name="formGet">
+        <input type="button" value="新規ウィンドウをオープン(GET)"
+               onclick="openWin('formGet');" />
+    </form>
+    <br/><br/>
+    <form th:action="@{/openWinByPost}" method="POST" name="formPost">
+        <input type="button" value="新規ウィンドウをオープン(POST)"
+               onclick="openWin('formPost');" />
+    </form>
+    <br/><br/>
+    <form th:action="@{/openWinByPostErr}" method="POST" name="formPostErr">
+        <input type="button" value="新規ウィンドウをオープン時にエラー(POST)"
+               onclick="openWin('formPostErr');" />
+    </form>
+</body>
+</html>
