@@ -4,7 +4,7 @@ function formSubmit(path){
         alert('パスを指定してください');
         return;
     }
-    var form = document.getElementsByTagName('form')[0];
+    let form = document.getElementsByTagName('form')[0];
     if(!form){
         alert('フォームが取得できませんでした');
         return;
