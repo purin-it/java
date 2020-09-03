@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" th:src="@{/demo.js}"></script>
+    <title>index page</title>
+</head>
+<body>
+    ユーザーデータテーブル(user_data)の全データ<br/><br/>
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>生年月日</th>
+            <th>性別</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr th:each="obj : ${demoFormList}">
+            <td th:text="${obj.id}"></td>
+            <td th:text="${obj.name}"></td>
+            <td th:text="|${obj.birthYear}年 ${obj.birthMonth}月 ${obj.birthDay}日|"></td>
+            <td th:text="${obj.sex_value}"></td>
+            <td><a href="/update" th:href="@{/update(id=${'__${obj.id}__'})}">更新</a></td>
+            <td><a href="/delete_confirm" th:href="@{/delete_confirm(id=${'__${obj.id}__'})}">削除</a></td>
+        </tr>
+    </table>
+    <br/><br/>
+    <table border="0">
+        <tr>
+            <td width="70">
+                <span th:if="${currentPageNum} != 1">
+                    <a href="/firstPage" th:href="@{/firstPage}">先頭へ</a>
+                </span>
+            </td>
+            <td width="50">
+                <span th:if="${currentPageNum} != 1">
+                    <a href="/backPage" th:href="@{/backPage}">前へ</a>
+                </span>
+            </td>
+            <td width="50">
+                <span th:text="${currentPageNum}"></span>&nbsp;/&nbsp;<span th:text="${allPageNum}"></span>
+            </td>
+            <td width="50">
+                <span th:if="${currentPageNum} != ${allPageNum}">
+                    <a href="/nextPage" th:href="@{/nextPage}">次へ</a>
+                </span>
+            </td>
+            <td width="70">
+                <span th:if="${currentPageNum} != ${allPageNum}">
+                    <a href="/lastPage" th:href="@{/lastPage}">最後へ</a>
+                </span>
+            </td>
+        </tr>
+    </table>
+    <br/><br/>
+    <form>
+        <input type="button" value="データ追加" onclick="formSubmit('/add');" /><br/><br/>
+        <input type="button" value="戻る" onclick="formSubmit('/addBack');" />
+    </form>
+</body>
+</html>
