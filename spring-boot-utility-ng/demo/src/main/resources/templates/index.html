@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index page</title>
+</head>
+<body>
+    下記ボタンを押下してください。<br/><br/>
+    <form th:action="@{/next}" method="POST">
+        <input type="submit" value="次へ" />
+    </form>
+</body>
+</html>

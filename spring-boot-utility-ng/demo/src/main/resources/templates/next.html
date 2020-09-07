@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>next page</title>
+</head>
+<body>
+    セッションから取得したリスト : <br/>
+
+    <span th:if="${#lists.isEmpty(sessionList)}">
+        <br/> リストは空です。
+    </span>
+    <ul>
+        <li th:each="item : ${sessionList}" th:text="${item}"></li>
+    </ul>
+</body>
+</html>
