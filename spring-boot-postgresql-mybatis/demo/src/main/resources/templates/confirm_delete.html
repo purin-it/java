@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>削除確認画面</title>
+</head>
+<body>
+　　 <p>下記内容を削除してよろしいでしょうか？
+    問題なければ「送信」ボタンを押下してください。</p>
+<form method="post" th:action="@{/delete}" th:object="${demoForm}">
+    <p th:text="'名前： ' + *{name}">ここに名前が表示されます</p>
+    <p th:text="'生年月日： ' + *{birthYear} + '年'
+                     + *{getMonthItems().get('__*{birthMonth}__')} + '月'
+                     + *{getDayItems().get('__*{birthDay}__')} + '日'">
+        ここに生年月日が表示されます
+    </p>
+    <p th:text="'性別： ' + *{getSexItems().get('__*{sex}__')}">
+        ここに性別が表示されます
+    </p>
+    <input type="submit" name="next" value="送信" />
+    <input type="submit" name="back" value="戻る" />
+</form>
+</body>
+</html>
