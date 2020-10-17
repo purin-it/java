@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index page</title>
+</head>
+<body>
+ユーザーデータテーブル(user_data)の全データ<br/><br/>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>ID</th>
+        <th>名前</th>
+        <th>生年月日</th>
+        <th>性別</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="obj : ${demoFormList}">
+        <td th:text="${obj.id}"></td>
+        <td th:text="${obj.name}"></td>
+        <td th:text="|${obj.birthYear}年 ${obj.birthMonth}月 ${obj.birthDay}日|">
+        </td>
+        <td th:text="${obj.sex_value}"></td>
+        <td><a href="/update"
+               th:href="@{/update(id=${'__${obj.id}__'})}">更新</a></td>
+        <td><a href="/delete_confirm"
+               th:href="@{/delete_confirm(id=${'__${obj.id}__'})}">削除</a></td>
+    </tr>
+</table>
+<br/><br/>
+<form method="post" th:action="@{/add}">
+    <input type="submit" value="データ追加" /><br/><br/>
+    <input type="button" value="閉じる" onclick="window.close();" />
+</form>
+</body>
+</html>
