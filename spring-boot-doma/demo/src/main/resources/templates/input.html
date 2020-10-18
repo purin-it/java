@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/demo.css}" rel="stylesheet" type="text/css" />
+    <title>入力画面</title>
+</head>
+<body>
+　　<p>下記必要事項を記載の上、「確認」ボタンを押下してください。</p><br/>
+<form method="post" th:action="@{/confirm}" th:object="${demoForm}">
+    名前：　<input type="text" th:value="*{name}"
+               th:field="*{name}" th:errorclass="fieldError" />
+    <span th:if="*{#fields.hasErrors('name')}"
+          th:errors="*{name}" class="errorMessage"></span>
+    <br/>
+    生年月日：
+    <input type="text" th:value="*{birthYear}" size="4"
+           maxlength="4" th:field="*{birthYear}" th:errorclass="fieldError" />年
+    <select th:field="*{birthMonth}" th:errorclass="fieldError">
+        <option value="">---</option>
+        <option th:each="item : *{getMonthItems()}"
+                th:value="${item.key}" th:text="${item.value}"/>
+    </select>月
+    <select th:field="*{birthDay}" th:errorclass="fieldError">
+        <option value="">---</option>
+        <option th:each="item : *{getDayItems()}"
+                th:value="${item.key}" th:text="${item.value}"/>
+    </select>日
+    <span th:if="*{#fields.hasErrors('birthYear')}"
+          th:errors="*{birthYear}" class="errorMessage"></span>
+    <span th:if="*{#fields.hasErrors('birthMonth')}"
+          th:errors="*{birthMonth}" class="errorMessage"></span>
+    <span th:if="*{#fields.hasErrors('birthDay')}"
+          th:errors="*{birthDay}" class="errorMessage"></span>
+    <br/>
+    性別：
+    <for th:each="item : *{getSexItems()}">
+        <input type="radio" name="sex" th:value="${item.key}"
+               th:text="${item.value}" th:field="*{sex}" th:errorclass="fieldError" />
+    </for>
+    <span th:if="*{#fields.hasErrors('sex')}"
+          th:errors="*{sex}" class="errorMessage"></span>
+    <br/>
+    入力確認：
+    <input type="checkbox" name="checked" th:value="確認済"
+           th:field="*{checked}" th:errorclass="fieldError" />
+    <span th:if="*{#fields.hasErrors('checked')}"
+          th:errors="*{checked}" class="errorMessage"></span>
+    <br/><br/>
+    <input type="submit" name="next" value="確認" />
+    <input type="submit" name="back" value="戻る" />
+</form>
+</body>
+</html>

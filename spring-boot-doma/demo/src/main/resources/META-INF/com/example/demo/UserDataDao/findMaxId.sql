@@ -1,0 +1,2 @@
+SELECT NVL(max(id), 0)
+FROM USER_DATA
