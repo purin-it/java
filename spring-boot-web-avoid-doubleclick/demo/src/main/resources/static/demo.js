@@ -1,3 +1,5 @@
+'use strict';
+
 window.addEventListener("DOMContentLoaded", function(){
     // 画面がロードされたことを確認
     alert('画面がロードされました');
