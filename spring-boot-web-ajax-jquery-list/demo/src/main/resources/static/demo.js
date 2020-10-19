@@ -1,3 +1,5 @@
+'use strict';
+
 function getUserData(){
     // jQueryのAjaxにてDemoControllerクラスのsearchメソッドを呼び出す
     $.ajax({
