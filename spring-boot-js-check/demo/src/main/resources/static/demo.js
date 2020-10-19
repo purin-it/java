@@ -1,3 +1,5 @@
+'use strict';
+
 // 引数で指定されたパスでサブミットする
 function formSubmit(path){
     if(!path){
