@@ -1,3 +1,5 @@
+'use strict';
+
 function getUserData(){
     // index.htmlの検索IDの値を取得
     const id = document.getElementById('searchId').value;
