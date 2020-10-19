@@ -1,3 +1,5 @@
+'use strict';
+
 //フォーム名を指定して新しいウィンドウを開く
 function openWin(formName){
     let form = document.forms[formName];
