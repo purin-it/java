@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" th:src="@{/demo.js}"></script>
+    <title>index page</title>
+</head>
+<body>
+    <form th:action="@{/openWinByGet}" method="GET" name="formGet">
+        <input type="button" value="新規ウィンドウをオープン(GET)" id="openGetBtn" />
+    </form>
+    <br/><br/>
+    <form th:action="@{/openWinByPost}" method="POST" name="formPost">
+        <input type="button" value="新規ウィンドウをオープン(POST)" id="openPostBtn" />
+    </form>
+</body>
+</html>
