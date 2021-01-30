@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index page</title>
+</head>
+<body>
+これは初期表示画面です。 <br/><br/>
+    <form method="post" th:action="@{/toRedirect}">
+        <input type="submit" value="リダイレクト遷移" />
+    </form><br/><br/>
+    <form method="post" th:action="@{/toForward}">
+        <input type="submit" value="フォワード遷移" />
+    </form><br/><br/>
+</body>
+</html>
