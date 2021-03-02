@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index page</title>
+</head>
+<body>
+これは初期表示画面です。 <br/><br/>
+    セッションIDの値 : <span th:text="${sessionId}">sessionIdの値</span><br/>
+    クッキーに設定されたセッションIDの値 : <span th:text="${cookieSessionId}">クッキー内のsessionIdの値</span><br/><br/>
+    <form method="post" th:action="@{/addSession}">
+        <input type="submit" value="セッションの追加" />
+    </form><br/><br/>
+    <form method="post" th:action="@{/toMain}">
+        <input type="submit" value="メイン画面に遷移" />
+    </form><br/><br/>
+    <form method="GET">
+        <input type="button" value="新しいタブを開く" onclick="window.open('/openNewTab', '_blank')" />
+    </form><br/><br/>
+    <form method="GET">
+        <input type="button" value="新しいウィンドウを開く" onclick="window.open('/openNewWindow', '_blank', 'top=100, left=100, height=500, width=1000')" />
+    </form><br/><br/>
+</body>
+</html>

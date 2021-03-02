@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>main page</title>
+</head>
+<body>
+メイン画面に遷移しました。<br/><br/>
+セッションIDの値 : <span th:text="${sessionId}">sessionIdの値</span><br/>
+クッキーに設定されたセッションIDの値 : <span th:text="${cookieSessionId}">クッキー内のsessionIdの値</span><br/><br/>
+<form method="post" th:action="@{/toIndex}">
+    <input type="submit" value="戻る" />
+</form>
+</body>
+</html>
