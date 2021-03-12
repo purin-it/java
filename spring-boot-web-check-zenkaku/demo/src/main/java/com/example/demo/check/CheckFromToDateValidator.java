@@ -52,16 +52,16 @@ public class CheckFromToDateValidator implements ConstraintValidator<CheckFromTo
           && !StringUtils.isEmpty(dayFrom) && !StringUtils.isEmpty(yearTo)
           && !StringUtils.isEmpty(monthTo) && !StringUtils.isEmpty(dayTo)){
 
-            //生年月日_from, 生年月日_toを生成
-            String fromBirthDay = yearFrom + addZero(monthFrom) + addZero(dayFrom);
-            String toBirthDay = yearTo + addZero(monthTo) + addZero(dayTo);
+            //年月日_from, 年月日_toを生成
+            String fromDay = yearFrom + addZero(monthFrom) + addZero(dayFrom);
+            String toDay = yearTo + addZero(monthTo) + addZero(dayTo);
 
-            //生年月日_from,生年月日_toがいずれも存在する日付の場合
-            if(isCorrectDate(fromBirthDay, dateFormat) && isCorrectDate(toBirthDay, dateFormat)){
+            //年月日_from,年月日_toがいずれも存在する日付の場合
+            if(isCorrectDate(fromDay, dateFormat) && isCorrectDate(toDay, dateFormat)){
 
-                //生年月日_from＞生年月日_toの場合は、エラーメッセージ・エラー項目を設定し
+                //年月日_from＞年月日_toの場合は、エラーメッセージ・エラー項目を設定し
                 //falseを返す。そうでなければtrueを返す
-                if(fromBirthDay.compareTo(toBirthDay) > 0){
+                if(fromDay.compareTo(toDay) > 0){
                     context.disableDefaultConstraintViolation();
                     context.buildConstraintViolationWithTemplate(message)
                             .addPropertyNode(dtYearFrom)
