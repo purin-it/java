@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>404エラー画面</title>
+</head>
+<body>
+    <h1 th:text="${status} + ' ' + ${error}">エラーステータス</h1>
+    <p>
+        指定されたURLが見つかりませんでした。<br/>
+        指定されたURLのパスがコントローラクラスに存在するかどうか確認してください。
+        <br/><br/>
+        <strong>エラーメッセージ: </strong><br/>
+        <span th:text="${message}">エラーメッセージ</span>
+    </p>
+    <br/><br/>
+    <form method="get" th:action="@{/}">
+        <input type="submit" value="戻る" />
+    </form>
+</body>
+</html>

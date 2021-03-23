@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>トップ画面</title>
+</head>
+<body>
+   下記ボタンを押下してください。 <br/><br/>
+   <form method="post" th:action="@{/submit_error_no_url}">
+       <input type="submit" value="このボタンを押すと404エラーが発生します" />
+   </form>
+   <br/><br/>
+   <form method="post" th:action="@{/submit_error_other}">
+       <input type="submit" value="このボタンを押すと404以外のエラーが発生します" />
+   </form>
+</body>
+</html>
