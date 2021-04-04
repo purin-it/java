@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.UserDataMapper">
+    <select id="findByIdList" parameterType="java.util.List" resultType="com.example.demo.UserData">
+        SELECT
+              id
+            , name
+            , birth_year as birthY
+            , birth_month as birthM
+            , birth_day as birthD
+            , sex
+            , CASE sex
+              WHEN '1' THEN '男'
+              WHEN '2' THEN '女'
+              ELSE ''
+              END AS sex_value
+        FROM USER_DATA
+        <where>
+            <if test="list != null and list.size() > 0">
+                id in
+                <foreach item="item" open="(" close=")" collection="list" separator=",">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+</mapper>
