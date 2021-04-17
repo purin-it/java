@@ -1,0 +1,12 @@
+# ポート番号：8084で起動
+server:
+  port: 8084
+# 暗号化項目を設定
+encrypt:
+  algorithm: AES
+  charset: utf-8
+  key: 1234567890abcdef
+# 接続タイムアウト(秒)、読み取りタイムアウト(秒)を設定
+timeout:
+  connect: 10
+  read: 18

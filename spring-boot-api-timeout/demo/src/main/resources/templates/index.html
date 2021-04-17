@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index page</title>
+</head>
+<body>
+    ★以下に検索されたデータが表示されます
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>名前</th>
+            <th>生年月日</th>
+            <th>性別</th>
+            <th>メモ</th>
+        </tr>
+        <tr th:each="obj : ${userDataList}">
+            <td th:text="${obj.id}"></td>
+            <td th:text="${obj.name}"></td>
+            <td th:text="|${obj.birthY}年 ${obj.birthM}月 ${obj.birthD}日|"></td>
+            <td th:text="${obj.sex}"></td>
+            <td th:text="${obj.memo}"></td>
+        </tr>
+    </table>
+</body>
+</html>
