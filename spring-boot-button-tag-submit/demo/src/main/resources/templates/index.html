@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- jQueryの読み込み -->
+    <!-- demo.js内でjQueryを利用するため、jQueryをdemo.jsより先に読み込む -->
+    <script type="text/javascript" th:src="@{/jquery-3.4.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/demo.js}"></script>
+    <title>index page</title>
+</head>
+<body>
+    buttonタグの動作をブラウザ別に確認するための画面です。
+    <br/><br/>
+    <form id="form1" method="post" th:action="@{/method1}">
+        <button id="btn1" type="button" onclick="testClick(this);">ボタン１(onclick有り、JS定義無し)</button>
+    </form>
+    <br/>
+    <form id="form2" method="post" th:action="@{/method1}">
+        <button id="btn2" type="button">ボタン２(onclick無し、JS定義無し)</button>
+    </form>
+    <br/>
+    <form id="form3" method="post" th:action="@{/method1}">
+        <button id="btn3" type="button" onclick="testClick(this);">ボタン３(onclick有り、JS定義有り)</button>
+    </form>
+    <br/>
+    <form id="form4" method="post" th:action="@{/method1}">
+        <button id="btn4" type="button">ボタン４(onclick無し、JS定義有り)</button>
+    </form>
+</body>
+</html>
