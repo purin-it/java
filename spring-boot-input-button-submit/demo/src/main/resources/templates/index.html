@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- jQueryの読み込み -->
+    <!-- demo.js内でjQueryを利用するため、jQueryをdemo.jsより先に読み込む -->
+    <script type="text/javascript" th:src="@{/jquery-3.4.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/demo.js}"></script>
+    <title>index page</title>
+</head>
+<body>
+    submitやbuttonの動作をブラウザ別に確認するための画面です。
+    <br/><br/>
+    <form id="form1" method="post" th:action="@{/method1}">
+        <input type="submit" id="btn1" value="ボタン１(input type='submit')" onclick="testClick(this);" />
+    </form>
+    <br/>
+    <form id="form2" method="post" th:action="@{/method1}">
+        <input type="button" id="btn2" value="ボタン２(input type='button')" onclick="testClick(this);" />
+    </form>
+    <br/>
+    <form id="form3" method="post" th:action="@{/method1}">
+        <button id="btn3" onclick="testClick(this);">ボタン３(button type=未設定)</button>
+    </form>
+    <br/>
+    <form id="form4" method="post" th:action="@{/method1}">
+        <button id="btn4" type="submit" onclick="testClick(this);">ボタン４(button type='submit')</button>
+    </form>
+    <br/>
+    <form id="form5" method="post" th:action="@{/method1}">
+        <button id="btn5" type="button" onclick="testClick(this);">ボタン５(button type='button')</button>
+    </form>
+</body>
+</html>
