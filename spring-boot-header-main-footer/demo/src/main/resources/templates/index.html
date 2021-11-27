@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ヘッダー・メニュー・本文・フッター</title>
+    <!-- CSSファイルを読み込む -->
+    <link th:href="@{/css/demo.css}" rel="stylesheet" type="text/css" />
+    <!-- タイトル左のfavicon画像を設定する -->
+    <link rel="icon" th:href="@{/img/purin.jpg}">
+</head>
+<body>
+    <header>
+        ここにヘッダーを書きます。
+    </header>
+    <main>
+        <div class="container">
+            <div class="menu">
+                ここにメニューを書きます。幅は30%です。
+            </div>
+            <div class="main">
+                ここに本文を書きます。
+            </div>
+        </div>
+    </main>
+    <footer>
+        ここにフッターを書きます。
+    </footer>
+</body>
+</html>
