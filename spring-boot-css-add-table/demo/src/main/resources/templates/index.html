@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>テーブルの追加</title>
+    <!-- CSSファイルを読み込む -->
+    <link th:href="@{/css/demo.css}" rel="stylesheet" type="text/css" />
+    <!-- タイトル左のfavicon画像を設定する -->
+    <link rel="icon" th:href="@{/img/purin.jpg}">
+</head>
+<body>
+    <header>
+        ここにヘッダーを書きます。
+    </header>
+    <main>
+        <div class="container">
+            <div class="menu">
+                ここにメニューを書きます。幅は30%です。
+            </div>
+            <div class="main">
+                ここに本文を書きます。テーブルを追加します。
+                <table>
+                    <thead>
+                    <tr>
+                        <th>タイトル１</th>
+                        <th>タイトル２</th>
+                        <th>少し長いタイトル３</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>カラム１</td>
+                        <td>少し長いカラム２</td>
+                        <td>カラム３</td>
+                    </tr>
+                    <tr>
+                        <td>少し長いカラム１</td>
+                        <td>カラム２</td>
+                        <td>カラム３</td>
+                    </tr>
+                    <tr>
+                        <td>カラム１</td>
+                        <td>少し長いカラム２</td>
+                        <td>少し長いカラム３</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer>
+        ここにフッターを書きます。
+    </footer>
+</body>
+</html>
