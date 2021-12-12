@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>テーブルの縦横スクロール</title>
+    <!-- CSSファイルを読み込む -->
+    <link th:href="@{/css/demo.css}" rel="stylesheet" type="text/css" />
+    <!-- タイトル左のfavicon画像を設定する -->
+    <link rel="icon" th:href="@{/img/purin.jpg}">
+</head>
+<body>
+    <header>
+        ここにヘッダーを書きます。
+        <ul>
+            <!-- 選択されたヘッダーの色を変えるようにth:classappendタグで設定 -->
+            <li th:classappend="${!#strings.isEmpty(select_header) && select_header.equals('header1')} ? now_header : ''">
+                <a th:href="@{/header1}">ヘッダー１</a>
+            </li>
+            <li th:classappend="${!#strings.isEmpty(select_header) && select_header.equals('header2')} ? now_header : ''">
+                <a th:href="@{/header2}">少し長いヘッダー２</a>
+            </li>
+            <li th:classappend="${!#strings.isEmpty(select_header) && select_header.equals('header3')} ? now_header : ''">
+                <a th:href="@{/header3}">ヘッダー３</a>
+            </li>
+            <li th:classappend="${!#strings.isEmpty(select_header) && select_header.equals('header4')} ? now_header : ''">
+                <a th:href="@{/header4}">もう少し長いヘッダー４</a>
+            </li>
+            <li th:classappend="${!#strings.isEmpty(select_header) && select_header.equals('header5')} ? now_header : ''">
+                <a th:href="@{/header5}">ヘッダー５</a>
+            </li>
+        </ul>
+    </header>
+    <main>
+        <div class="container">
+            <div class="menu">
+                ここにメニューを書きます。幅は30%です。
+            </div>
+            <div class="main">
+                <div th:if="!${#strings.isEmpty(select_header_name)}">
+                    <div class="show_select_header">
+                        選択されたヘッダーは<span th:text="${select_header_name}">(選択されたヘッダー名)</span>です。
+                    </div>
+                    <br/>
+                </div>
+                ここに本文を書きます。テーブルを縦横スクロールできるようにします。
+                <div class="scroll_table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>タイトル１</th>
+                            <th>タイトル２</th>
+                            <th>少し長いタイトル３</th>
+                            <th>タイトル４</th>
+                            <th>もう少し長いタイトル５</th>
+                            <th>タイトル６</th>
+                            <th>さらにもう少し長いタイトル７</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>カラム１</td>
+                            <td>少し長いカラム２</td>
+                            <td>カラム３</td>
+                            <td>もう少し長いカラム４</td>
+                            <td>カラム５</td>
+                            <td>カラム６</td>
+                            <td>さらにもう少し長いカラム７</td>
+                        </tr>
+                        <tr>
+                            <td>少し長いカラム１</td>
+                            <td>カラム２</td>
+                            <td>少し長いカラム３</td>
+                            <td>もう少し長いカラム４</td>
+                            <td>カラム５</td>
+                            <td>少し長いカラム６</td>
+                            <td>さらにもう少し長いカラム７</td>
+                        </tr>
+                        <tr>
+                            <td>少し長いカラム１</td>
+                            <td>少し長いカラム２</td>
+                            <td>カラム３</td>
+                            <td>もう少し長いカラム４</td>
+                            <td>カラム５</td>
+                            <td>カラム６</td>
+                            <td>さらにもう少し長いカラム７</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        ここにフッターを書きます。
+    </footer>
+</body>
+</html>
