@@ -1,12 +1,12 @@
 /* bodyタグ全体のレイアウト */
-body{
+body {
     /* デフォルトの上下左右余白(ボックス外)を
        0pxに設定変更 */
     margin: 0px;
 }
 
 /* ヘッダーのレイアウト */
-header{
+header {
     /* 下余白(ボックス内)を100pxに設定し、
        上左右余白(ボックス内)を10pxに設定 */
     padding: 10px 10px 100px 10px;
@@ -18,12 +18,12 @@ header{
 }
 
 /* メニューと本文のレイアウト */
-main .container{
+main .container {
     /* 子要素のメニューと本文を横並びにするための設定 */
     display: flex;
 }
 /* メニューのレイアウト */
-main .menu{
+main .menu {
     /* 幅:30%に設定 */
     width: 30%;
     /* 下余白(ボックス内)を400pxに設定し、
@@ -36,7 +36,7 @@ main .menu{
     outline: 1px solid black;
 }
 /* 本文のレイアウト */
-main .main{
+main .main {
     /* 本文の幅を残りの幅いっぱいに設定 */
     flex: 1;
     /* 下余白(ボックス内)を400pxに設定し、
@@ -50,7 +50,7 @@ main .main{
 }
 
 /* フッターのレイアウト */
-footer{
+footer {
     /* 下余白(ボックス内)を50pxに設定し、
        上左右余白(ボックス内)を10pxに設定 */
     padding: 10px 10px 50px 10px;
