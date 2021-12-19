@@ -1,0 +1,189 @@
+/* bodyタグ全体のレイアウト */
+body {
+    /* デフォルトの上下左右余白(ボックス外)を
+       0pxに設定変更 */
+    margin: 0px;
+}
+
+/* ヘッダーのレイアウト */
+header {
+    /* 最小幅を固定値(600px)に設定 */
+    /* min-widthの値は全体的に目視確認しながら設定 */
+    min-width: 600px;
+    /* 下余白(ボックス内)を100pxに設定し、
+       上左右余白(ボックス内)を10pxに設定 */
+    padding: 10px 10px 100px 10px;
+    /* 下余白(ボックス外)を10pxに設定 */
+    margin-bottom: 10px;
+    /* 背景色：黄、枠線：黒に設定 */
+    background: #FFFF99;
+    outline: 1px solid black;
+}
+/* ヘッダーのulタグのレイアウト */
+header ul {
+    /* ulタグ内のliを横方向に設定するための指定 */
+    display: flex;
+    /* ulタグ内のliを右寄せに設定するための指定 */
+    justify-content: flex-end;
+    /* ulタグの子要素(liタグ)で改行を許可しないための設定 */
+    flex-wrap: no-wrap;
+    /* ulタグの子要素(liタグ)をベースラインに配置するための設定 */
+    align-items: baseline;
+    /* ヘッダーの右余白(ボックス内)を30pxに設定 */
+    padding-right: 30px;
+}
+/* ヘッダーのliタグのレイアウト */
+header li {
+    /* liタグの先頭のデフォルトの黒丸を削除 */
+    list-style: none;
+    /* liタグ内の文字サイズを15px、中央寄せに設定 */
+    font-size: 15px;
+    text-align: center;
+    /* liタグの上下余白(ボックス内)を10px、左右余白(ボックス内)を15pxに設定 */
+    padding: 10px 15px;
+    min-width: 50px;
+    /* liタグの背景色：薄紅色、枠線：黒に設定 */
+    background: #ffa07a;
+    outline: 1px solid black;
+}
+/* ヘッダーのliタグにカーソルが当たったときのレイアウト */
+header li:hover {
+    /* liタグの背景色：暗紅色に設定 */
+    background: #e9967a;
+}
+/* ヘッダーのliタグ下、aリンクのレイアウト */
+header li>a {
+    /* 下線を無くし、文字色を黒に設定 */
+    text-decoration: none;
+    color: black;
+}
+/* now_headerクラス(選択されたヘッダーを指定)のレイアウト */
+.now_header {
+    background: #deb887;
+}
+
+/* メニューと本文のレイアウト */
+main .container {
+    /* 子要素のメニューと本文を横並びにするための設定 */
+    display: flex;
+}
+/* メニューのレイアウト */
+main .menu {
+    /* 幅:30%に設定 */
+    width: 30%;
+    /* 最小幅を固定値(174px)に設定 */
+    min-width: 174px;
+    /* 下余白(ボックス内)を400pxに設定し、
+       上左右余白(ボックス内)を10pxに設定 */
+    padding: 10px 10px 400px 10px;
+    /* 下余白(ボックス外)を10pxに設定 */
+    margin-bottom: 10px;
+    /* 背景色：緑、枠線：黒に設定 */
+    background: #99FF66;
+    outline: 1px solid black;
+}
+/* 本文のレイアウト */
+main .main {
+    /* 本文の幅を残りの幅いっぱいに設定 */
+    flex: 1;
+    /* 最小幅をテーブルが収まる幅(406px)に設定 */
+    min-width: 406px;
+    /* 下余白(ボックス内)を400pxに設定し、
+       上左右余白(ボックス内)を10pxに設定 */
+    padding: 10px 10px 400px 10px;
+    /* 下余白(ボックス外)を10pxに設定 */
+    margin-bottom: 10px;
+    /* 背景色：水色、枠線：黒に設定 */
+    background: #CCFFFF;
+    outline: 1px solid black;
+}
+/* 選択されたヘッダー名を表示する領域のレイアウト */
+.show_select_header {
+    /* 高さを60pxに指定 */
+    height: 60px;
+    line-height:60px;
+    /* テキストの位置を上下中央揃えに設定 */
+    text-align: center;
+    vertical-align: center;
+    /* 背景色を薄暗青に設定 */
+    background: #add8e6;
+}
+.show_select_header span {
+    /* 選択されたヘッダー名を赤字で表示 */
+    color: red;
+}
+/* テーブルスクロール(本文内)のレイアウト */
+.scroll_table {
+    /* テーブル(本文内)を縦横スクロールするための設定 */
+    overflow: auto;
+    /* テーブルの右余白(ボックス外)を20pxに設定 */
+    margin-right: 20px;
+    /* 縦スクロール確認のため、テーブルの高さを200pxに設定 */
+    height: 200px;
+}
+/* テーブル(本文内)のレイアウト */
+main table {
+    /* テーブルの上下余白(ボックス外)を20px、
+      左右余白(ボックス外)を40pxに設定 */
+    margin: 20px 40px;
+    /* 隣接するセルのボーダーを重ねて表示する設定 */
+    border-collapse: collapse;
+    /* テーブル(本文内)を横スクロールするための設定 */
+    white-space: nowrap;
+    /* テーブルの列幅を固定に指定する設定 */
+    table-layout: fixed;
+    /* テーブルの先頭列の幅を固定にした場合に、
+       画面サイズによってテーブルレイアウトが崩れないよう、
+       テーブル幅を固定値(2200px)を設定 */
+    width: 2200px;
+}
+main table th, main table td {
+    /* テーブルの枠線を設定 */
+    border: solid 1px black;
+    /* テキストの位置を上下中央揃えに設定 */
+    text-align: center;
+    vertical-align: center;
+}
+main table th {
+    /* テーブルのタイトル行の上下余白(ボックス内)を5px、
+      左右余白(ボックス内)を50pxに設定 */
+    padding: 5px 50px;
+    /* 背景色を紺、文字色を白に設定 */
+    background: #000066;
+    color: white;
+    /* タイトル行の枠線の一部(内側)を白に設定 */
+    border-left-color: white;
+    border-right: none;
+}
+/* テーブルの先頭列の設定 */
+main table th:first-child {
+    /* 幅を200px、背景色を黒に近い紺色に設定 */
+    width: 200px;
+    background: #000033;
+}
+/* タイトル行の枠線の一部(外側)を黒に戻す設定 */
+main table th:first-of-type {
+    border-left-color: black;
+}
+main table th:last-of-type {
+    border-right: 1px solid black;
+}
+main table td {
+    /* テーブルの各行の上下余白(ボックス内)を15px、
+      左右余白(ボックス内)を20pxに設定 */
+    padding: 15px 20px;
+    /* 背景色を薄い青に設定 */
+    background: #8EB8FF;
+}
+
+/* フッターのレイアウト */
+footer {
+    /* 最小幅を固定値(600px)に設定 */
+    min-width: 600px;
+    /* 下余白(ボックス内)を50pxに設定し、
+       上左右余白(ボックス内)を10pxに設定 */
+    padding: 10px 10px 50px 10px;
+    /* 背景色：桃色、枠線：黒に設定 */
+    background: #FFDDFF;
+    outline: 1px solid black;
+}
