@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.UserDataMapper">
+    <resultMap id="userDataResultMap" type="com.example.demo.UserData" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="birthY" property="birthY" jdbcType="VARCHAR" />
+        <result column="birthM" property="birthM" jdbcType="VARCHAR" />
+        <result column="birthD" property="birthD" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <result column="memo" property="memo" jdbcType="VARCHAR" />
+        <result column="sex_value" property="sex_value" jdbcType="VARCHAR" />
+    </resultMap>
+    <insert id="insertMulti" parameterType="java.util.List">
+        INSERT INTO dbo.USER_DATA (
+              id
+            , name
+            , birth_year
+            , birth_month
+            , birth_day
+            , sex
+            , memo
+        ) VALUES
+        <foreach collection="userDataList" item="userData" separator=",">
+            (
+                  #{userData.id}
+                , #{userData.name}
+                , #{userData.birthY}
+                , #{userData.birthM}
+                , #{userData.birthD}
+                , #{userData.sex}
+                , #{userData.memo,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+    <update id="updateMulti" parameterType="java.util.List">
+        <foreach collection="userDataList" item="userData" separator=";">
+            UPDATE dbo.USER_DATA
+            <set>
+                  name = #{userData.name}
+                , birth_year = #{userData.birthY}
+                , birth_month = #{userData.birthM}
+                , birth_day = #{userData.birthD}
+                , sex = #{userData.sex}
+                , memo = #{userData.memo,jdbcType=VARCHAR}
+            </set>
+            WHERE id = #{userData.id}
+        </foreach>
+    </update>
+    <select id="findAll" resultMap="userDataResultMap">
+        SELECT
+              id
+            , name
+            , birth_year as birthY
+            , birth_month as birthM
+            , birth_day as birthD
+            , sex
+            , memo
+            , CASE sex
+              WHEN '1' THEN '男'
+              WHEN '2' THEN '女'
+              ELSE ''
+              END AS sex_value
+        FROM dbo.USER_DATA
+    </select>
+</mapper>
