@@ -39,11 +39,11 @@ public class DemoController {
     }
 
     /**
-     * エラーチェックを行い、エラーが無ければ確認画面に遷移し、
-     * エラーがあれば入力画面のままとする
+     * エラーチェックを行い、エラーが無ければメイン画面に遷移し、
+     * エラーがあればログイン画面のままとする
      * @param demoForm Formオブジェクト
      * @param result バインド結果
-     * @return 確認画面または入力画面へのパス
+     * @return メイン画面またはログイン画面へのパス
      */
     @PostMapping("/login")
     public String login(@Validated(All.class) DemoForm demoForm, BindingResult result){
