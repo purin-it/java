@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/login.css}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" th:src="@{/login.js}"></script>
+    <title>ログイン画面</title>
+</head>
+<body>
+<form method="post" th:action="@{/login}" th:object="${demoForm}">
+    <p>ID・パスワードを入力の上、「ログイン」ボタンを押下してください。</p>
+    <ul>
+        <li th:each="error : ${#fields.detailedErrors()}" class="errorMessage">
+            <span th:text="${error.message}">ここにエラーメッセージを表示する</span>
+        </li>
+    </ul>
+    <table border="0">
+        <tr>
+            <td align="left" valign="top">ID：</td>
+            <td>
+                <input type="text" maxlength="3" th:value="*{id}"
+                       th:field="*{id}" th:errorclass="fieldError" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">パスワード：</td>
+            <td>
+                <input type="password" maxlength="10" th:value="*{password}"
+                       th:field="*{password}" th:errorclass="fieldError" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top" colspan="2">
+                <input type="checkbox" id="pwCheck"
+                       onclick="changePwType(this.checked)">パスワードを表示する
+            </td>
+        </tr>
+    </table>
+    <br/><br/>
+    <input type="submit" value="ログイン" />
+</form>
+</body>
+</html>
