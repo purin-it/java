@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/demo.css}" rel="stylesheet" type="text/css" />
+    <title>初期表示画面</title>
+</head>
+<body>
+<form method="post" th:action="@{/main}" th:object="${demoForm}">
+    <p>各項目を入力の上、「メイン画面へ」ボタンを押下してください。</p>
+    <ul>
+        <li th:each="error : ${#fields.detailedErrors()}" class="errorMessage">
+            <span th:text="${error.message}">ここにエラーメッセージを表示する</span>
+        </li>
+    </ul>
+    <table border="0">
+        <tr>
+            <td align="left" valign="top">テキスト1(半角英小文字を含む_1)：</td>
+            <td>
+                <input type="text" maxlength="10" th:value="*{text1}"
+                       th:field="*{text1}" th:errorclass="fieldError" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">テキスト2(半角英小文字を含む_2)：</td>
+            <td>
+                <input type="text" maxlength="10" th:value="*{text2}"
+                       th:field="*{text2}" th:errorclass="fieldError" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">テキスト3(半角英大文字と半角英小文字を含む)：</td>
+            <td>
+                <input type="text" maxlength="10" th:value="*{text3}"
+                       th:field="*{text3}" th:errorclass="fieldError" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left" valign="top">テキスト4(半角英大文字と半角英小文字と半角数字を含む)：</td>
+            <td>
+                <input type="text" maxlength="10" th:value="*{text4}"
+                       th:field="*{text4}" th:errorclass="fieldError" />
+            </td>
+        </tr>
+    </table>
+    <br/><br/>
+    <input type="submit" value="メイン画面へ" />
+</form>
+</body>
+</html>
