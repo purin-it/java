@@ -22,8 +22,8 @@ public class DemoApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
         try {
-            // ChainedTransactionManagerを利用して、
-            // OracleとSQL Serverのユーザーデータテーブル(user_data)を
+            // Atomikosを利用して、OracleとSQL Serverの
+            // ユーザーデータテーブル(user_data)を
             // 更新するトランザクションを呼び出す
             // DB更新に失敗するとExceptionがスローされる
             demoService.transUserData();
