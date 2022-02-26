@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,13 +48,26 @@ public class DemoRestController {
 	}
 	
 	/**
-	 * 指定したユーザーデータを登録・更新する.
+	 * 指定したユーザーデータを登録する.
 	 * @param userData ユーザーデータ
-	 * @return 登録・更新したユーザーデータ
+	 * @return 登録したユーザーデータ
 	 */
 	@PostMapping("/users")
 	public UserData saveUserData(@RequestBody UserData userData) {
 		// 本来は引数のチェック処理が必要であるが、ここでは実施していない
+		return repository.save(userData);
+	}
+	
+	/**
+	 * 指定したユーザーデータを更新する.
+	 * @param id ID
+	 * @param userData ユーザーデータ
+	 * @return 更新したユーザーデータ
+	 */
+	@PutMapping("/users/{id}")
+	public UserData updateUserData(@PathVariable long id, @RequestBody UserData userData) {
+		// 本来は引数userDataのチェック処理が必要であるが、ここでは実施していない
+		userData.setId(id);
 		return repository.save(userData);
 	}
 	
