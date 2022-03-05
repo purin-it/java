@@ -18,7 +18,7 @@ public class DemoRestApiCallApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// Rest APIでデータ追加・更新時にチェックエラーになる処理を呼び出すメソッドを呼び出す
+		// Rest APIでデータ追加・更新時にチェックエラーになる処理を呼び出す
 		demoRestApiCallCheckService.execRestApiCheck();
 	}
 
