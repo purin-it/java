@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー登録画面</title>
+</head>
+<body>
+　　<p>下記必要事項を記載の上、「登録」ボタンを押下してください。</p><br/>
+   <form method="post" th:action="@{/add}" th:object="${demoForm}">
+       <span th:if="${message != null || message == ''}" 
+             th:text="${message}" style="color:red;"></span>
+       <table border="0">
+           <tr>
+               <td align="left" valign="top">ID：</td>
+               <td>
+                   <input type="text" th:value="*{id}" th:field="*{id}" />
+               </td>
+           </tr>
+           <tr>
+               <td align="left" valign="top">名前：</td>
+               <td>
+                   <input type="text" th:value="*{name}" th:field="*{name}" />
+               </td>
+           </tr>
+           <tr>
+               <td align="left" valign="top">生年月日：</td>
+               <td>
+                   <input type="text" th:value="*{birthY}" size="4"
+                          maxlength="4" th:field="*{birthY}" />年
+                   <select th:field="*{birthM}">
+                       <option value="">---</option>
+                       <option th:each="item : *{getMonthItems()}"
+                               th:value="${item.key}" th:text="${item.value}"/>
+                   </select>月
+                   <select th:field="*{birthD}">
+                       <option value="">---</option>
+                       <option th:each="item : *{getDayItems()}"
+                               th:value="${item.key}" th:text="${item.value}"/>
+                   </select>日
+               </td>
+           </tr>
+           <tr>
+               <td align="left" valign="top">性別：</td>
+               <td>
+                   <for th:each="item : *{getSexItems()}">
+                       <input type="radio" name="sex" th:value="${item.key}" 
+                              th:text="${item.value}" th:field="*{sex}" />
+                   </for>
+               </td>
+           </tr>
+           <tr>
+               <td align="left" valign="top">メモ：</td>
+               <td>
+                   <textarea rows="6" cols="40" th:value="*{memo}" th:field="*{memo}">
+                   </textarea>
+               </td>
+           </tr>
+       </table>
+       <br/><br/>
+       <input type="submit" name="next" value="登録" />
+       <input type="submit" name="back" value="戻る" />
+   </form>
+</body>
+</html>
