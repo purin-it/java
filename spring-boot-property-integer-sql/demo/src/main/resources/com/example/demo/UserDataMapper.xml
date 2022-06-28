@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.UserDataMapper">
+    <select id="findByBirthdayPropInt" parameterType="java.lang.Integer" resultType="com.example.demo.UserData">
+        SELECT
+              id
+            , name
+            , birth_year as birthY
+            , birth_month as birthM
+            , birth_day as birthD
+            , sex
+            , CASE sex
+              WHEN '1' THEN '男'
+              WHEN '2' THEN '女'
+              ELSE ''
+              END AS sex_value
+            , memo
+        FROM dbo.USER_DATA
+        WHERE CONVERT(DATETIME, CONCAT(FORMAT(birth_year,'0000'), FORMAT(birth_month,'00'), FORMAT(birth_day,'00')))
+            &gt;= CONVERT(DATETIME, '19900620') - IsNull(#{propNum}, 0)
+        AND CONVERT(DATETIME, CONCAT(FORMAT(birth_year,'0000'), FORMAT(birth_month,'00'), FORMAT(birth_day,'00')))
+            &lt;= CONVERT(DATETIME, '19900620') + IsNull(#{propNum}, 0)
+    </select>
+</mapper>
