@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>サブ画面</title>
+</head>
+<body>
+    これはサブ画面です。
+    <br/><br/>
+
+    <form id="formSub" method="post" th:action="@{/demo/sub/back/toIndex}">
+        <input type="submit" value="初期表示画面へ" />
+    </form>
+</body>
+</html>
