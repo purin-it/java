@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.UserDataMapper">
+    <resultMap id="userDataResultMap" type="com.example.demo.UserData" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="birth_year" property="birthY" jdbcType="VARCHAR" />
+        <result column="birth_month" property="birthM" jdbcType="VARCHAR" />
+        <result column="birth_day" property="birthD" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <result column="memo" property="memo" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="findById" parameterType="java.lang.Long" resultMap="userDataResultMap">
+        SELECT id, name, birth_year, birth_month, birth_day, sex, memo FROM USER_DATA WHERE id = #{id}
+    </select>
+    <select id="findByBirthdayNotBetween" parameterType="java.util.Date" resultMap="userDataResultMap">
+        SELECT id, name, birth_year, birth_month, birth_day, sex, memo FROM USER_DATA
+        WHERE TO_DATE(TO_CHAR(birth_year) || LPAD(TO_CHAR(birth_month), 2, '0')
+            || LPAD(TO_CHAR(birth_day), 2, '0'), 'yyyyMMdd') &gt;= (#{date} - 10)
+        AND TO_DATE(TO_CHAR(birth_year) || LPAD(TO_CHAR(birth_month), 2, '0')
+            || LPAD(TO_CHAR(birth_day), 2, '0'), 'yyyyMMdd') &lt;= (#{date} + 10)
+    </select>
+    <select id="findByBirthdayBetween" parameterType="java.util.Date" resultMap="userDataResultMap">
+        SELECT id, name, birth_year, birth_month, birth_day, sex, memo FROM USER_DATA
+        WHERE TO_DATE(TO_CHAR(birth_year) || LPAD(TO_CHAR(birth_month), 2, '0')
+            || LPAD(TO_CHAR(birth_day), 2, '0'), 'yyyyMMdd')
+        BETWEEN (#{date} - 10) AND (#{date} + 10)
+    </select>
+</mapper>
