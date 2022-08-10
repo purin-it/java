@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.UserDataMapper">
+    <resultMap id="userDataResultMap" type="com.example.demo.UserData" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="birth_year" property="birthY" jdbcType="VARCHAR" />
+        <result column="birth_month" property="birthM" jdbcType="VARCHAR" />
+        <result column="birth_day" property="birthD" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <result column="memo" property="memo" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="findById" parameterType="java.lang.Long" resultMap="userDataResultMap">
+        SELECT id, name, birth_year, birth_month, birth_day, sex, memo FROM USER_DATA WHERE id = #{id}
+    </select>
+    <select id="findJoinNoAlias" parameterType="java.lang.Long" resultMap="userDataResultMap">
+        SELECT id, name, birth_year, birth_month, birth_day, sex_value AS sex, memo
+        FROM USER_DATA JOIN M_SEX ON USER_DATA.sex = M_SEX.sex_cd
+    </select>
+    <select id="findJoinAlias" parameterType="java.lang.Long" resultMap="userDataResultMap">
+        SELECT u.id, u.name, u.birth_year, u.birth_month, u.birth_day, s.sex_value AS sex, u.memo
+        FROM USER_DATA u JOIN M_SEX s ON u.sex = s.sex_cd
+    </select>
+</mapper>
