@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.UserDataMapper">
+    <update id="truncateData">
+        TRUNCATE TABLE USER_DATA
+    </update>
+    <insert id="insertDataOne" parameterType="com.example.demo.UserData">
+        INSERT INTO USER_DATA (
+              id
+            , name
+            , birth_year
+            , birth_month
+            , birth_day
+            , sex
+            , memo
+        ) VALUES (
+              #{id}
+            , #{name}
+            , #{birthY}
+            , #{birthM}
+            , #{birthD}
+            , #{sex}
+            , #{memo,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertDataMulti" parameterType="java.util.List">
+        INSERT INTO USER_DATA (
+              id
+            , name
+            , birth_year
+            , birth_month
+            , birth_day
+            , sex
+            , memo
+        )
+        <foreach collection="userDataList" item="userData" separator="union all">
+            ( SELECT
+                  #{userData.id}
+                , #{userData.name}
+                , #{userData.birthY}
+                , #{userData.birthM}
+                , #{userData.birthD}
+                , #{userData.sex}
+                , #{userData.memo,jdbcType=VARCHAR}
+              FROM DUAL
+            )
+        </foreach>
+    </insert>
+    <select id="countAll" resultType="long">
+        SELECT COUNT(id) FROM USER_DATA
+    </select>
+</mapper>
