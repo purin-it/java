@@ -1,0 +1,32 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.7.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+	//Oracleに接続するための設定
+    compile files('lib/ojdbc6.jar')
+	//MySQLに接続するための設定
+	compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.21'
+	//PostgreSqlに接続するための設定
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.2.16'
+	//SQL Serverに接続するための設定
+	compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '8.4.1.jre11'
+	//MyBatisを利用するための設定
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
+}
