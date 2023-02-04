@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="jp" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrapの設定 -->
+    <link th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/demo.css}" rel="stylesheet" type="text/css" />
+    <title>入力画面</title>
+</head>
+<body>
+    <!-- 画面サイズを画面幅いっぱい(container-fluid)とし、marginを上下左右に設定 -->
+    <div class="container-fluid m-4">
+        <!-- タイトル行の文字サイズを設定 -->
+        <p class="fs-4">下記必要事項を記載の上、「確認」ボタンを押下してください。</p>
+        <form method="post" th:action="@{/confirm}" th:object="${demoForm}">
+            <!-- 表の幅を、画面横幅の9/12の長さに設定 -->
+            <div class="col-9">
+                <!-- テーブルの枠線を非表示に設定 -->
+                <table class="table table-borderless">
+                   <tr>
+                       <!-- 画面幅が広くなるにつれてラベルのサイズを狭める設定 -->
+                       <td class="col-md-4 col-lg-2">名前：</td>
+                       <td>
+                           <input type="text" th:value="*{name}"
+                                  th:field="*{name}" th:errorclass="fieldError" />
+                           <span th:if="*{#fields.hasErrors('name')}"
+                                 th:errors="*{name}" class="errorMessage"></span>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>生年月日：</td>
+                       <td>
+                           <input type="text" th:value="*{birthYear}" size="4"
+                                  maxlength="4" th:field="*{birthYear}" th:errorclass="fieldError"
+                                  th:classappend="${#fields.hasErrors('birthDayRequired')} ? 'fieldError'" />年
+                           <select th:field="*{birthMonth}" th:errorclass="fieldError"
+                                   th:classappend="${#fields.hasErrors('birthYear')
+                                        || #fields.hasErrors('birthDayRequired')} ? 'fieldError'">
+                               <option value="">---</option>
+                               <option th:each="item : ${@demoCodeMap.getMonthItems()}"
+                                       th:value="${item.key}" th:text="${item.value}" />
+                           </select>月
+                           <select th:field="*{birthDay}" th:errorclass="fieldError"
+                                   th:classappend="${#fields.hasErrors('birthYear')
+                                        || #fields.hasErrors('birthDayRequired')} ? 'fieldError'">
+                               <option value="">---</option>
+                               <option th:each="item : ${@demoCodeMap.getDayItems()}"
+                                       th:value="${item.key}" th:text="${item.value}" />
+                           </select>日
+                           <span th:if="*{#fields.hasErrors('birthDayRequired')}"
+                                 th:errors="*{birthDayRequired}" class="errorMessage"></span>
+                           <span th:if="*{#fields.hasErrors('birthYear')}"
+                                 th:errors="*{birthYear}" class="errorMessage"></span>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>性別：</td>
+                       <td>
+                           <for th:each="item : ${@demoCodeMap.getSexItems()}">
+                               <span class="me-2">
+                                    <input type="radio" name="sex" th:value="${item.key}" th:text="${item.value}"
+                                      th:field="*{sex}" th:errorclass="fieldError" />
+                               </span>
+                           </for>
+                           <span th:if="*{#fields.hasErrors('sex')}"
+                                 th:errors="*{sex}" class="errorMessage"></span>
+                           <span th:if="*{#fields.hasErrors('sexInvalid')}"
+                                 th:errors="*{sexInvalid}" class="errorMessage"></span>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>メモ：</td>
+                       <td>
+                           <textarea rows="6" cols="40" th:value="*{memo}" th:field="*{memo}"></textarea>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td>入力確認：</td>
+                       <td>
+                           <input type="checkbox" name="checked" th:value="確認済"
+                                  th:field="*{checked}" th:errorclass="fieldError" />
+                           <span th:if="*{#fields.hasErrors('checked')}"
+                                 th:errors="*{checked}" class="errorMessage"></span>
+                       </td>
+                   </tr>
+                </table>
+            </div>
+            <br/><br/>
+            <!-- ボタンの色を青色に設定 -->
+            <input type="submit" name="next" value="確認" class="btn btn-primary" />
+            <!-- marginを左に設定 -->
+            <span class="ms-4">
+                <!-- ボタンの色を青色に設定 -->
+                <input type="submit" name="back" value="戻る" class="btn btn-primary" />
+            </span>
+       </form>
+    </div>
+    <!-- Bootstrapの設定 -->
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
+</body>
+</html>
