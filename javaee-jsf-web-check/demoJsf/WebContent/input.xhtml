@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <title>入力画面</title>
+   <h:outputStylesheet library="css" name="demoJsf.css"/>
+</h:head>
+<h:body>
+   <p>下記必要事項を記載の上、「確認」ボタンを押下してください。</p><br/>
+   <h:form>
+     <table border="0">
+       <tr>
+         <td align="left" valign="top">名前：</td>
+         <td align="left" valign="top">
+           <h:inputText id="name" value="#{inputFormAction.name}" />
+         </td>
+         <td align="left" valign="top">
+           <h:messages for="name" errorClass="errorMessage" layout="table" />
+         </td>
+       </tr>
+       <tr>
+         <td align="left" valign="top">生年月日：</td>
+         <td align="left" valign="top">
+           <!-- 生年月日_年・月・日のチェックを行うため、
+                InputFormActionクラスのvalidateメソッドを呼び出す -->
+           <h:outputLabel id="birth">
+             <f:event listener="#{inputFormAction.validate}" type="postValidate" />
+             <h:inputText id="birthYear" value="#{inputFormAction.birthYear}" size="4" />
+             年
+             <h:selectOneMenu id="birthMonth" value="#{inputFormAction.birthMonth}">
+               <f:selectItems value="#{inputFormAction.birthMonthItems}"/>
+             </h:selectOneMenu>月
+             <h:selectOneMenu id="birthDay" value="#{inputFormAction.birthDay}">
+               <f:selectItems value="#{inputFormAction.birthDayItems}"/>
+             </h:selectOneMenu>日
+           </h:outputLabel>
+         </td>
+         <td align="left" valign="top">
+           <h:messages for="birth" errorClass="errorMessage" layout="table" />
+         </td>
+       </tr>
+       <tr>
+         <td align="left" valign="top">性別：</td>
+         <td align="left" valign="top">
+           <h:selectOneRadio id="sex" value="#{inputFormAction.sex}">
+             <f:selectItems value="#{inputFormAction.sexItems}" />
+           </h:selectOneRadio>         </td>
+         <td align="left" valign="top">
+           <h:messages for="sex" errorClass="errorMessage" layout="table" />
+         </td>
+       </tr>
+       <tr>
+         <td align="left" valign="top">メモ：</td>
+         <td align="left" valign="top">
+           <h:inputTextarea value="#{inputFormAction.memo}" cols="40" rows="6" />
+         </td>
+         <td align="left" valign="top"></td>
+       </tr>
+       <tr>
+         <td align="left" valign="top">入力確認：</td>
+         <td align="left" valign="top">
+             <h:selectBooleanCheckbox id="checked" value="#{inputFormAction.checked}" />
+         </td>
+         <td align="left" valign="top">
+           <h:messages for="checked" errorClass="errorMessage" layout="table" />
+         </td>
+       </tr>
+     </table>
+     <br/>
+     <h:commandButton value="確認" action="#{inputFormAction.confirm()}" />
+   </h:form>
+</h:body>
+</html>
