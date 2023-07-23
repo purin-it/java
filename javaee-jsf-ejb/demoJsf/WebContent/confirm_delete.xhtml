@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <title>削除確認画面</title>
+   <h:outputStylesheet library="css" name="demoJsf.css"/>
+</h:head>
+<h:body>
+   <p>下記内容を削除してよろしいでしょうか？問題なければ「送信」ボタンを押下してください。</p><br/>
+   <h:form>
+     <table border="0">
+       <tr>
+         <td align="left" valign="top">名前：</td>
+         <td><h:outputText value="#{inputFormAction.name}" /></td>
+       </tr>
+       <tr>
+         <td align="left" valign="top">生年月日：</td>
+         <td><h:outputText value="#{inputFormAction.birthYear}年 #{inputFormAction.birthMonth}月 #{inputFormAction.birthDay}日" /></td>
+       </tr>
+       <tr>
+         <td align="left" valign="top">性別：</td>
+         <td><h:outputText value="#{inputFormAction.sexLabel}" /></td>
+       </tr>
+       <tr>
+         <td align="left" valign="top">メモ：</td>
+         <td><h:outputText value="#{inputFormAction.memo}" styleClass="lineBreakFormat" /></td>
+       </tr>
+     </table>
+     <br/>
+     <h:commandButton value="送信" action="#{inputFormAction.del()}" />&nbsp;
+
+     <!-- 戻るボタンを追加 -->
+     <!-- その際、フォームの各項目値の入力チェックを省くため、immediate="true"を追加 -->
+     <h:commandButton value="戻る" action="#{userListAction.toList()}" immediate="true" />
+   </h:form>
+</h:body>
+</html>
