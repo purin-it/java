@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+  <display-name>demoJsf</display-name>
+  <welcome-file-list>
+    <!-- 画面遷移先でJSFタグを利用できるよう、Faces ServletのURL(faces/)を先頭に付与 -->
+    <!-- 初期表示を入力画面(input.xhtml)から一覧画面(list.xhtml)に変更 -->
+    <welcome-file>faces/list.xhtml</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+  <!-- コード変換を行うユーティリティクラスをFACELETS_LIBRARIESに登録 -->
+  <context-param>
+    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+    <param-value>/WEB-INF/custom.taglib.xml</param-value>
+  </context-param>
+  <!-- JSFでのテキスト・テキストエリアの文字化け防止用Filterを設定 -->
+  <filter>
+    <filter-name>Encoding</filter-name>
+    <filter-class>common.EncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>Encoding</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+</web-app>
