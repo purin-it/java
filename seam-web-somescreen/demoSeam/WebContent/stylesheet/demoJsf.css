@@ -1,0 +1,5 @@
+.lineBreakFormat{
+    /* 改行コードをbrタグに変換し表示する */
+    /* 空白文字はそのまま残す */
+    white-space: pre;
+}
