@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a4j="http://richfaces.org/a4j">
+<!-- h:head,h:bodyタグを使うとエラーになるため、head,bodyタグにそれぞれ変更 -->
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <title>確認画面</title>
+   <!-- cssファイルの読み込みをseams用に変更 -->
+   <a4j:loadStyle src="resource:///stylesheet/demoJsf.css" />
+</head>
+<body>
+   <p>入力内容を確認し、問題なければ「送信」ボタンを押下してください。</p><br/>
+   <h:form>
+     <table border="0">
+       <tr>
+         <td align="left" valign="top">名前：</td>
+         <td><h:outputText value="#{inputFormAction.name}" /></td>
+       </tr>
+       <tr>
+         <td align="left" valign="top">生年月日：</td>
+         <td><h:outputText value="#{inputFormAction.birthYear}年 #{inputFormAction.birthMonth}月 #{inputFormAction.birthDay}日" /></td>
+       </tr>
+       <tr>
+         <td align="left" valign="top">性別：</td>
+         <td><h:outputText value="#{inputFormAction.sexLabel}" /></td>
+       </tr>
+       <tr>
+         <td align="left" valign="top">メモ：</td>
+         <td><h:outputText value="#{inputFormAction.memo}" styleClass="lineBreakFormat" /></td>
+       </tr>
+       <tr>
+         <td align="left" valign="top">確認チェック：</td>
+         <td>
+            <h:outputText value="確認済" rendered="#{inputFormAction.checked}" />
+            <h:outputText value="未確認" rendered="#{inputFormAction.checked == false}" />
+         </td>
+       </tr>
+     </table>
+     <br/>
+     <h:commandButton value="送信" action="#{inputFormAction.send()}" />
+     <h:outputText value="&#160;" /> <!-- &nbsp;で半角空白が設定されないため、左記のように変更 -->
+     <h:commandButton value="戻る" action="#{inputFormAction.back()}" />
+   </h:form>
+</body>
+</html>
