@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ラジオボタンのカスタマイズ</title>
+    <!-- CSSファイルを読み込む -->
+    <link th:href="@{/css/demo.css}" rel="stylesheet" type="text/css" />
+    <!-- タイトル左のfavicon画像を設定する -->
+    <link rel="icon" th:href="@{/img/purin.jpg}">
+</head>
+<body>
+    <header>
+        ここにヘッダーを書きます。
+    </header>
+    <main>
+        <div class="container">
+            <div class="menu">
+                ここにメニューを書きます。幅は30%です。
+            </div>
+            <div class="main">
+                <form action="*" method="post">
+                    <h3>ラジオボタン（通常）</h3>
+                    <input type="radio" name="lang1" value="1" id="eng1" checked />
+                    <label for="eng1">英語</label>
+                    <input type="radio" name="lang1" value="2" id="jpn1" />
+                    <label for="jpn1">日本語</label>
+                    <input type="radio" name="lang1" value="3" id="chn1" />
+                    <label for="chn1">中国語</label>
+                    <br/>
+                    <h3>ラジオボタン（非表示）</h3>
+                    <input type="radio" name="lang2" value="1" id="eng2" class="radio_none" checked />
+                    <label for="eng2">英語</label>
+                    <input type="radio" name="lang2" value="2" id="jpn2" class="radio_none" />
+                    <label for="jpn2">日本語</label>
+                    <input type="radio" name="lang2" value="3" id="chn2" class="radio_none" />
+                    <label for="chn2">中国語</label>
+                    <br/>
+                    <h3>ラジオボタン（先頭に丸印、チェックマーク無し）</h3>
+                    <input type="radio" name="lang3" value="1" id="eng3" class="radio_none" checked />
+                    <label for="eng3" class="lbl_circle">英語</label>
+                    <input type="radio" name="lang3" value="2" id="jpn3" class="radio_none" />
+                    <label for="jpn3" class="lbl_circle">日本語</label>
+                    <input type="radio" name="lang3" value="3" id="chn3" class="radio_none" />
+                    <label for="chn3" class="lbl_circle">中国語</label>
+                    <br/>
+                    <h3>ラジオボタン（先頭に丸印、チェックマーク有り）</h3>
+                    <input type="radio" name="lang4" value="1" id="eng4" class="radio_none" checked />
+                    <label for="eng4" class="lbl_checked">英語</label>
+                    <input type="radio" name="lang4" value="2" id="jpn4" class="radio_none" />
+                    <label for="jpn4" class="lbl_checked">日本語</label>
+                    <input type="radio" name="lang4" value="3" id="chn4" class="radio_none" />
+                    <label for="chn4" class="lbl_checked">中国語</label>
+                    <br/>
+                    <h3>ラジオボタン（オリジナルなレイアウトで動作）</h3>
+                    <input type="radio" name="lang5" value="1" id="eng5" class="radio_none" checked />
+                    <label for="eng5" class="lbl_origin">英語</label>
+                    <input type="radio" name="lang5" value="2" id="jpn5" class="radio_none" />
+                    <label for="jpn5" class="lbl_origin">日本語</label>
+                    <input type="radio" name="lang5" value="3" id="chn5" class="radio_none" />
+                    <label for="chn5" class="lbl_origin">中国語</label>
+                    <br/>
+                    <h3>テーブル内のラジオボタン（オリジナルなレイアウトで動作）</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="tbl_radio_width"></th>
+                            <th>タイトル１</th>
+                            <th>タイトル２</th>
+                            <th>タイトル３</th>
+                            <th>タイトル４</th>
+                            <th>タイトル５</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <input type="radio" name="tbl1" value="1" id="col1" class="radio_none" checked />
+                                <label for="col1" class="lbl_tbl"></label>
+                            </td>
+                            <td>カラム１</td>
+                            <td>カラム２</td>
+                            <td>カラム３</td>
+                            <td>カラム４</td>
+                            <td>カラム５</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" name="tbl1" value="2" id="col2" class="radio_none" />
+                                <label for="col2" class="lbl_tbl"></label>
+                            </td>
+                            <td>カラム１１</td>
+                            <td>カラム１２</td>
+                            <td>カラム１３</td>
+                            <td>カラム１４</td>
+                            <td>カラム１５</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" name="tbl1" value="3" id="col3" class="radio_none" />
+                                <label for="col3" class="lbl_tbl"></label>
+                            </td>
+                            <td>カラム２１</td>
+                            <td>カラム２２</td>
+                            <td>カラム２３</td>
+                            <td>カラム２４</td>
+                            <td>カラム２５</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer>
+        ここにフッターを書きます。
+    </footer>
+</body>
+</html>

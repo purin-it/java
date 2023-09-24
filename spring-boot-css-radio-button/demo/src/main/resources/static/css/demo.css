@@ -1,0 +1,254 @@
+/* bodyタグ全体のレイアウト */
+body {
+    /* デフォルトの上下左右余白(ボックス外)を
+       0pxに設定変更 */
+    margin: 0px;
+}
+
+/* ヘッダーのレイアウト */
+header {
+    /* 下余白(ボックス内)を100pxに設定し、
+       上左右余白(ボックス内)を10pxに設定 */
+    padding: 10px 10px 100px 10px;
+    /* 下余白(ボックス外)を10pxに設定 */
+    margin-bottom: 10px;
+    /* 背景色：黄、枠線：黒に設定 */
+    background: #FFFF99;
+    outline: 1px solid black;
+}
+
+/* メニューと本文のレイアウト */
+main .container {
+    /* 子要素のメニューと本文を横並びにするための設定 */
+    display: flex;
+}
+/* メニューのレイアウト */
+main .menu {
+    /* 幅:30%に設定 */
+    width: 30%;
+    /* 下余白(ボックス内)を400pxに設定し、
+       上左右余白(ボックス内)を10pxに設定 */
+    padding: 10px 10px 400px 10px;
+    /* 下余白(ボックス外)を10pxに設定 */
+    margin-bottom: 10px;
+    /* 背景色：緑、枠線：黒に設定 */
+    background: #99FF66;
+    outline: 1px solid black;
+}
+/* 本文のレイアウト */
+main .main {
+    /* 本文の幅を残りの幅いっぱいに設定 */
+    flex: 1;
+    /* 下余白(ボックス内)を400pxに設定し、
+       上左右余白(ボックス内)を10pxに設定 */
+    padding: 10px 10px 400px 10px;
+    /* 下余白(ボックス外)を10pxに設定 */
+    margin-bottom: 10px;
+    /* 背景色：水色、枠線：黒に設定 */
+    background: #CCFFFF;
+    outline: 1px solid black;
+}
+
+/* フッターのレイアウト */
+footer {
+    /* 下余白(ボックス内)を50pxに設定し、
+       上左右余白(ボックス内)を10pxに設定 */
+    padding: 10px 10px 50px 10px;
+    /* 背景色：桃色、枠線：黒に設定 */
+    background: #FFDDFF;
+    outline: 1px solid black;
+}
+
+/* テーブル(本文内)のレイアウト */
+main table {
+    /* テーブルの上下余白(ボックス外)を20px、
+      左右余白(ボックス外)を40pxに設定 */
+    margin: 20px 40px;
+    /* 隣接するセルのボーダーを重ねて表示する設定 */
+    border-collapse: collapse;
+    /* カラム数が少なくてもテーブル幅を最大に保つため
+      テーブルの幅を(本文全体-左右余白(80px))に設定 */
+    width: calc(100% - 80px);
+}
+main table th, main table td {
+    /* テーブルの枠線を設定 */
+    border: solid 1px black;
+    /* テキストの位置を上下中央揃えに設定 */
+    text-align: center;
+    vertical-align: center;
+}
+main table th {
+    /* 背景色を紺、文字色を白に設定 */
+    background: #000066;
+    color: white;
+    /* タイトル行の枠線の一部(内側)を白に設定 */
+    border-left-color: white;
+    border-right: none;
+}
+/* タイトル行の枠線の一部(外側)を黒に戻す設定 */
+main table th:first-of-type {
+    border-left-color: black;
+}
+main table th:last-of-type {
+    border-right: 1px solid black;
+}
+/* テーブル内のラジオボタンの横幅を設定 */
+.tbl_radio_width {
+    width: 50px;
+}
+/* 標準のラジオボタンの余白を設定*/
+input[type=radio] ~ label {
+    /* 右余白を20pxに設定 */
+    padding-right: 20px;
+}
+/* 標準のラジオボタンを非表示にする */
+.radio_none {
+    display: none;
+}
+/* ラジオボタンの各ラベル先頭に白丸を表示 */
+/* ラジオボタン（先頭に丸印、チェックマーク無し） */
+.lbl_circle {
+    /* 後続の::after擬似要素の位置を調整するため、
+       位置を相対位置指定に設定 */
+    position: relative;
+    /* 左余白(ボックス内)を50pxに設定 */
+    padding-left: 50px;
+}
+.lbl_circle::after {
+    /* 擬似要素に設定する文字列を空文字に設定 */
+    content: "";
+    /* 幅や高さを指定できるよう、ブロック要素に変更 */
+    display: block;
+    /* 各ラベル先頭の白丸の位置を絶対位置指定に
+       設定し、配置位置を決める */
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    margin-top: -10px;
+    /* 横幅と高さを指定 */
+    width: 16px;
+    height: 16px;
+    /* 境界線を正円に指定 */
+    border-radius: 50%;
+    /* 境界線を実線で指定 */
+    border: 2px solid #888888;
+}
+/* ラジオボタンの各ラベル先頭にチェックマークを表示 */
+/* ラジオボタン（先頭に丸印、チェックマーク有り） */
+.lbl_checked {
+    /* .lbl_circleと同じプロパティを指定 */
+    position: relative;
+    padding-left: 50px;
+}
+.lbl_checked::after {
+    /* .lbl_circle::afterと同じプロパティを指定 */
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    margin-top: -10px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #888888;
+}
+.lbl_checked::before {
+    /* .lbl_checked::afterと同じプロパティを指定 start */
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    border-radius: 50%;
+    /* .lbl_checked::afterと同じプロパティを指定 end */
+    /* 配置位置を決める */
+    left: 20px;
+    margin-top: -5px;
+    /* 横幅と高さ・背景色を指定 */
+    width: 10px;
+    height: 10px;
+    background: #000099;
+}
+/* ラジオボタンがオリジナルなレイアウトで動作するように設定 */
+/* ラジオボタン（オリジナルなレイアウトで動作） */
+.lbl_origin {
+    /* .lbl_checkedと同じプロパティを指定 */
+    position: relative;
+    padding-left: 50px;
+}
+.lbl_origin::after {
+    /* .lbl_checked::afterと同じプロパティを指定 */
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    margin-top: -10px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #888888;
+}
+.lbl_origin::before {
+    /* .lbl_checked::beforeと同じプロパティを指定 start */
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    border-radius: 50%;
+    left: 20px;
+    margin-top: -5px;
+    width: 10px;
+    height: 10px;
+    background: #000099;
+    /* .lbl_checked::beforeと同じプロパティを指定 end */
+    /* チェックマークを非表示にする */
+    opacity: 0;
+}
+/* ラジオボタンが選択された場合に、チェックマークを設定 */
+input[type=radio]:checked + .lbl_origin::before {
+    /* チェックマークを表示する */
+    opacity: 1;
+}
+/* ラジオボタンがテーブル内でオリジナルなレイアウトで動作するように設定 */
+/* テーブル内のラジオボタン（オリジナルなレイアウトで動作） */
+.lbl_tbl {
+    /* .lbl_checkedと同じプロパティを指定 */
+    /* padding-leftの値のみ変更 */
+    position: relative;
+    padding-left: 20px;
+}
+.lbl_tbl::after {
+    /* .lbl_checked::afterと同じプロパティを指定 */
+    /* leftの値のみ変更 */
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    margin-top: -10px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #888888;
+}
+.lbl_tbl::before {
+    /* .lbl_checked::afterと同じプロパティを指定 */
+    /* leftの値のみ変更 */
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    border-radius: 50%;
+    left: 15px;
+    margin-top: -5px;
+    width: 10px;
+    height: 10px;
+    background: #000099;
+    opacity: 0;
+}
+input[type=radio]:checked + .lbl_tbl::before {
+    /* input[type=radio]:checked + .lbl_checked::beforeと
+       同じプロパティを指定 */
+    opacity: 1;
+}
