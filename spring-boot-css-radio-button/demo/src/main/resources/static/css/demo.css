@@ -213,13 +213,13 @@ input[type=radio]:checked + .lbl_origin::before {
 /* ラジオボタンがテーブル内でオリジナルなレイアウトで動作するように設定 */
 /* テーブル内のラジオボタン（オリジナルなレイアウトで動作） */
 .lbl_tbl {
-    /* .lbl_checkedと同じプロパティを指定 */
+    /* .lbl_originと同じプロパティを指定 */
     /* padding-leftの値のみ変更 */
     position: relative;
     padding-left: 20px;
 }
 .lbl_tbl::after {
-    /* .lbl_checked::afterと同じプロパティを指定 */
+    /* .lbl_origin::afterと同じプロパティを指定 */
     /* leftの値のみ変更 */
     content: "";
     display: block;
@@ -233,7 +233,7 @@ input[type=radio]:checked + .lbl_origin::before {
     border: 2px solid #888888;
 }
 .lbl_tbl::before {
-    /* .lbl_checked::afterと同じプロパティを指定 */
+    /* .lbl_origin::afterと同じプロパティを指定 */
     /* leftの値のみ変更 */
     content: "";
     display: block;
@@ -248,7 +248,7 @@ input[type=radio]:checked + .lbl_origin::before {
     opacity: 0;
 }
 input[type=radio]:checked + .lbl_tbl::before {
-    /* input[type=radio]:checked + .lbl_checked::beforeと
+    /* input[type=radio]:checked + .lbl_origin::beforeと
        同じプロパティを指定 */
     opacity: 1;
 }
