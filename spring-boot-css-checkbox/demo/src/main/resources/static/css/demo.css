@@ -161,7 +161,6 @@ input[type=checkbox] ~ label {
     display: block;
     position: absolute;
     /* .lbl_checked::afterと同じプロパティを指定 end */
-    /* 参考: https://itokoba.com/archives/768 */
     /* 回転前チェックマークの位置を指定し、幅・高さを指定 */
     top: 4px;
     left: 21px;
