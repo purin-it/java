@@ -7,8 +7,7 @@
 <body>
 　　 <p>入力内容を確認し、問題なければ「送信」ボタンを押下してください。</p>
 <form method="post" th:action="@{/send}" th:object="${demoForm}">
-    名前： <p th:text="*{name}">ここに名前が表示されます</p>
-    <!-- <p th:text="'名前： ' + *{name}">ここに名前が表示されます</p> -->
+    <p th:text="'名前： ' + *{name}">ここに名前が表示されます</p>
     <p th:text="'生年月日： ' + *{birthYear} + '年'
                      + *{getMonthItems().get('__*{birthMonth}__')} + '月'
                      + *{getDayItems().get('__*{birthDay}__')} + '日'">
@@ -20,7 +19,7 @@
     <p th:text="'確認チェック： ' + *{checked}">
         ここに確認チェック内容が表示されます
     </p>
-    <input type="submit" name="next" value="送信" />
+    <input type="submit" name="next" value="送信" />&nbsp;&nbsp;
     <input type="submit" name="back" value="戻る" />
 </form>
 </body>
